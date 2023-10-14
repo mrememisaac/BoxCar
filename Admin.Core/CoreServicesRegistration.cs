@@ -1,10 +1,16 @@
 ﻿using Admin.Core.Features;
 using Admin.Core.Features.Chasis.AddChassis;
+using Admin.Core.Features.Chasis.GetChassis;
 using Admin.Core.Features.Engines.AddEngine;
+using Admin.Core.Features.Engines.GetEngine;
 using Admin.Core.Features.Factories.AddFactory;
-using Admin.Core.Features.Factories.AddWareHouse;
+using Admin.Core.Features.Factories.GetFactory;
 using Admin.Core.Features.OptionPacks.AddOptionPack;
+using Admin.Core.Features.OptionPacks.GetOptionPack;
 using Admin.Core.Features.Vehicles.AddVehicle;
+using Admin.Core.Features.Vehicles.GetVehicle;
+using Admin.Core.Features.Warehouses.AddWareHouse;
+using Admin.Core.Features.Warehouses.GetWareHouse;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -29,6 +35,12 @@ namespace Admin.Core
             services.AddSingleton<AddOptionPackCommandValidator>();
             services.AddSingleton<AddressDtoValidator>();
             services.AddSingleton<AddOptionDtoValidator>();
+            services.AddSingleton<GetWareHouseByIdQueryValidator>();
+            services.AddSingleton<GetVehicleByIdQueryValidator>();
+            services.AddSingleton<GetOptionPackByIdQueryValidator>();
+            services.AddSingleton<GetEngineByIdQueryValidator>();
+            services.AddSingleton<GetChassisByIdQueryValidator>();
+            services.AddSingleton<GetFactoryByIdQueryValidator>();
             return services;
         }
     }

@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Vehicles\GetVehicle\" />
-    <Folder Include="Features\Chasis\GetChassis\" />
-    <Folder Include="Features\OptionPacks\GetOptionPack\" />
     <Folder Include="Features\Chasis\ListChassis\" />
     <Folder Include="Features\Vehicles\ListVehicles\" />
     <Folder Include="Features\OptionPacks\ListOptionPacks\" />
