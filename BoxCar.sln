@@ -19,9 +19,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Production Service", "Produ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Notification Service", "User Notification Service", "{CB11E5D5-EEF1-416E-9DD9-28496820B31C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Domain", "BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj", "{E4F3442B-8D77-4824-ABF8-8533A2261E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Core", "Admin.Core\Admin.Core.csproj", "{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4F3442B-8D77-4824-ABF8-8533A2261E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F3442B-8D77-4824-ABF8-8533A2261E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F3442B-8D77-4824-ABF8-8533A2261E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F3442B-8D77-4824-ABF8-8533A2261E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4F3442B-8D77-4824-ABF8-8533A2261E16} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
+		{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
