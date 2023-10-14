@@ -15,7 +15,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
     {
         public Guid Id { get; set; }
 
-        public string Name { get; private set; } = null!;
+        public string Name { get; set; } = null!;
         
         public Guid ChassisId { get; set; }
 
