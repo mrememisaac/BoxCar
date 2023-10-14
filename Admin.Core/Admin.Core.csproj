@@ -7,9 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Features\" />
-    <Folder Include="Exceptions\" />
+    <Folder Include="Features\Vehicles\GetVehicle\" />
+    <Folder Include="Features\Chasis\GetChassis\" />
+    <Folder Include="Features\OptionPacks\GetOptionPack\" />
+    <Folder Include="Features\Chasis\ListChassis\" />
+    <Folder Include="Features\Vehicles\ListVehicles\" />
+    <Folder Include="Features\OptionPacks\ListOptionPacks\" />
+    <Folder Include="Profiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj" />
+    <ProjectReference Include="..\BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj" />
   </ItemGroup>
 
 </Project>
