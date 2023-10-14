@@ -10,7 +10,6 @@
     <Folder Include="Features\Chasis\ListChassis\" />
     <Folder Include="Features\Vehicles\ListVehicles\" />
     <Folder Include="Features\OptionPacks\ListOptionPacks\" />
-    <Folder Include="Profiles\" />
   </ItemGroup>
 
   <ItemGroup>
