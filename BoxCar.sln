@@ -33,6 +33,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Api", "BoxCar.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Tests", "BoxCar.Admin.Tests\BoxCar.Admin.Tests.csproj", "{E148E7DE-12D2-4274-9381-DB911224EBD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Catalogue.Domain", "BoxCar.Catalogue.Domain\BoxCar.Catalogue.Domain.csproj", "{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Catalogue.Core", "BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj", "{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +86,8 @@ Global
 		{BD3BBEF7-0BD1-4D8F-8FE1-3D78DB4D373A} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 		{0BB21430-EA3B-460C-B8C6-7BCED3187D54} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 		{E148E7DE-12D2-4274-9381-DB911224EBD6} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
+		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
+		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
