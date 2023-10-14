@@ -1,6 +1,6 @@
 ﻿namespace BoxCar.Admin.Domain
 {
-    public class OptionPack
+    public class OptionPack : BaseEntity<Guid>
     {
         public string Name { get; set; } = null!;
 
@@ -10,7 +10,7 @@
 
         public OptionPack(string name)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Rename(name);
         }
 
         public void AddOption(Option option)
@@ -21,6 +21,11 @@
         public bool RemoveOption(Option option)
         {
             return _options.Remove(option);
+        }
+
+        public void Rename(string newName)
+        {
+            Name = newName ?? throw new ArgumentNullException(nameof(name));
         }
     }
 }
