@@ -6,10 +6,11 @@
 
         public string Name { get; set; } = null!;
 
-        public Guid ChassisId { get; set; }
+        public ChassisDto Chassis { get; set; }
 
-        public Guid EngineId { get; set; }
+        public EngineDto Engine { get; set; }
 
-        public Guid OptionPackId { get; set; }
+        public OptionPackDto OptionPack { get; set; }
+
     }
 }
