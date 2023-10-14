@@ -1,6 +1,6 @@
 ﻿namespace BoxCar.Admin.Domain
 {
-    public class Factory : BaseEntity<Guid>
+    public class Factory : Entity
     {
         public string Name { get; set; }
 

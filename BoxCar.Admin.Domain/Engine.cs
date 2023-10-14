@@ -1,6 +1,6 @@
 ﻿namespace BoxCar.Admin.Domain
 {
-    public class Engine : BaseEntity<Guid>
+    public class Engine : Entity
     {
         public string Name { get; private set; } = null!;
 

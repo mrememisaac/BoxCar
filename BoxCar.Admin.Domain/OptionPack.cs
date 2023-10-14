@@ -1,6 +1,6 @@
 ﻿namespace BoxCar.Admin.Domain
 {
-    public class OptionPack : BaseEntity<Guid>
+    public class OptionPack : Entity
     {
         public string Name { get; set; } = null!;
 

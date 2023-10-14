@@ -1,6 +1,6 @@
 ﻿namespace BoxCar.Admin.Domain
 {
-    public class Chassis : BaseEntity<Guid>
+    public class Chassis : Entity
     {
         public string Name { get; private set; } = null!;
 
