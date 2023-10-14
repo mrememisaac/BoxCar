@@ -10,10 +10,7 @@ namespace BoxCar.Admin.Core.Profiles
         public VehicleProfiles()
         {
             CreateMap<AddVehicleDto, AddVehicleCommand>().ReverseMap();
-            CreateMap<Vehicle, AddVehicleCommand>().ReverseMap();
-            CreateMap<AddVehicleResponse, Vehicle>().ReverseMap();
-            CreateMap<GetVehicleByIdResponse, Vehicle>().ReverseMap();
-
+            CreateMap<Vehicle, GetVehicleByIdResponse>();
         }
     }
 }
