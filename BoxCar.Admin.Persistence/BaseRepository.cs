@@ -1,6 +1,7 @@
 ﻿using Admin.Core.Contracts.Persistence;
 using BoxCar.Admin.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace BoxCar.Admin.Persistence
 {
@@ -13,30 +14,30 @@ namespace BoxCar.Admin.Persistence
             _dbContext = dbContext;
         }
 
-        public async Task<T> CreateAsync(T entity)
+        public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken)
         {
             await _dbContext.AddAsync<T>(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken)
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(TId id)
+        public async Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize)
+        public async Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken)
         {
             page = page < 0 ? 0 : page;
             pageSize = pageSize < 0 ? 100 : pageSize;
@@ -44,7 +45,7 @@ namespace BoxCar.Admin.Persistence
             return await _dbContext.Set<T>().Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
