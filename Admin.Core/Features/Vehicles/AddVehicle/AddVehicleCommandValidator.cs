@@ -13,17 +13,17 @@ namespace Admin.Core.Features.Vehicles.AddVehicle
             RuleFor(p => p.Id).NotEmpty();
             RuleFor(p => p.ChassisId).NotEmpty().MustAsync(async (id, cancellationToken) =>
             {
-                var chassis = await chassisRepository.GetByIdAsync(id);
+                var chassis = await chassisRepository.GetByIdAsync(id, cancellationToken);
                 return chassis != null;
             });
             RuleFor(p => p.EngineId).NotEmpty().MustAsync(async (id, cancellationToken) =>
             {
-                var engine = await engineRepository.GetByIdAsync(id);
+                var engine = await engineRepository.GetByIdAsync(id, cancellationToken);
                 return engine != null;
             });
             RuleFor(p => p.OptionPackId).NotEmpty().MustAsync(async (id, cancellationToken) =>
             {
-                var pack = await optionPackRepository.GetByIdAsync(id);
+                var pack = await optionPackRepository.GetByIdAsync(id, cancellationToken);
                 return pack != null;
             });
         }     
