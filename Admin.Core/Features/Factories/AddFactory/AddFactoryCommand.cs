@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Factories.AddFactory
+namespace BoxCar.Admin.Core.Features.Factories.AddFactory
 {
 
     public class AddFactoryCommand : IRequest<Result<AddFactoryResponse>>

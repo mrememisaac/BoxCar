@@ -1,5 +1,5 @@
-using Admin.Core.Features.Factories.AddFactory;
-using Admin.Core.Features.Factories.GetFactory;
+using BoxCar.Admin.Core.Features.Factories.AddFactory;
+using BoxCar.Admin.Core.Features.Factories.GetFactory;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

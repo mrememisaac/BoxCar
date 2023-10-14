@@ -1,10 +1,10 @@
-﻿using Admin.Core.Contracts.Persistence;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Admin.Core.Features.Factories.GetFactory
+namespace BoxCar.Admin.Core.Features.Factories.GetFactory
 {
 
     public class GetFactoryByIdQueryHandler : IRequestHandler<GetFactoryByIdQuery, GetFactoryByIdResponse>

@@ -1,7 +1,7 @@
 ﻿using BoxCar.Admin.Domain;
 using FluentValidation;
 
-namespace Admin.Core.Features.Engines.AddEngine
+namespace BoxCar.Admin.Core.Features.Engines.AddEngine
 {
     public class AddEngineCommandValidator : AbstractValidator<AddEngineCommand>
     {

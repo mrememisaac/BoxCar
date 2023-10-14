@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Chasis.GetChassis
+namespace BoxCar.Admin.Core.Features.Chasis.GetChassis
 {
     public class GetChassisByIdQuery : IRequest<GetChassisByIdResponse>
     {

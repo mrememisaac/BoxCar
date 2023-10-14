@@ -1,5 +1,5 @@
-using Admin.Core.Features.Warehouses.AddWareHouse;
-using Admin.Core.Features.Warehouses.GetWareHouse;
+using BoxCar.Admin.Core.Features.Warehouses.AddWareHouse;
+using BoxCar.Admin.Core.Features.Warehouses.GetWareHouse;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

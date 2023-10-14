@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Features.Warehouses.AddWareHouse
+﻿namespace BoxCar.Admin.Core.Features.Warehouses.AddWareHouse
 {
     public class AddWareHouseDto
     {

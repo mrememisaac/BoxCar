@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Features.Vehicles.AddVehicle
+﻿namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
     public class AddVehicleDto
     {

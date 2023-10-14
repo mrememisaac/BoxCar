@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Exceptions
+namespace BoxCar.Admin.Core.Exceptions
 {
     public class DefaultException : Exception
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Warehouses.GetWareHouse
+namespace BoxCar.Admin.Core.Features.Warehouses.GetWareHouse
 {
     public class GetWareHouseByIdQuery : IRequest<GetWareHouseByIdResponse>
     {

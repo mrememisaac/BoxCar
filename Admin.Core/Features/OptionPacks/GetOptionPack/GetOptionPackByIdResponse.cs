@@ -1,6 +1,6 @@
-﻿using Admin.Core.Features.OptionPacks.AddOptionPack;
+﻿using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
 
-namespace Admin.Core.Features.OptionPacks.GetOptionPack
+namespace BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack
 {
     public class GetOptionPackByIdResponse
     {

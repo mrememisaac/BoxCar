@@ -1,5 +1,5 @@
-﻿using Admin.Core.Contracts.Persistence;
-using Admin.Core.Features.Engines.AddEngine;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
+using BoxCar.Admin.Core.Features.Engines.AddEngine;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
@@ -11,7 +11,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.OptionPacks.AddOptionPack
+namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
 {
 
     public class AddOptionPackCommandHandler : IRequestHandler<AddOptionPackCommand, Result<AddOptionPackResponse>>

@@ -1,10 +1,11 @@
-﻿using Admin.Core.Features.Chasis.AddChassis;
-using Admin.Core.Features.Chasis.GetChassis;
-using Admin.Core.Features.Engines.GetEngine;
+﻿using BoxCar.Admin.Core.Features.Chasis.AddChassis;
+using BoxCar.Admin.Core.Features.Chasis.GetChassis;
+using BoxCar.Admin.Core.Features.Engines.GetEngine;
 using AutoMapper;
 using BoxCar.Admin.Domain;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 
-namespace Admin.Core.Profiles
+namespace BoxCar.Admin.Core.Profiles
 {
     public class ChassisProfiles : Profile
     {

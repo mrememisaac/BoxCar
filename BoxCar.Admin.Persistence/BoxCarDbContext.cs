@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Admin.Core.Contracts.Identity;
+using BoxCar.Admin.Core.Contracts.Identity;
 using BoxCar.Admin.Domain;
 
 namespace BoxCar.Admin.Persistence

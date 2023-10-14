@@ -1,6 +1,6 @@
 ﻿using BoxCar.Integration.Messages;
 
-namespace Admin.Core.Features.Factories.AddFactory
+namespace BoxCar.Admin.Core.Features.Factories.AddFactory
 {
     public class FactoryAddedEvent : IntegrationBaseMessage
     {

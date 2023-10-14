@@ -1,11 +1,11 @@
-﻿using Admin.Core.Contracts.Persistence;
-using Admin.Core.Features.Chasis.AddChassis;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
+using BoxCar.Admin.Core.Features.Chasis.AddChassis;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Admin.Core.Features.Factories.AddFactory
+namespace BoxCar.Admin.Core.Features.Factories.AddFactory
 {
     public class AddFactoryCommandHandler : IRequestHandler<AddFactoryCommand, Result<AddFactoryResponse>>
     {

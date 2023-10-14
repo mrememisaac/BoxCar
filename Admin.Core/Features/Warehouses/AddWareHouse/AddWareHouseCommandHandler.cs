@@ -1,10 +1,10 @@
-﻿using Admin.Core.Contracts.Persistence;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Admin.Core.Features.Warehouses.AddWareHouse
+namespace BoxCar.Admin.Core.Features.Warehouses.AddWareHouse
 {
     public class AddWareHouseCommandHandler : IRequestHandler<AddWareHouseCommand, Result<AddWareHouseResponse>>
     {

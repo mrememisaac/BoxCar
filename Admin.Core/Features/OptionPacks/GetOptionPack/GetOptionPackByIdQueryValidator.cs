@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.OptionPacks.GetOptionPack
+namespace BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack
 {
     public class GetOptionPackByIdQueryValidator : AbstractValidator<GetOptionPackByIdQuery>
     {

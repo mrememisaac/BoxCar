@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Factories.GetFactory
+namespace BoxCar.Admin.Core.Features.Factories.GetFactory
 {
     public class GetFactoryByIdQuery : IRequest<GetFactoryByIdResponse>
     {

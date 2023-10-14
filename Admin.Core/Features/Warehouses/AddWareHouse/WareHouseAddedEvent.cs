@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Warehouses.AddWareHouse
+namespace BoxCar.Admin.Core.Features.Warehouses.AddWareHouse
 {
 
     public class WareHouseAddedEvent : IntegrationBaseMessage

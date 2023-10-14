@@ -1,5 +1,5 @@
-using Admin.Core.Features.Chasis.AddChassis;
-using Admin.Core.Features.Chasis.GetChassis;
+using BoxCar.Admin.Core.Features.Chasis.AddChassis;
+using BoxCar.Admin.Core.Features.Chasis.GetChassis;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Warehouses.AddWareHouse
+namespace BoxCar.Admin.Core.Features.Warehouses.AddWareHouse
 {
     public class AddWareHouseCommand : IRequest<Result<AddWareHouseResponse>>
     {

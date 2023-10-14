@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Factories.GetFactory
+namespace BoxCar.Admin.Core.Features.Factories.GetFactory
 {
     public class GetFactoryByIdQueryValidator : AbstractValidator<GetFactoryByIdQuery>
     {

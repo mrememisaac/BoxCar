@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Contracts.Identity
+namespace BoxCar.Admin.Core.Contracts.Identity
 {
     public interface ILoggedInUserService
     {

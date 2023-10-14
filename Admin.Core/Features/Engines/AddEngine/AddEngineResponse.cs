@@ -1,6 +1,6 @@
 ﻿using BoxCar.Admin.Domain;
 
-namespace Admin.Core.Features.Engines.AddEngine
+namespace BoxCar.Admin.Core.Features.Engines.AddEngine
 {
     public class AddEngineResponse
     {

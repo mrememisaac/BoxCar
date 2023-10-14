@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Contracts.Persistence
+namespace BoxCar.Admin.Core.Contracts.Persistence
 {
     public interface IAsyncRepository<T, TId> where T : BaseEntity<TId>
     {

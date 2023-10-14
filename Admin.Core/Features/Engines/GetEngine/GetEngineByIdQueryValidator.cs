@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Engines.GetEngine
+namespace BoxCar.Admin.Core.Features.Engines.GetEngine
 {
     public class GetEngineByIdQueryValidator : AbstractValidator<GetEngineByIdQuery>
     {

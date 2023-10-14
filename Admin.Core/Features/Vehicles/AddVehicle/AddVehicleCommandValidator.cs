@@ -1,8 +1,8 @@
-﻿using Admin.Core.Contracts.Persistence;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
 using BoxCar.Admin.Domain;
 using FluentValidation;
 
-namespace Admin.Core.Features.Vehicles.AddVehicle
+namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
     public class AddVehicleCommandValidator : AbstractValidator<AddVehicleCommand>
     {

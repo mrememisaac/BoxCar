@@ -1,16 +1,16 @@
-﻿using Admin.Core.Features;
-using Admin.Core.Features.Chasis.AddChassis;
-using Admin.Core.Features.Chasis.GetChassis;
-using Admin.Core.Features.Engines.AddEngine;
-using Admin.Core.Features.Engines.GetEngine;
-using Admin.Core.Features.Factories.AddFactory;
-using Admin.Core.Features.Factories.GetFactory;
-using Admin.Core.Features.OptionPacks.AddOptionPack;
-using Admin.Core.Features.OptionPacks.GetOptionPack;
-using Admin.Core.Features.Vehicles.AddVehicle;
-using Admin.Core.Features.Vehicles.GetVehicle;
-using Admin.Core.Features.Warehouses.AddWareHouse;
-using Admin.Core.Features.Warehouses.GetWareHouse;
+﻿using BoxCar.Admin.Core.Features;
+using BoxCar.Admin.Core.Features.Chasis.AddChassis;
+using BoxCar.Admin.Core.Features.Chasis.GetChassis;
+using BoxCar.Admin.Core.Features.Engines.AddEngine;
+using BoxCar.Admin.Core.Features.Engines.GetEngine;
+using BoxCar.Admin.Core.Features.Factories.AddFactory;
+using BoxCar.Admin.Core.Features.Factories.GetFactory;
+using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
+using BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack;
+using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
+using BoxCar.Admin.Core.Features.Warehouses.AddWareHouse;
+using BoxCar.Admin.Core.Features.Warehouses.GetWareHouse;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core
+namespace BoxCar.Admin.Core
 {
     public static class CoreServicesRegistration
     {

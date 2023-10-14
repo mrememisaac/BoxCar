@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Chasis.AddChassis
+namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 {
     public class AddChassisCommandValidator : AbstractValidator<AddChassisCommand>
     {

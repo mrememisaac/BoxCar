@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using BoxCar.Admin.Core.Features;
+using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Vehicles.AddVehicle
+namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
 
     public class AddVehicleCommand : IRequest<Result<AddVehicleResponse>>

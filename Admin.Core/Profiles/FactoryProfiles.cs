@@ -1,9 +1,9 @@
-﻿using Admin.Core.Features.Factories.AddFactory;
-using Admin.Core.Features.Factories.GetFactory;
+﻿using BoxCar.Admin.Core.Features.Factories.AddFactory;
+using BoxCar.Admin.Core.Features.Factories.GetFactory;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 
-namespace Admin.Core.Profiles
+namespace BoxCar.Admin.Core.Profiles
 {
     public class FactoryProfiles : Profile
     {

@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Features
+﻿namespace BoxCar.Admin.Core.Features
 {
     public class AddressDto
     {

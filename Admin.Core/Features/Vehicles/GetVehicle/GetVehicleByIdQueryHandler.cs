@@ -1,4 +1,4 @@
-﻿using Admin.Core.Contracts.Persistence;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Vehicles.GetVehicle
+namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
 {
 
     public class GetVehicleByIdQueryHandler : IRequestHandler<GetVehicleByIdQuery, GetVehicleByIdResponse>

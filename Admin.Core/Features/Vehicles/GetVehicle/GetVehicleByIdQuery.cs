@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Vehicles.GetVehicle
+namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
 {
     public class GetVehicleByIdQuery : IRequest<GetVehicleByIdResponse>
     {

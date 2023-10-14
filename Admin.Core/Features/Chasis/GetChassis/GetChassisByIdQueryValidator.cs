@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Chasis.GetChassis
+namespace BoxCar.Admin.Core.Features.Chasis.GetChassis
 {
     public class GetChassisByIdQueryValidator : AbstractValidator<GetChassisByIdQuery>
     {

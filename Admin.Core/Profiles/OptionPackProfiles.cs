@@ -1,7 +1,8 @@
-﻿using Admin.Core.Features.OptionPacks.AddOptionPack;
-using Admin.Core.Features.OptionPacks.GetOptionPack;
+﻿using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
+using BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack;
 using AutoMapper;
 using BoxCar.Admin.Domain;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 
 namespace Admin.Core.Profiles
 {

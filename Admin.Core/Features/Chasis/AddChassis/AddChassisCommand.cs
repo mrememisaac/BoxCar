@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Chasis.AddChassis
+namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 {
     public class AddChassisCommand : IRequest<Result<AddChassisResponse>>
     {

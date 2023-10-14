@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Admin.Core.Exceptions
+namespace BoxCar.Admin.Core.Exceptions
 {
     public class ValidationException : Exception
     {

@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Features.OptionPacks.AddOptionPack
+﻿namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
 {
     public class AddOptionDto
     {

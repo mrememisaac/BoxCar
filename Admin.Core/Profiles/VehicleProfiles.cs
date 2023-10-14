@@ -1,9 +1,9 @@
-﻿using Admin.Core.Features.Vehicles.AddVehicle;
-using Admin.Core.Features.Vehicles.GetVehicle;
+﻿using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 
-namespace Admin.Core.Profiles
+namespace BoxCar.Admin.Core.Profiles
 {
     public class VehicleProfiles : Profile
     {

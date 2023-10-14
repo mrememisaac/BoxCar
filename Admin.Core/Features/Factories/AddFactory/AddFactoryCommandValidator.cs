@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Factories.AddFactory
+namespace BoxCar.Admin.Core.Features.Factories.AddFactory
 {
     public class AddFactoryCommandValidator : AbstractValidator<AddFactoryCommand>
     {

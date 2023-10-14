@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Engines.AddEngine
+namespace BoxCar.Admin.Core.Features.Engines.AddEngine
 {
 
     public class AddEngineCommand : IRequest<Result<AddEngineResponse>>

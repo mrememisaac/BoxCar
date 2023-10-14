@@ -1,5 +1,5 @@
-using Admin.Core.Features.OptionPacks.AddOptionPack;
-using Admin.Core.Features.OptionPacks.GetOptionPack;
+using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
+using BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

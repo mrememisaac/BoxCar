@@ -1,7 +1,7 @@
-﻿using Admin.Core.Features.Factories.AddFactory;
+﻿using BoxCar.Admin.Core.Features.Factories.AddFactory;
 using FluentValidation;
 
-namespace Admin.Core.Features
+namespace BoxCar.Admin.Core.Features
 {
     public class AddressDtoValidator : AbstractValidator<AddressDto>
     {

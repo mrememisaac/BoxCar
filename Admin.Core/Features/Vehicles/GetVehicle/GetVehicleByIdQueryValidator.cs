@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Vehicles.GetVehicle
+namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
 {
     public class GetVehicleByIdQueryValidator : AbstractValidator<GetVehicleByIdQuery>
     {

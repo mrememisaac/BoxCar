@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.OptionPacks.AddOptionPack
+namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
 {
     public class AddOptionPackCommand : IRequest<Result<AddOptionPackResponse>>
     {

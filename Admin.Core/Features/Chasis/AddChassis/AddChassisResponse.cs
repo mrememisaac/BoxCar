@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Features.Chasis.AddChassis
+﻿namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 {
     public class AddChassisResponse
     {

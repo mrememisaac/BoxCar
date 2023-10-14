@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Features.Chasis.AddChassis
+namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 {
 
     public class ChassisAddedEvent : IntegrationBaseMessage

@@ -1,5 +1,5 @@
-using Admin.Core.Features.Vehicles.AddVehicle;
-using Admin.Core.Features.Vehicles.GetVehicle;
+using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

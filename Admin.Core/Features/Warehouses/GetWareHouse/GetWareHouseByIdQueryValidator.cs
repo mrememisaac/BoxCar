@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Warehouses.GetWareHouse
+namespace BoxCar.Admin.Core.Features.Warehouses.GetWareHouse
 {
 
     public class GetWareHouseByIdQueryValidator : AbstractValidator<GetWareHouseByIdQuery>
