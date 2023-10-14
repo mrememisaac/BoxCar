@@ -6,6 +6,7 @@ namespace Admin.Core.Features.OptionPacks.AddOptionPack
     {
         public AddOptionDtoValidator()
         {
+            RuleFor(p => p.Id).NotEmpty();
             RuleFor(p => p.Name).NotEmpty();
             RuleFor(p => p.Value).NotEmpty();
         }
