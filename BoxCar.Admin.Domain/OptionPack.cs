@@ -25,7 +25,7 @@
 
         public void Rename(string newName)
         {
-            Name = newName ?? throw new ArgumentNullException(nameof(name));
+            Name = newName ?? throw new ArgumentNullException(nameof(newName));
         }
     }
 }
