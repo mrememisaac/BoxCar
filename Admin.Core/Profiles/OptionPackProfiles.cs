@@ -30,6 +30,7 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<OptionPack, OptionPackDto>();
+            CreateMap<OptionPack, Features.Vehicles.AddVehicle.OptionPackDto>();
         }
     }
 }
