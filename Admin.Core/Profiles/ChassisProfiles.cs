@@ -12,9 +12,30 @@ namespace BoxCar.Admin.Core.Profiles
         public ChassisProfiles()
         {
             CreateMap<AddChassisDto, AddChassisCommand>().ReverseMap();
-            CreateMap<Chassis, AddChassisCommand>().ReverseMap();
-            CreateMap<AddChassisResponse, Chassis>().ReverseMap();
-            CreateMap<GetChassisByIdResponse, Chassis>().ReverseMap();
+            CreateMap<AddChassisCommand, Chassis>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<AddChassisResponse, Chassis>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<GetChassisByIdResponse, Chassis>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<ChassisDto, Chassis>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }

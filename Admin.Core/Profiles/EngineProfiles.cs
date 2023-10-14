@@ -16,9 +16,30 @@ namespace BoxCar.Admin.Core.Profiles
         public EngineProfiles()
         {
             CreateMap<AddEngineDto, AddEngineCommand>().ReverseMap();
-            CreateMap<Engine, AddEngineCommand>().ReverseMap();
-            CreateMap<AddEngineResponse, Engine>().ReverseMap();
-            CreateMap<GetEngineByIdResponse, Engine>().ReverseMap();
+            CreateMap<AddEngineCommand, Engine>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<AddEngineResponse, Engine>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<GetEngineByIdResponse, Engine>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<EngineDto, Engine>()
+                .ForMember(d => d.CreatedBy, opt => opt.Ignore())
+                .ForMember(d => d.CreatedDate, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }
