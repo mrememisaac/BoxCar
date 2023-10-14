@@ -45,7 +45,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             var chassis = await _chassisRepository.GetByIdAsync(request.ChassisId, cancellationToken);
             var optionPack = await _optionPacksRepository.GetByIdAsync(request.OptionPackId, cancellationToken);
             var vehicle = new Vehicle(request.Id, engine!, chassis!, optionPack!);
-            await _repository.CreateAsync(vehicle, cancellationToken);
+            vehicle = await _repository.CreateAsync(vehicle, cancellationToken);
             return new Result<AddVehicleResponse>(_mapper.Map<AddVehicleResponse>(vehicle));
         }
     }

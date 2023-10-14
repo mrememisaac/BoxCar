@@ -10,12 +10,12 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Engine, Guid> _repository;
-        private readonly ILogger<AddEngineCommand> _logger;
+        private readonly ILogger<AddEngineCommandHandler> _logger;
         private readonly AddEngineCommandValidator _validator;
 
         public AddEngineCommandHandler(IMapper mapper,
             IAsyncRepository<Engine, Guid> repository,
-            ILogger<AddEngineCommand> logger,
+            ILogger<AddEngineCommandHandler> logger,
             AddEngineCommandValidator validator)
         {
             _mapper = mapper;
