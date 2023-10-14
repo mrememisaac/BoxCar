@@ -15,8 +15,8 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
         public ListBasedFactoryRepository()
         {
             context = new List<Factory>();
-            var factory1 = new Factory("North Factory", new Address("1 North Street", "Industrial Zone", "Durban", "12345", "South Africa"));
-            var factory2 = new Factory("South Factory", new Address("2 South Street", "Industrial District", "Johanessburg", "67890", "South Africa"));
+            var factory1 = new Factory(Guid.NewGuid(), "North Factory", new Address("1 North Street", "Industrial Zone", "Durban", "12345", "South Africa"));
+            var factory2 = new Factory(Guid.NewGuid(), "South Factory", new Address("2 South Street", "Industrial District", "Johanessburg", "67890", "South Africa"));
             context.Add(factory1);
             context.Add(factory2);
         }
