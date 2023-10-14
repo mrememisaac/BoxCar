@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Admin.Core.Features.Vehicles.AddVehicle
 {
 
-    public class AddVehicleCommand : IRequest<Result<AddVehicleCommand>>
+    public class AddVehicleCommand : IRequest<Result<AddVehicleResponse>>
     {
         public Guid Id { get; set; }
 
