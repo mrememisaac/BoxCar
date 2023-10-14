@@ -6,8 +6,9 @@
 
         public Address Address { get; set; }
 
-        public WareHouse(string name, Address address)
+        public WareHouse(Guid id, string name, Address address)
         {
+            Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Address = address ?? throw new ArgumentNullException(nameof(address));
         }

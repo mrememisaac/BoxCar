@@ -10,8 +10,9 @@
 
         public int Strokes { get; private set; }
 
-        public Engine(string name, FuelType fuelType, IgnitionMethod ignitionMethod, int strokes)
+        public Engine(Guid id, string name, FuelType fuelType, IgnitionMethod ignitionMethod, int strokes)
         {
+            Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             FuelType = fuelType;
             IgnitionMethod = ignitionMethod;

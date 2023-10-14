@@ -5,8 +5,9 @@
         public string Name { get; private set; } = null!;
         public string Value { get; private set; } = null!;
 
-        public Option(string name, string value)
+        public Option(Guid id, string name, string value)
         {
+            Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             ChangeName(name);
         }
 

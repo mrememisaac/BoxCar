@@ -6,8 +6,9 @@
 
         public string Description { get; private set; } = string.Empty;
 
-        public Chassis(string name, string description)
+        public Chassis(Guid id, string name, string description)
         {
+            Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id; 
             ChangeName(name);
             ChangeDescription(description);
         }
