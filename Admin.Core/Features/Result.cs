@@ -2,13 +2,16 @@
 {
     public class Result<T> where T : class
     {
+        public T Value { get; set; }
+
         public bool Success { get; set; }
 
         public string Message { get; set; } = string.Empty;
 
-        public Result()
+        public Result(T t)
         {
             Success = true;
+            Value = t;
         }
 
         public Result(bool success)
