@@ -5,6 +5,20 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Administration Service", "Administration Service", "{EC006E49-61D1-4C54-BAED-330479CCBCE9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalogue Service", "Catalogue Service", "{BEAA7993-D6F5-4134-938F-C1DDDC2103B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart Service", "Cart Service", "{0E5A2B09-6E0B-46A9-93D5-AFCD48BA1E5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order Service", "Order Service", "{671192DA-9636-4D2A-A1F9-A047F440F008}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment Service", "Payment Service", "{071D40A2-2997-4027-8964-CE6C728D0CA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehouse Service", "Warehouse Service", "{75A97EBB-088E-44CD-8AD9-41C8BA2363FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Production Service", "Production Service", "{6DBB6801-F824-4832-8408-433B0896DBF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Notification Service", "User Notification Service", "{CB11E5D5-EEF1-416E-9DD9-28496820B31C}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
