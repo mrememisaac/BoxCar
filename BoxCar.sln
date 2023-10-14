@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Persistence", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Api", "BoxCar.Admin.Api\BoxCar.Admin.Api.csproj", "{0BB21430-EA3B-460C-B8C6-7BCED3187D54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Tests", "BoxCar.Admin.Tests\BoxCar.Admin.Tests.csproj", "{E148E7DE-12D2-4274-9381-DB911224EBD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{0BB21430-EA3B-460C-B8C6-7BCED3187D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BB21430-EA3B-460C-B8C6-7BCED3187D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BB21430-EA3B-460C-B8C6-7BCED3187D54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E148E7DE-12D2-4274-9381-DB911224EBD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{EB25EB69-B183-49AE-A70D-E81293E40647} = {E66A1D0A-72C2-4ABF-9C97-DB85654E881F}
 		{BD3BBEF7-0BD1-4D8F-8FE1-3D78DB4D373A} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 		{0BB21430-EA3B-460C-B8C6-7BCED3187D54} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
+		{E148E7DE-12D2-4274-9381-DB911224EBD6} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
