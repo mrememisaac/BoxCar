@@ -4,7 +4,7 @@ using AutoMapper;
 using BoxCar.Admin.Domain;
 using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 
-namespace Admin.Core.Profiles
+namespace BoxCar.Admin.Core.Profiles
 {
     public class OptionPackProfiles : Profile
     { 
