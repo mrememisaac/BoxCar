@@ -2,7 +2,7 @@
 
 namespace Admin.Core.Features.Chasis.AddChassis
 {
-    public class AddChassisCommand : IRequest<Result<AddChassisCommand>>
+    public class AddChassisCommand : IRequest<Result<AddChassisResponse>>
     {
         public Guid Id { get; set; }
 

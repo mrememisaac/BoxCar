@@ -1,4 +1,5 @@
 ﻿using Admin.Core.Contracts.Persistence;
+using Admin.Core.Features.Engines.AddEngine;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin.Core.Features.Chasis.AddChassis
 {
-    public class AddChassisCommandHandler : IRequestHandler<AddChassisCommand, Result<AddChassisCommand>>
+    public class AddChassisCommandHandler : IRequestHandler<AddChassisCommand, Result<AddChassisResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Chassis, Guid> _repository;
@@ -23,17 +24,17 @@ namespace Admin.Core.Features.Chasis.AddChassis
             _logger = logger;
             _validator = validator;
         }
-        public async Task<Result<AddChassisCommand>> Handle(AddChassisCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AddChassisResponse>> Handle(AddChassisCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Adding a Chassis {request}", request);
-            var validationResult = _validator.Validate(request);
-            if(!validationResult.IsValid)
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
             {
                 throw new Exceptions.ValidationException(validationResult);
             }
             var chassis = _mapper.Map<Chassis>(request);
-            await _repository.CreateAsync(chassis);
-            return new Result<AddChassisCommand>(true);
+            await _repository.CreateAsync(chassis, cancellationToken);
+            return new Result<AddChassisResponse>(_mapper.Map<AddChassisResponse>(chassis));
         }
     }
 }
