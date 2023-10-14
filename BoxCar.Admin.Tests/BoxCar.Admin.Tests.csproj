@@ -25,4 +25,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Admin.Core\BoxCar.Admin.Core.csproj" />
+    <ProjectReference Include="..\BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

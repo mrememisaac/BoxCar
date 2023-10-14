@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Admin.Core\Admin.Core.csproj" />
+    <ProjectReference Include="..\Admin.Core\BoxCar.Admin.Core.csproj" />
   </ItemGroup>
 
 </Project>
