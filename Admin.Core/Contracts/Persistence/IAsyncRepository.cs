@@ -17,7 +17,7 @@ namespace Admin.Core.Contracts.Persistence
 
         Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken);
 
-        Task<IReadOnlyList<T>> GetAllAsync();
+        Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken);
 
         Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken);
     }
