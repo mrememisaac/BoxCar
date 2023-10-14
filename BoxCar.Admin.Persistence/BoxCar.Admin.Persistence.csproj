@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Admin.Core\Admin.Core.csproj" />
     <ProjectReference Include="..\BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj" />
   </ItemGroup>
 
