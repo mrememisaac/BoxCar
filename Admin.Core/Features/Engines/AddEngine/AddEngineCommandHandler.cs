@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin.Core.Features.Engines.AddEngine
 {
-    public class AddEngineCommandHandler : IRequestHandler<AddEngineCommand, Result<AddEngineCommand>>
+    public class AddEngineCommandHandler : IRequestHandler<AddEngineCommand, Result<AddEngineResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Engine, Guid> _repository;
@@ -23,17 +23,17 @@ namespace Admin.Core.Features.Engines.AddEngine
             _logger = logger;
             _validator = validator;
         }
-        public async Task<Result<AddEngineCommand>> Handle(AddEngineCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AddEngineResponse>> Handle(AddEngineCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Adding an Engine {request}", request);
-            var validationResult = _validator.Validate(request);
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 throw new Exceptions.ValidationException(validationResult);
             }
             var engine = _mapper.Map<Engine>(request);
-            await _repository.CreateAsync(engine);
-            return new Result<AddEngineCommand>(true);
+            await _repository.CreateAsync(engine, cancellationToken);
+            return new Result<AddEngineResponse>(_mapper.Map<AddEngineResponse>(engine));
         }
     }
 }

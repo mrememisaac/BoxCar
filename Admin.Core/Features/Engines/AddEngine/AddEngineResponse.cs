@@ -1,16 +1,8 @@
 ﻿using BoxCar.Admin.Domain;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Admin.Core.Features.Engines.AddEngine
 {
-
-    public class AddEngineCommand : IRequest<Result<AddEngineResponse>>
+    public class AddEngineResponse
     {
         public Guid Id { get; set; }
 
