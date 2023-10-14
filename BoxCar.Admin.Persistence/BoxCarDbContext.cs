@@ -10,7 +10,7 @@ using BoxCar.Admin.Domain;
 
 namespace BoxCar.Admin.Persistence
 {
-    internal class BoxCarDbContext : DbContext
+    public class BoxCarDbContext : DbContext
     {
         private readonly ILoggedInUserService _loggedInUserService;
 
@@ -61,4 +61,5 @@ namespace BoxCar.Admin.Persistence
             return base.SaveChangesAsync(cancellationToken);
         }
     }
+
 }
