@@ -9,16 +9,16 @@ namespace Admin.Core.Contracts.Persistence
 {
     public interface IAsyncRepository<T, TId> where T : BaseEntity<TId>
     {
-        Task<T> CreateAsync(T entity);
+        Task<T> CreateAsync(T entity, CancellationToken cancellationToken);
 
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(T entity, CancellationToken cancellationToken);
 
-        Task DeleteAsync(T entity);
+        Task DeleteAsync(T entity, CancellationToken cancellationToken);
 
-        Task<T?> GetByIdAsync(TId id);
+        Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken);
 
         Task<IReadOnlyList<T>> GetAllAsync();
 
-        Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize);
+        Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken);
     }
 }
