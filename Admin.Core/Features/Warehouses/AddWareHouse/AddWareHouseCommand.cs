@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Admin.Core.Features.Factories.AddWareHouse
+namespace Admin.Core.Features.Warehouses.AddWareHouse
 {
-    public class AddWareHouseCommand : IRequest<Result<AddWareHouseCommand>>
+    public class AddWareHouseCommand : IRequest<Result<AddWareHouseResponse>>
     {
         public Guid Id { get; set; }
 

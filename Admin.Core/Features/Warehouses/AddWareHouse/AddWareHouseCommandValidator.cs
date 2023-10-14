@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Admin.Core.Features.Factories.AddWareHouse
+namespace Admin.Core.Features.Warehouses.AddWareHouse
 {
     public class AddWareHouseCommandValidator : AbstractValidator<AddWareHouseCommand>
     {

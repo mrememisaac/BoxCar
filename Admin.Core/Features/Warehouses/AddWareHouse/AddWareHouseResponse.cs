@@ -1,6 +1,6 @@
-﻿namespace Admin.Core.Features.Factories.AddWareHouse
+﻿namespace Admin.Core.Features.Warehouses.AddWareHouse
 {
-    public class AddWareHouseDto
+    public class AddWareHouseResponse
     {
         public Guid Id { get; set; }
 
