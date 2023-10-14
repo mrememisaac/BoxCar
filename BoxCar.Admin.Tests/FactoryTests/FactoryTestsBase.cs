@@ -8,35 +8,13 @@ using BoxCar.Admin.Tests.Fakes.Repositories;
 
 namespace BoxCar.Admin.Tests.FactoryTests
 {
-    public class FactoryTestsBase
+    public class FactoryTestsBase : EntityTestsBase<Factory>
     {
-        protected readonly IMapper mapper;
         protected readonly IAsyncRepository<Factory, Guid> repository;
-        protected readonly CancellationToken cancellationToken;
-        protected readonly IServiceProvider _serviceProvider;
 
         public FactoryTestsBase()
         {
-            cancellationToken = new CancellationToken();
             repository = new ListBasedFactoryRepository();
-            var configurationProvider = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<ChassisProfiles>();
-                cfg.AddProfile<EngineProfiles>();
-                cfg.AddProfile<AddressProfiles>();
-                cfg.AddProfile<OptionProfiles>();
-                cfg.AddProfile<OptionPackProfiles>();
-                cfg.AddProfile<VehicleProfiles>();
-                cfg.AddProfile<WareHouseProfiles>();
-                cfg.AddProfile<FactoryProfiles>();
-            });
-            mapper = configurationProvider.CreateMapper();
-
-            var services = new ServiceCollection();
-            services.AddApplicationServices();
-            services.AddScoped<IAsyncRepository<Factory, Guid>, ListBasedFactoryRepository>();
-            _serviceProvider = services.BuildServiceProvider();
         }
-
     }
 }

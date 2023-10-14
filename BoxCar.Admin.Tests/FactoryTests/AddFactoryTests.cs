@@ -20,7 +20,6 @@ namespace BoxCar.Admin.Tests.FactoryTests
         [Fact]
         public async void Can_Add_Factory()
         {
-            var factoryId = Guid.NewGuid();
             var command = new AddFactoryCommand
             {
                 Id = Guid.NewGuid(),
