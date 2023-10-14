@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Admin.Core.Features.Factories.AddFactory
 {
 
-    public class AddFactoryCommand : IRequest<Result<AddFactoryCommand>>
+    public class AddFactoryCommand : IRequest<Result<AddFactoryResponse>>
     {
         public Guid Id { get; set; }
 

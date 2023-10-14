@@ -1,4 +1,5 @@
 ﻿using Admin.Core.Contracts.Persistence;
+using Admin.Core.Features.Chasis.AddChassis;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin.Core.Features.Factories.AddFactory
 {
-    public class AddFactoryCommandHandler : IRequestHandler<AddFactoryCommand, Result<AddFactoryCommand>>
+    public class AddFactoryCommandHandler : IRequestHandler<AddFactoryCommand, Result<AddFactoryResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Factory, Guid> _repository;
@@ -23,17 +24,18 @@ namespace Admin.Core.Features.Factories.AddFactory
             _logger = logger;
             _validator = validator;
         }
-        public async Task<Result<AddFactoryCommand>> Handle(AddFactoryCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AddFactoryResponse>> Handle(AddFactoryCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Adding a Factory {request}", request);
-            var validationResult = _validator.Validate(request);
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 throw new Exceptions.ValidationException(validationResult);
             }
             var factory = _mapper.Map<Factory>(request);
-            await _repository.CreateAsync(factory);
-            return new Result<AddFactoryCommand>(true);
+            await _repository.CreateAsync(factory, cancellationToken);
+            return new Result<AddFactoryResponse>(_mapper.Map<AddFactoryResponse>(factory));
+
         }
     }
 }
