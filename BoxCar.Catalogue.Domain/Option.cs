@@ -3,13 +3,19 @@
     public class Option : Entity
     {
         public string Name { get; private set; } = null!;
+        
         public string Value { get; private set; } = null!;
 
-        public Option(Guid id, string name, string value)
+        public Option(Guid id, string name, string value, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             ChangeName(name);
+            Price = price;
         }
+
+        public List<OptionPack> OptionPacks { get; } = new();
+
+        public int Price { get; private set; }
 
         public void ChangeName(string name)
         {

@@ -8,6 +8,8 @@
 
         public IEnumerable<Option> Options => _options.ToList();
 
+        public List<Vehicle> Vehicles { get; } = new();
+
         public OptionPack(Guid id, string name)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
