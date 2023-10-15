@@ -19,23 +19,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Production Service", "Produ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Notification Service", "User Notification Service", "{CB11E5D5-EEF1-416E-9DD9-28496820B31C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Domain", "BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj", "{E4F3442B-8D77-4824-ABF8-8533A2261E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Admin.Domain", "BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj", "{E4F3442B-8D77-4824-ABF8-8533A2261E16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Core", "Admin.Core\BoxCar.Admin.Core.csproj", "{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Admin.Core", "Admin.Core\BoxCar.Admin.Core.csproj", "{F8B800AE-4BE0-428D-8C9A-812DD8FBD5C9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E66A1D0A-72C2-4ABF-9C97-DB85654E881F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{E66A1D0A-72C2-4ABF-9C97-DB85654E881F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Integration.Messages", "BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj", "{EB25EB69-B183-49AE-A70D-E81293E40647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Integration.Messages", "BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj", "{EB25EB69-B183-49AE-A70D-E81293E40647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Persistence", "BoxCar.Admin.Persistence\BoxCar.Admin.Persistence.csproj", "{BD3BBEF7-0BD1-4D8F-8FE1-3D78DB4D373A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Admin.Persistence", "BoxCar.Admin.Persistence\BoxCar.Admin.Persistence.csproj", "{BD3BBEF7-0BD1-4D8F-8FE1-3D78DB4D373A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Api", "BoxCar.Admin.Api\BoxCar.Admin.Api.csproj", "{0BB21430-EA3B-460C-B8C6-7BCED3187D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Admin.Api", "BoxCar.Admin.Api\BoxCar.Admin.Api.csproj", "{0BB21430-EA3B-460C-B8C6-7BCED3187D54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Admin.Tests", "BoxCar.Admin.Tests\BoxCar.Admin.Tests.csproj", "{E148E7DE-12D2-4274-9381-DB911224EBD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Admin.Tests", "BoxCar.Admin.Tests\BoxCar.Admin.Tests.csproj", "{E148E7DE-12D2-4274-9381-DB911224EBD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Catalogue.Domain", "BoxCar.Catalogue.Domain\BoxCar.Catalogue.Domain.csproj", "{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Domain", "BoxCar.Catalogue.Domain\BoxCar.Catalogue.Domain.csproj", "{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Catalogue.Core", "BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj", "{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Core", "BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj", "{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Integration.MessageBus", "BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj", "{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{E148E7DE-12D2-4274-9381-DB911224EBD6} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
+		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825} = {E66A1D0A-72C2-4ABF-9C97-DB85654E881F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
