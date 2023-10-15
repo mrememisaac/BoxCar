@@ -13,6 +13,7 @@ namespace BoxCar.Admin.Persistence
             services.AddDbContext<BoxCarDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IAsyncRepository<,>), typeof(BaseRepository<,>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
