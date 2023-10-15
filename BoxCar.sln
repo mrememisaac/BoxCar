@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Core", "BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj", "{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Integration.MessageBus", "BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj", "{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Integration.MessageBus", "BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj", "{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Catalogue.Api", "BoxCar.Catalogue.Api\BoxCar.Catalogue.Api.csproj", "{4B587BE0-C027-4003-A993-8E9D8DB6F94E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B587BE0-C027-4003-A993-8E9D8DB6F94E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B587BE0-C027-4003-A993-8E9D8DB6F94E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B587BE0-C027-4003-A993-8E9D8DB6F94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B587BE0-C027-4003-A993-8E9D8DB6F94E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690} = {E66A1D0A-72C2-4ABF-9C97-DB85654E881F}
+		{4B587BE0-C027-4003-A993-8E9D8DB6F94E} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
