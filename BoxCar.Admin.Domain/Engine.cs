@@ -11,6 +11,8 @@
         public int Strokes { get; private set; }
 
         public int Price { get; private set; }
+
+        public Engine(Guid id, string name, FuelType fuelType, IgnitionMethod ignitionMethod, int strokes, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             Name = name ?? throw new ArgumentNullException(nameof(name));

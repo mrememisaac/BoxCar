@@ -3,9 +3,10 @@
     public class Option : Entity
     {
         public string Name { get; private set; } = null!;
+        
         public string Value { get; private set; } = null!;
 
-        public Option(Guid id, string name, string value)
+        public Option(Guid id, string name, string value, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             ChangeName(name);

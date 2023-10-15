@@ -10,7 +10,7 @@
         public OptionPack OptionPack { get; private set; }
         public int Price { get; private set; }
 
-        public Vehicle(Guid id, Engine engine, Chassis chassis, OptionPack optionPack)
+        public Vehicle(Guid id, Engine engine, Chassis chassis, OptionPack optionPack, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             Engine = engine ?? throw new ArgumentNullException(nameof(Engine));
