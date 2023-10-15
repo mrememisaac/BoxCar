@@ -11,8 +11,13 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 
     public class ChassisAddedEvent : IntegrationBaseMessage
     {
+        public Guid ChassisId { get; set; }
+
         public string Name { get; private set; } = null!;
 
         public string Description { get; private set; } = string.Empty;
+
+        public int Price { get; set; }
+
     }
 }

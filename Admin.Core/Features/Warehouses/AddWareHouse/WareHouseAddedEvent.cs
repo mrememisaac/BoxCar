@@ -11,8 +11,10 @@ namespace BoxCar.Admin.Core.Features.Warehouses.AddWareHouse
 
     public class WareHouseAddedEvent : IntegrationBaseMessage
     {
-        public string Name { get; private set; } = null!;
+        public Guid WareHouseId { get; set; }
 
-        public string Description { get; private set; } = string.Empty;
+        public string Name { get; set; } = null!;
+
+        public AddressDto Address { get; set; }
     }
 }
