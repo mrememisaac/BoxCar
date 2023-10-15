@@ -2,6 +2,7 @@
 using BoxCar.Admin.Core.Features.Factories.GetFactory;
 using AutoMapper;
 using BoxCar.Admin.Domain;
+using BoxCar.Admin.Core.Features.Chasis.AddChassis;
 
 namespace BoxCar.Admin.Core.Profiles
 {
@@ -29,6 +30,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<Factory, FactoryAddedEvent>()
+                .ForMember(d => d.FactoryId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

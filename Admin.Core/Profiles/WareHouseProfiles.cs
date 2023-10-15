@@ -2,6 +2,7 @@
 using BoxCar.Admin.Core.Features.Warehouses.GetWareHouse;
 using AutoMapper;
 using BoxCar.Admin.Domain;
+using BoxCar.Admin.Core.Features.Factories.AddFactory;
 
 namespace BoxCar.Admin.Core.Profiles
 {
@@ -28,6 +29,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<WareHouse, WareHouseAddedEvent>()
+                .ForMember(d => d.WareHouseId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

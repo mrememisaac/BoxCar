@@ -4,6 +4,7 @@ using BoxCar.Admin.Core.Features.Engines.GetEngine;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
+using BoxCar.Admin.Core.Features.Engines.AddEngine;
 
 namespace BoxCar.Admin.Core.Profiles
 {
@@ -42,6 +43,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<Chassis, ChassisAddedEvent>()
+                .ForMember(d => d.ChassisId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

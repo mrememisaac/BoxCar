@@ -3,6 +3,7 @@ using BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack;
 using AutoMapper;
 using BoxCar.Admin.Domain;
 using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
+using BoxCar.Admin.Core.Features.Factories.AddFactory;
 
 namespace BoxCar.Admin.Core.Profiles
 {
@@ -31,6 +32,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ReverseMap();
             CreateMap<OptionPack, OptionPackDto>();
             CreateMap<OptionPack, Features.Vehicles.AddVehicle.OptionPackDto>();
+            CreateMap<OptionPack, OptionPackAddedEvent>()
+                .ForMember(d => d.OptionPackId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

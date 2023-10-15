@@ -46,6 +46,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<Engine, EngineAddedEvent>()
+                .ForMember(d => d.EngineId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }
