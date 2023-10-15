@@ -5,9 +5,7 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Administration Service", "Administration Service", "{EC006E49-61D1-4C54-BAED-330479CCBCE9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalogue Service", "Catalogue Service", "{BEAA7993-D6F5-4134-938F-C1DDDC2103B1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart Service", "Cart Service", "{0E5A2B09-6E0B-46A9-93D5-AFCD48BA1E5E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalogue and Cart Service", "Catalogue and Cart Service", "{BEAA7993-D6F5-4134-938F-C1DDDC2103B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order Service", "Order Service", "{671192DA-9636-4D2A-A1F9-A047F440F008}"
 EndProject
