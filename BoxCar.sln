@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Catalogue.Core", "BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj", "{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Integration.MessageBus", "BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj", "{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Integration.MessageBus", "BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj", "{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +77,10 @@ Global
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,7 +94,7 @@ Global
 		{E148E7DE-12D2-4274-9381-DB911224EBD6} = {EC006E49-61D1-4C54-BAED-330479CCBCE9}
 		{79726BFD-A8AB-47B2-87CF-54AF8F7F1B26} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{40F221A3-1EE5-4927-92CE-67D74AD5DD9F} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
-		{7A70FCD5-27FE-4ABA-A15E-F2CB1E00D825} = {E66A1D0A-72C2-4ABF-9C97-DB85654E881F}
+		{9DFD75BA-8ECA-4B95-ABAB-0136A9395690} = {E66A1D0A-72C2-4ABF-9C97-DB85654E881F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
