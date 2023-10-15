@@ -1,10 +1,9 @@
-using BoxCar.Admin.Core.Features.Chasis.AddChassis;
-using BoxCar.Admin.Core.Features.Chasis.GetChassis;
+using BoxCar.Catalogue.Core.Features.Chasis.GetChassis;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxCar.Admin.Api.Controllers
+namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -18,7 +17,7 @@ namespace BoxCar.Admin.Api.Controllers
         {
             _logger = logger;
             _mediator = mediator;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         

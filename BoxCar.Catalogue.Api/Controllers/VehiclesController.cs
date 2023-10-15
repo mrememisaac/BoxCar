@@ -1,10 +1,9 @@
-using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
-using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
+using BoxCar.Catalogue.Core.Features.Vehicles.GetVehicle;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxCar.Admin.Api.Controllers
+namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
