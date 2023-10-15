@@ -8,6 +8,7 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
         public AddEngineCommandValidator()
         {
             RuleFor(p => p.Id).NotEmpty();
+            RuleFor(p => p.Price).NotEmpty();
             RuleFor(p => p.Name)
                 .MaximumLength(250)
                 .NotEmpty();

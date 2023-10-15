@@ -6,11 +6,14 @@
 
         public string Description { get; private set; } = string.Empty;
 
-        public Chassis(Guid id, string name, string description)
+        public int Price { get; private set; }
+        
+        public Chassis(Guid id, string name, string description, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id; 
             ChangeName(name);
             ChangeDescription(description);
+            Price = price;
         }
 
         public void ChangeName(string name)

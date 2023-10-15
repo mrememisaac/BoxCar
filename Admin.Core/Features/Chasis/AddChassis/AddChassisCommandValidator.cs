@@ -7,6 +7,7 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
         public AddChassisCommandValidator()
         {
             RuleFor(p => p.Id).NotEmpty();
+            RuleFor(p => p.Price).NotEmpty();
             RuleFor(p => p.Name)
                 .MaximumLength(250)
                 .NotEmpty();

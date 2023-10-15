@@ -15,9 +15,9 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
         public ListBasedEngineRepository()
         {
             context = new List<Engine>();
-            var one = new Engine(Guid.NewGuid(), "Electric Car", FuelType.Electricity, IgnitionMethod.ElectricMotor, 0);
-            var two = new Engine(Guid.NewGuid(), "Diesel Car", FuelType.Diesel, IgnitionMethod.Compression, 0);
-            var three = new Engine(Guid.NewGuid(), "Gasoline Car", FuelType.Gasoline, IgnitionMethod.Spark, 0);
+            var one = new Engine(Guid.NewGuid(), "Electric Car", FuelType.Electricity, IgnitionMethod.ElectricMotor, 0, 2000);
+            var two = new Engine(Guid.NewGuid(), "Diesel Car", FuelType.Diesel, IgnitionMethod.Compression, 0, 4000);
+            var three = new Engine(Guid.NewGuid(), "Gasoline Car", FuelType.Gasoline, IgnitionMethod.Spark, 0, 6000);
             context.Add(one);
             context.Add(two);
             context.Add(three);

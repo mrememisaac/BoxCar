@@ -17,21 +17,21 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
             context = new List<Vehicle>();
 
             var optionPack1 = new OptionPack(Guid.NewGuid(), "Standard");
-            optionPack1.AddOption(new Option(Guid.NewGuid(), "Color", "Black"));
-            optionPack1.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Fabric"));
+            optionPack1.AddOption(new Option(Guid.NewGuid(), "Color", "Black", 500));
+            optionPack1.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Fabric", 600));
             
             var optionPack2 = new OptionPack(Guid.NewGuid(), "Deluxe");
-            optionPack2.AddOption(new Option(Guid.NewGuid(), "Color", "Gold"));
-            optionPack2.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Leather"));
+            optionPack2.AddOption(new Option(Guid.NewGuid(), "Color", "Gold", 700));
+            optionPack2.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Leather",800));
 
-            var engine1 = new Engine(Guid.NewGuid(), "Electric Car", FuelType.Electricity, IgnitionMethod.ElectricMotor, 0);
-            var engine2 = new Engine(Guid.NewGuid(), "Diesel Car", FuelType.Diesel, IgnitionMethod.Compression, 0);
+            var engine1 = new Engine(Guid.NewGuid(), "Electric Car", FuelType.Electricity, IgnitionMethod.ElectricMotor, 0,2000);
+            var engine2 = new Engine(Guid.NewGuid(), "Diesel Car", FuelType.Diesel, IgnitionMethod.Compression, 0, 4000);
 
-            var chassis1 = new Chassis(Guid.NewGuid(), "Simple Chassis", "This is the standard chassis ");
-            var chassis2 = new Chassis(Guid.NewGuid(), "Enhanced Chassis", "This chassis has extra protection");
+            var chassis1 = new Chassis(Guid.NewGuid(), "Simple Chassis", "This is the standard chassis ", 1000);
+            var chassis2 = new Chassis(Guid.NewGuid(), "Enhanced Chassis", "This chassis has extra protection", 2000);
 
-            var one = new Vehicle(Guid.NewGuid(), engine1, chassis1, optionPack1);
-            var two = new Vehicle(Guid.NewGuid(), engine2, chassis2, optionPack2);
+            var one = new Vehicle(Guid.NewGuid(), engine1, chassis1, optionPack1, 5000);
+            var two = new Vehicle(Guid.NewGuid(), engine2, chassis2, optionPack2, 6000);
             context.Add(one);
             context.Add(two);
         }

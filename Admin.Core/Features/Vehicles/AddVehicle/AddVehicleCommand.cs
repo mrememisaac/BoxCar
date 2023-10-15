@@ -22,5 +22,8 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
         public Guid EngineId { get; set; }
 
         public Guid OptionPackId { get; set; }
+
+        public int Price { get; set; }
+
     }
 }

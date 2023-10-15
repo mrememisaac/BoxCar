@@ -11,5 +11,8 @@
         public Guid EngineId { get; set; }
 
         public Guid OptionPackId { get; set; }
+        
+        public int Price { get; set; }
+
     }
 }

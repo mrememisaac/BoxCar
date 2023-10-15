@@ -13,5 +13,6 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
         public IgnitionMethod IgnitionMethod { get; set; }
 
         public int Strokes { get; set; }
+        public int Price { get; set; }
     }
 }

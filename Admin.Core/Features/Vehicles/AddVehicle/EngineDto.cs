@@ -14,5 +14,6 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 
         public int Strokes { get; set; }
 
+        public int Price { get; set; }
     }
 }

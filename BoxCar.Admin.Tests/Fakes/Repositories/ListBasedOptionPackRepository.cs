@@ -16,11 +16,11 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
         {
             context = new List<OptionPack>();
             var one = new OptionPack(Guid.NewGuid(), "Standard");
-            one.AddOption(new Option(Guid.NewGuid(), "Color", "Black"));
-            one.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Fabric"));
+            one.AddOption(new Option(Guid.NewGuid(), "Color", "Black", 500));
+            one.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Fabric", 600));
             var two = new OptionPack(Guid.NewGuid(), "Deluxe");
-            two.AddOption(new Option(Guid.NewGuid(), "Color", "Gold"));
-            two.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Leather"));
+            two.AddOption(new Option(Guid.NewGuid(), "Color", "Gold", 700));
+            two.AddOption(new Option(Guid.NewGuid(), "Seat Material", "Leather", 800));
             context.Add(one);
             context.Add(two);
         }

@@ -9,7 +9,10 @@
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
             ChangeName(name);
+            Price = price;
         }
+
+        public int Price { get; private set; }
 
         public void ChangeName(string name)
         {

@@ -12,5 +12,7 @@
 
         public OptionPackDto OptionPack { get; set; }
 
+        public int Price { get; set; }
+
     }
 }

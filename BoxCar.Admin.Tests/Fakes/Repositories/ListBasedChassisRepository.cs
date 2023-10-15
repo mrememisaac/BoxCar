@@ -15,8 +15,8 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
         public ListBasedChassisRepository()
         {
             context = new List<Chassis>();
-            var one = new Chassis(Guid.NewGuid(), "Simple Chassis", "This is the standard chassis ");
-            var two = new Chassis(Guid.NewGuid(), "Enhanced Chassis", "This chassis has extra protection");
+            var one = new Chassis(Guid.NewGuid(), "Simple Chassis", "This is the standard chassis", 1000);
+            var two = new Chassis(Guid.NewGuid(), "Enhanced Chassis", "This chassis has extra protection", 2000);
             context.Add(one);
             context.Add(two);
         }
