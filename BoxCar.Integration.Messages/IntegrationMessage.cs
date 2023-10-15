@@ -5,6 +5,8 @@
         public Guid Id { get; set; }
 
         public DateTime CreationDateTime { get; set; }
+
+        public SyncStatus SyncStatus { get; set; }
     }
 
 }
