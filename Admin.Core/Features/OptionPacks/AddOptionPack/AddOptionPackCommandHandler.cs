@@ -10,6 +10,8 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using BoxCar.Integration.MessageBus;
+using BoxCar.Admin.Core.Features.Chasis.AddChassis;
 
 namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
 {
@@ -20,16 +22,18 @@ namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
         private readonly IAsyncRepository<OptionPack, Guid> _repository;
         private readonly ILogger<AddOptionPackCommandHandler> _logger;
         private readonly AddOptionPackCommandValidator _validator;
+        private readonly IMessageBus _messageBus;
 
         public AddOptionPackCommandHandler(IMapper mapper,
             IAsyncRepository<OptionPack, Guid> repository,
             ILogger<AddOptionPackCommandHandler> logger,
-            AddOptionPackCommandValidator validator)
+            AddOptionPackCommandValidator validator, IMessageBus messageBus)
         {
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
             _validator = validator;
+            _messageBus = messageBus;
         }
         public async Task<Result<AddOptionPackResponse>> Handle(AddOptionPackCommand request, CancellationToken cancellationToken)
         {
@@ -40,7 +44,18 @@ namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
                 throw new Exceptions.ValidationException(validationResult);
             }
             var optionPack = _mapper.Map<OptionPack>(request);
-            await _repository.CreateAsync(optionPack, cancellationToken);
+            optionPack = await _repository.CreateAsync(optionPack, cancellationToken);
+            var newEvent = _mapper.Map<OptionPackAddedEvent>(optionPack);
+            try
+            {
+                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Writing {newEvent} to message bus failed. Rolling back", newEvent);
+                await _repository.DeleteAsync(optionPack, cancellationToken);
+                return new Result<AddOptionPackResponse>(false, "An error occured while writing to message bus");
+            }
             return new Result<AddOptionPackResponse>(_mapper.Map<AddOptionPackResponse>(optionPack));
         }
     }

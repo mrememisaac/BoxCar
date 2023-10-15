@@ -4,6 +4,8 @@ using AutoMapper;
 using BoxCar.Admin.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using BoxCar.Integration.MessageBus;
+using BoxCar.Admin.Core.Features.Engines.AddEngine;
 
 namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
@@ -16,6 +18,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
         private readonly IAsyncRepository<OptionPack, Guid> _optionPacksRepository;
         private readonly ILogger<AddVehicleCommandHandler> _logger;
         private readonly AddVehicleCommandValidator _validator;
+        private readonly IMessageBus _messageBus;
 
         public AddVehicleCommandHandler(IMapper mapper,
             IAsyncRepository<Vehicle, Guid> repository,
@@ -23,7 +26,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             IAsyncRepository<Engine, Guid> enginesRepository,
             IAsyncRepository<OptionPack, Guid> optionPacksRepository,
             ILogger<AddVehicleCommandHandler> logger,
-            AddVehicleCommandValidator validator)
+            AddVehicleCommandValidator validator, IMessageBus messageBus)
         {
             _mapper = mapper;
             _repository = repository;
@@ -32,6 +35,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             _optionPacksRepository = optionPacksRepository;
             _logger = logger;
             _validator = validator;
+            _messageBus = messageBus;
         }
         public async Task<Result<AddVehicleResponse>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
@@ -46,6 +50,17 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             var optionPack = await _optionPacksRepository.GetByIdAsync(request.OptionPackId, cancellationToken);
             var vehicle = new Vehicle(request.Id, engine!, chassis!, optionPack!, request.Price);
             vehicle = await _repository.CreateAsync(vehicle, cancellationToken);
+            var newEvent = _mapper.Map<EngineAddedEvent>(engine);
+            try
+            {
+                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Writing {newEvent} to message bus failed. Rolling back", newEvent);
+                await _repository.DeleteAsync(vehicle, cancellationToken);
+                return new Result<AddVehicleResponse>(false, "An error occured while writing to message bus");
+            }
             return new Result<AddVehicleResponse>(_mapper.Map<AddVehicleResponse>(vehicle));
         }
     }
