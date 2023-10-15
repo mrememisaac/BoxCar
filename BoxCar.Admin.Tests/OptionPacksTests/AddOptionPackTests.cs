@@ -23,7 +23,7 @@ namespace BoxCar.Admin.Tests.OptionPackTests
             };
             var logger = new Mock<ILogger<AddOptionPackCommandHandler>>();
             var validator = new AddOptionPackCommandValidator();
-            var handler = new AddOptionPackCommandHandler(mapper, repository, logger.Object, validator);
+            var handler = new AddOptionPackCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

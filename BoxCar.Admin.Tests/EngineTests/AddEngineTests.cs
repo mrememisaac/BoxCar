@@ -17,11 +17,12 @@ namespace BoxCar.Admin.Tests.EngineTests
                 Name = "East Engine",
                 FuelType = Domain.FuelType.Gasoline,
                 IgnitionMethod = Domain.IgnitionMethod.HCCI,
-                Strokes = 4
+                Strokes = 4,
+                Price = 1500
             };
             var logger = new Mock<ILogger<AddEngineCommandHandler>>();
             var validator = new AddEngineCommandValidator();
-            var handler = new AddEngineCommandHandler(mapper, repository, logger.Object, validator);
+            var handler = new AddEngineCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

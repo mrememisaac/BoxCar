@@ -15,11 +15,12 @@ namespace BoxCar.Admin.Tests.ChassisTests
             {
                 Id = Guid.NewGuid(),
                 Name = "East Chassis",
-                Description = "East Chassis is a great chassis designed in the East"
+                Description = "East Chassis is a great chassis designed in the East",
+                Price = 2300
             };
             var logger = new Mock<ILogger<AddChassisCommandHandler>>();
             var validator = new AddChassisCommandValidator();
-            var handler = new AddChassisCommandHandler(mapper, repository, logger.Object, validator);
+            var handler = new AddChassisCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

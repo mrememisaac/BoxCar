@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using BoxCar.Admin.Core.Profiles;
 using BoxCar.Admin.Core;
 using BoxCar.Admin.Tests.Fakes.Repositories;
+using BoxCar.Integration.MessageBus;
+using Moq;
+using BoxCar.Integration.Messages;
 
 namespace BoxCar.Admin.Tests
 {
@@ -13,9 +16,14 @@ namespace BoxCar.Admin.Tests
         protected readonly IServiceProvider _serviceProvider;
         protected readonly CancellationToken cancellationToken;
         protected readonly IMapper mapper;
+        protected readonly Mock<IMessageBus> messageBus;
 
         public EntityTestsBase()
         {
+            messageBus = new Mock<IMessageBus>();
+            messageBus.Setup(b => b.PublishMessage(It.IsAny<IntegrationBaseMessage>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask);
+
             cancellationToken = new CancellationToken();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
