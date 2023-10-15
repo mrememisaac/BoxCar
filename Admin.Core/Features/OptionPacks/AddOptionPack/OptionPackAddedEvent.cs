@@ -4,7 +4,7 @@ namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
 {
     public class OptionPackAddedEvent : IntegrationBaseMessage
     {
-        public Guid Id { get; set; }
+        public Guid OptionPackId { get; set; }
 
         public string Name { get; set; } = null!;
 

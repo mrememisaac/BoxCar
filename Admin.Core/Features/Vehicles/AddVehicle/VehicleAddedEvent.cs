@@ -4,7 +4,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
     public class VehicleAddedEvent : IntegrationBaseMessage
     {
-        public Guid Id { get; set; }
+        public Guid VehicleId { get; set; }
 
         public string Name { get; set; } = null!;
 
