@@ -12,6 +12,8 @@
             Price = price;
         }
 
+        public List<OptionPack> OptionPacks { get; } = new();
+
         public int Price { get; private set; }
 
         public void ChangeName(string name)

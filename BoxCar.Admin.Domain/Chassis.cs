@@ -16,6 +16,8 @@
             Price = price;
         }
 
+        public List<Vehicle> Vehicles { get; } = new();
+
         public void ChangeName(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));

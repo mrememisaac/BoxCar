@@ -19,5 +19,8 @@
             Price = price;
             Strokes = strokes < 0 ? throw new ArgumentNullException(nameof(strokes)) : strokes;
         }
+
+        public List<Vehicle> Vehicles { get; } = new();
+
     }
 }
