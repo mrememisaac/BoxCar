@@ -15,8 +15,14 @@ namespace BoxCar.ShoppingBasket.Controllers
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IBasketLinesRepository _basketLinesRepository;
-        private readonly IVehicleRepository _eventRepository;
-        private readonly IVehicleCatalogService _eventCatalogService;
+        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IVehicleCatalogService _vehicleCatalogService;
+        private readonly IEngineRepository _engineRepository;
+        private readonly IEngineCatalogService _engineCatalogService;
+        private readonly IChassisRepository _chassisRepository;
+        private readonly IChassisCatalogService _chassisCatalogService;
+        private readonly IOptionPackRepository _optionPackRepository;
+        private readonly IOptionPackCatalogService _optionPackCatalogService;
         private readonly IMapper _mapper;
 
         public BasketLinesController(IBasketRepository basketRepository, 
@@ -25,8 +31,8 @@ namespace BoxCar.ShoppingBasket.Controllers
         {
             _basketRepository = basketRepository;
             _basketLinesRepository = basketLinesRepository;
-            _eventRepository = eventRepository;
-            _eventCatalogService = eventCatalogService;
+            _vehicleRepository = eventRepository;
+            _vehicleCatalogService = eventCatalogService;
             _mapper = mapper;
         }
 
@@ -69,7 +75,28 @@ namespace BoxCar.ShoppingBasket.Controllers
                 return NotFound();
             }
 
-            if (!await _eventRepository.VehicleExists(basketLineForCreation.VehicleId))
+            if (!await _vehicleRepository.VehicleExists(basketLineForCreation.VehicleId))
+            {
+                var vehicleFromCatalog = await _vehicleCatalogService.GetVehicle(basketLineForCreation.VehicleId);
+                _vehicleRepository.AddVehicle(vehicleFromCatalog);
+                await _vehicleRepository.SaveChanges();
+            }
+
+            if (!await _engineRepository.EngineExists(basketLineForCreation.EngineId))
+            {
+                var engineFromCatalog = await _engineCatalogService.GetEngine(basketLineForCreation.EngineId);
+                _engineRepository.AddEngine(engineFromCatalog);
+                await _engineRepository.SaveChanges();
+            }
+
+            if (!await _chassisRepository.ChassisExists(basketLineForCreation.ChassisId))
+            {
+                var chassisFromCatalog = await _chassisCatalogService.GetChassis(basketLineForCreation.ChassisId);
+                _chassisRepository.AddChassis(chassisFromCatalog);
+                await _chassisRepository.SaveChanges();
+            }
+
+            if (!await _optionPackRepository.OptionPackExists(basketLineForCreation.OptionPackId))
             {
                 var eventFromCatalog = await _eventCatalogService.GetVehicle(basketLineForCreation.VehicleId);
                 _eventRepository.AddVehicle(eventFromCatalog);
