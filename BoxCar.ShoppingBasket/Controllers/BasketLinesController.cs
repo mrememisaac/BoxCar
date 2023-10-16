@@ -134,9 +134,6 @@ namespace BoxCar.ShoppingBasket.Controllers
                 return NotFound();
             }
 
-            // map the entity to a dto
-            // apply the updated field values to that dto
-            // map the dto back to an entity
             _mapper.Map(basketLineForUpdate, basketLineEntity);
 
             _basketLinesRepository.UpdateBasketLine(basketLineEntity);
