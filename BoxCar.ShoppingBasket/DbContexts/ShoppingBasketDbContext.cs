@@ -10,6 +10,7 @@ namespace BoxCar.ShoppingBasket.DbContexts
         {
         }
 
+        public DbSet<BasketChangeEvent> BasketChangeEvents { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketLine> BasketLines { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
