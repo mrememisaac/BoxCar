@@ -98,9 +98,9 @@ namespace BoxCar.ShoppingBasket.Controllers
 
             if (!await _optionPackRepository.OptionPackExists(basketLineForCreation.OptionPackId))
             {
-                var eventFromCatalog = await _eventCatalogService.GetVehicle(basketLineForCreation.VehicleId);
-                _eventRepository.AddVehicle(eventFromCatalog);
-                await _eventRepository.SaveChanges();
+                var optionPackFromCatalog = await _optionPackCatalogService.GetOptionPack(basketLineForCreation.OptionPackId);
+                _optionPackRepository.AddOptionPack(optionPackFromCatalog);
+                await _optionPackRepository.SaveChanges();
             }
 
             var basketLineEntity = _mapper.Map<Entities.BasketLine>(basketLineForCreation);
