@@ -49,6 +49,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Ordering", "BoxCar.O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.Payment", "BoxCar.Services.Payment\BoxCar.Services.Payment.csproj", "{01A19A10-13F4-4902-B068-23F020120C05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fake", "Fake", "{3A81841C-EA04-437D-8085-A24F93880995}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "External.PaymentGateway", "External.PaymentGateway\External.PaymentGateway.csproj", "{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +115,10 @@ Global
 		{01A19A10-13F4-4902-B068-23F020120C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01A19A10-13F4-4902-B068-23F020120C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01A19A10-13F4-4902-B068-23F020120C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +138,7 @@ Global
 		{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C} = {5A9963DE-45D4-42CB-BD39-2E123C8A81CB}
 		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6} = {671192DA-9636-4D2A-A1F9-A047F440F008}
 		{01A19A10-13F4-4902-B068-23F020120C05} = {071D40A2-2997-4027-8964-CE6C728D0CA3}
+		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89} = {3A81841C-EA04-437D-8085-A24F93880995}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
