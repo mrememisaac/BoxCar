@@ -1,3 +1,4 @@
+using BoxCar.ShoppingBasket;
 using BoxCar.ShoppingBasket.DbContexts;
 using BoxCar.ShoppingBasket.Repositories;
 using BoxCar.ShoppingBasket.Services;
@@ -15,7 +16,21 @@ builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.AddScoped<IBasketLinesRepository, BasketLinesRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddHttpClient<IVehicleCatalogService, VehicleCatalogService>(c =>
-    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:VehicleCatalog:Uri"]));
+    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:Catalogue:Uri"]))
+    .AddPolicyHandler(CommunicationBreakdownPolicies.GetRetryPolicy())
+                .AddPolicyHandler(CommunicationBreakdownPolicies.GetCircuitBreakerPolicy());
+builder.Services.AddHttpClient<IChassisCatalogService, ChassisCatalogService>(c =>
+    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:Catalogue:Uri"]))
+    .AddPolicyHandler(CommunicationBreakdownPolicies.GetRetryPolicy())
+                .AddPolicyHandler(CommunicationBreakdownPolicies.GetCircuitBreakerPolicy());
+builder.Services.AddHttpClient<IEngineCatalogService, EngineCatalogService>(c =>
+    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:Catalogue:Uri"]))
+    .AddPolicyHandler(CommunicationBreakdownPolicies.GetRetryPolicy())
+                .AddPolicyHandler(CommunicationBreakdownPolicies.GetCircuitBreakerPolicy());
+builder.Services.AddHttpClient<IOptionPackCatalogService, OptionPackCatalogService>(c =>
+    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:Catalogue:Uri"]))
+    .AddPolicyHandler(CommunicationBreakdownPolicies.GetRetryPolicy())
+                .AddPolicyHandler(CommunicationBreakdownPolicies.GetCircuitBreakerPolicy());
 
 builder.Services.AddDbContext<ShoppingBasketDbContext>(options =>
 {
