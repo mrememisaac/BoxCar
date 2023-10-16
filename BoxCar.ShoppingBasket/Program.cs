@@ -15,6 +15,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.AddScoped<IBasketLinesRepository, BasketLinesRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IEngineRepository, EngineRepository>();
+builder.Services.AddScoped<IOptionPackRepository, OptionPackRepository>();
+builder.Services.AddScoped<IChassisRepository, ChassisRepository>();
 builder.Services.AddHttpClient<IVehicleCatalogService, VehicleCatalogService>(c =>
     c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:Catalogue:Uri"]))
     .AddPolicyHandler(CommunicationBreakdownPolicies.GetRetryPolicy())

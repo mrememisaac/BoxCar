@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GloboTicket.Services.ShoppingBasket.Messages
+namespace BoxCar.ShoppingBasket.Messages
 {
     public class BasketLineMessage
     {
@@ -20,5 +20,7 @@ namespace GloboTicket.Services.ShoppingBasket.Messages
         public int Price { get; set; }
 
         public int Quantity { get; set; }
+
+        public int Amount => Price*Quantity;
     }
 }
