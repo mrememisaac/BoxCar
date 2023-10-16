@@ -14,6 +14,7 @@ namespace BoxCar.ShoppingBasket.Controllers
     public class BasketLinesController : ControllerBase
     {
         private readonly IBasketRepository _basketRepository;
+        private readonly IBasketChangeEventRepository _basketChangeEventRepository;
         private readonly IBasketLinesRepository _basketLinesRepository;
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IVehicleCatalogService _vehicleCatalogService;
@@ -160,8 +161,23 @@ namespace BoxCar.ShoppingBasket.Controllers
                 return NotFound();
             }
 
+            var basket = await _basketRepository.GetBasketById(basketId);
+
             _basketLinesRepository.RemoveBasketLine(basketLineEntity);
             await _basketLinesRepository.SaveChanges();
+
+            //publish removal event
+            Entities.BasketChangeEvent basketChangeEvent = new Entities.BasketChangeEvent
+            {
+                BasketChangeType = Entities.BasketChangeTypeEnum.Remove,
+                VehicleId = basketLineEntity.VehicleId,
+                OptionPackId = basketLineEntity.OptionPackId,
+                EngineId = basketLineEntity.EngineId,
+                ChassisId = basketLineEntity.ChassisId,
+                InsertedAt = DateTime.Now,
+                UserId = basket.UserId
+            };
+            await _basketChangeEventRepository.AddBasketEvent(basketChangeEvent);
 
             return NoContent();
         }
