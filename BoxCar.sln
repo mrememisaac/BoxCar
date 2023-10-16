@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart Service", "Cart Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.ShoppingBasket", "BoxCar.ShoppingBasket\BoxCar.ShoppingBasket.csproj", "{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Ordering", "BoxCar.Ordering\BoxCar.Ordering.csproj", "{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{4B587BE0-C027-4003-A993-8E9D8DB6F94E} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{9DB28E54-AF4F-45CA-A520-77959F3D18A4} = {BEAA7993-D6F5-4134-938F-C1DDDC2103B1}
 		{B4F999D0-3A58-4CE1-8CFA-E518552D6D5C} = {5A9963DE-45D4-42CB-BD39-2E123C8A81CB}
+		{090DE52C-F7D4-458E-AD34-2FD3D028D2D6} = {671192DA-9636-4D2A-A1F9-A047F440F008}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
