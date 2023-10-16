@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.16.2" />
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj" />
+    <ProjectReference Include="..\BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj" />
   </ItemGroup>
 
 </Project>
