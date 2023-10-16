@@ -6,8 +6,8 @@ namespace BoxCar.ShoppingBasket.Repositories
 {
     public interface IVehicleRepository
     {
-        void AddVehicle(Vehicle theVehicle);
-        Task<bool> VehicleExists(Guid idd);
+        void AddVehicle(Vehicle vehicle);
+        Task<bool> VehicleExists(Guid id);
         Task<bool> SaveChanges();
     }
 }
