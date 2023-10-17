@@ -97,6 +97,19 @@ namespace BoxCar.Ordering.Messaging
                 Console.WriteLine(e);
                 throw;
             }
+
+            var orderReceived = new OrderStatusUpdateMessage
+            {
+                OrderId = orderId,
+                Message = $"Thank you for your order ({orderId}). We appreciate your business",
+                CreationDateTime = DateTime.Now,
+                Email = basketCheckoutMessage.Email,
+                UserId = basketCheckoutMessage.UserId,
+            };
+
+            try
+            {
+                await _messageBus.PublishMessage(orderReceived, _orderStatusUpdateMessageTopic);
         }
 
         private async Task OnOrderPaymentUpdateReceived(Message message, CancellationToken arg2)
