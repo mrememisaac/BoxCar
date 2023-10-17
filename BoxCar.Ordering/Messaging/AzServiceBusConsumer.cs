@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace BoxCar.Ordering.Messaging
 {
-    public class AzServiceBusConsumer: IAzServiceBusConsumer
+    public class AzServiceBusConsumer : IAzServiceBusConsumer
     {
         private readonly string subscriptionName;
-        private readonly IReceiverClient checkoutMessageReceiverClient;
-        private readonly IReceiverClient orderPaymentUpdateMessageReceiverClient;
+        private readonly IReceiverClient _checkoutMessageReceiverClient;
+        private readonly IReceiverClient _orderPaymentUpdateMessageReceiverClient;
 
         private readonly IConfiguration _configuration;
 
@@ -39,12 +39,12 @@ namespace BoxCar.Ordering.Messaging
             _messageBus = messageBus;
 
             var serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-            subscriptionName = _configuration.GetValue<string>("SubscriptionName"); 
-            checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
-            _orderStatusUpdateMessageTopic = _configuration.GetValue<string>("OrderStatusUpdateMessageTopic");
-            _orderPaymentRequestMessageTopic = _configuration.GetValue<string>("OrderPaymentRequestMessageTopic");
-            _orderPaymentUpdatedMessageTopic = _configuration.GetValue<string>("OrderPaymentUpdatedMessageTopic");
-            _fulfillOrderRequestMessageTopic = _configuration.GetValue<string>("FulfillOrderRequestMessageTopic");
+            subscriptionName = _configuration.GetValue<string>("SubscriptionName");
+            checkoutMessageTopic = _configuration.GetValue<string>("CheckoutRequest");
+            _orderStatusUpdateMessageTopic = _configuration.GetValue<string>("OrderStatusUpdate");
+            _orderPaymentRequestMessageTopic = _configuration.GetValue<string>("OrderPaymentRequest");
+            _orderPaymentUpdatedMessageTopic = _configuration.GetValue<string>("OrderPaymentUpdate");
+            _fulfillOrderRequestMessageTopic = _configuration.GetValue<string>("OrderFullfillmentRequest");
 
             _checkoutMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, checkoutMessageTopic, subscriptionName);
             _orderPaymentUpdateMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, _orderPaymentUpdatedMessageTopic, subscriptionName);
@@ -60,7 +60,7 @@ namespace BoxCar.Ordering.Messaging
 
         private async Task OnCheckoutMessageReceived(Message message, CancellationToken arg2)
         {
-            var body = Encoding.UTF8.GetString(message.Body);//json from service bus
+            var body = Encoding.UTF8.GetString(message.Body);
 
             //save order with status not paid
             BasketCheckoutMessage basketCheckoutMessage = JsonConvert.DeserializeObject<BasketCheckoutMessage>(body);
@@ -90,7 +90,7 @@ namespace BoxCar.Ordering.Messaging
 
             try
             {
-                await _messageBus.PublishMessage(orderPaymentRequestMessage, orderPaymentRequestMessageTopic);
+                await _messageBus.PublishMessage(orderPaymentRequestMessage, _orderPaymentRequestMessageTopic);
             }
             catch (Exception e)
             {
@@ -110,7 +110,7 @@ namespace BoxCar.Ordering.Messaging
             try
             {
                 await _messageBus.PublishMessage(orderReceived, _orderStatusUpdateMessageTopic);
-        }
+            }
             catch (Exception e)
             {
                 _logger.LogError(e, "Error arose while handling checkout message by User {0} for Order {1}", basketCheckoutMessage.UserId, orderId);
