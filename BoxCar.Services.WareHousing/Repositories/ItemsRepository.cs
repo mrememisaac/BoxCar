@@ -1,5 +1,6 @@
 ﻿using BoxCar.Services.WareHousing.DbContexts;
 using BoxCar.Services.WareHousing.Entities;
+using BoxCar.Services.WareHousing.Messages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoxCar.Services.WareHousing.Repositories
@@ -27,10 +28,31 @@ namespace BoxCar.Services.WareHousing.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Item> GetById(Guid id)
+        public async Task<Item?> GetById(Guid id)
         {
             await using var _dbContext = new ItemsDbContext(dbContextOptions);
             return await _dbContext.Items.FindAsync(id);
+        }
+
+        public async Task<Item?> GetByItemTypeAndItemTypeId(ItemType type, Guid itemTypeId)
+        {
+            await using var _dbContext = new ItemsDbContext(dbContextOptions);
+            return await _dbContext.Items.FirstOrDefaultAsync(i => i.ItemTypeId == itemTypeId && i.ItemType == type);
+        }
+
+        public async Task<Item?> GetBySpecificationKey(string specification)
+        {
+            await using var _dbContext = new ItemsDbContext(dbContextOptions);
+            return await _dbContext.Items.FirstOrDefaultAsync(i => i.SpecificationKey.Equals(specification, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public async Task<IEnumerable<Item>> GetComponents(FulfillOrderRequestLine line)
+        {
+            await using var _dbContext = new ItemsDbContext(dbContextOptions);
+            return await _dbContext.Items.Where(x => x.ItemTypeId == line.VehicleId || 
+                        x.ItemTypeId == line.EngineId || 
+                        x.ItemTypeId == line.ChassisId || 
+                        x.ItemTypeId == line.OptionPackId).ToListAsync();
         }
     }
 }
