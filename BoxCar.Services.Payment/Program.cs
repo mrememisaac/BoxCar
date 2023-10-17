@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<IExternalGatewayPaymentService, ExternalGatewayPaymentService>(c =>
     c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:ExternalPaymentGateway:Uri"]));
-builder.Services.AddHostedService<PaymentRequestServiceBusListener>();
+builder.Services.AddHostedService<PaymentRequestService>();
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 
 var app = builder.Build();

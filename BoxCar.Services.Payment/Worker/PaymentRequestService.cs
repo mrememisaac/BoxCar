@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BoxCar.Services.Payment.Worker
 {
-    public class PaymentRequestServiceBusListener : IHostedService
+    public class PaymentRequestService : IHostedService
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
@@ -23,12 +23,12 @@ namespace BoxCar.Services.Payment.Worker
         private readonly IMessageBus _messageBus;
         private readonly string _orderPaymentUpdatedMessageTopic;
 
-        public PaymentRequestServiceBusListener(IConfiguration configuration, ILoggerFactory loggerFactory, 
+        public PaymentRequestService(IConfiguration configuration, ILoggerFactory loggerFactory, 
             IExternalGatewayPaymentService externalGatewayPaymentService, IMessageBus messageBus)
         {
             _messageBus = messageBus;
             _configuration = configuration;
-            _logger = loggerFactory.CreateLogger<PaymentRequestServiceBusListener>();
+            _logger = loggerFactory.CreateLogger<PaymentRequestService>();
             _externalGatewayPaymentService = externalGatewayPaymentService;
             _orderPaymentUpdatedMessageTopic = configuration.GetValue<string>("OrderPaymentUpdate");
         }
