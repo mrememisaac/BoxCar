@@ -50,10 +50,10 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             var optionPack = await _optionPacksRepository.GetByIdAsync(request.OptionPackId, cancellationToken);
             var vehicle = new Vehicle(request.Id, engine!, chassis!, optionPack!, request.Price);
             vehicle = await _repository.CreateAsync(vehicle, cancellationToken);
-            var newEvent = _mapper.Map<EngineAddedEvent>(engine);
+            var newEvent = _mapper.Map<VehicleAddedEvent>(engine);
             try
             {
-                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+                await _messageBus.PublishMessage(newEvent, nameof(VehicleAddedEvent).ToLower());
             }
             catch (Exception ex)
             {

@@ -42,7 +42,7 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
             var newEvent = _mapper.Map<ChassisAddedEvent>(chassis);
             try
             {
-                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+                await _messageBus.PublishMessage(newEvent, nameof(ChassisAddedEvent).ToLower());
             }
             catch (Exception ex)
             {

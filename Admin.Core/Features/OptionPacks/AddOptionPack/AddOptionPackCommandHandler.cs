@@ -48,7 +48,7 @@ namespace BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack
             var newEvent = _mapper.Map<OptionPackAddedEvent>(optionPack);
             try
             {
-                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+                await _messageBus.PublishMessage(newEvent, nameof(OptionPackAddedEvent).ToLower());
             }
             catch (Exception ex)
             {

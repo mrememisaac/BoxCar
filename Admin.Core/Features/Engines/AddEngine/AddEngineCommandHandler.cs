@@ -39,7 +39,7 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
             var newEvent = _mapper.Map<EngineAddedEvent>(engine);
             try
             {
-                await _messageBus.PublishMessage(newEvent, "eventupdatedmessage");
+                await _messageBus.PublishMessage(newEvent, nameof(EngineAddedEvent).ToLower());
             }
             catch (Exception ex)
             {
