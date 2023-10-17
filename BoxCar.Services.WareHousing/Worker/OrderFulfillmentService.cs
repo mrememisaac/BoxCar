@@ -135,8 +135,9 @@ namespace BoxCar.Services.WareHousing.Worker
                 Quantity = quantityToOrder,
                 SpecificationKey = specificationKey,
             });
-            orderItemsAvailabilityUpdate.
-                Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.Available });
+
+            await _itemsRepository.ReduceVehicleStockCount(specificationKey, line.Quantity - quantityToOrder);
+            orderItemsAvailabilityUpdate.Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.Available });
         }
     }
 }
