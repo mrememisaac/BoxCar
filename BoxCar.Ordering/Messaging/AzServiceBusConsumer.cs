@@ -15,7 +15,7 @@ namespace BoxCar.Ordering.Messaging
 {
     public class AzServiceBusConsumer: IAzServiceBusConsumer
     {
-        private readonly string subscriptionName = "globoticketorder";
+        private readonly string subscriptionName;
         private readonly IReceiverClient checkoutMessageReceiverClient;
         private readonly IReceiverClient orderPaymentUpdateMessageReceiverClient;
 
@@ -36,6 +36,7 @@ namespace BoxCar.Ordering.Messaging
             _messageBus = messageBus;
 
             var serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
+            subscriptionName = _configuration.GetValue<string>("SubscriptionName"); 
             checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
             orderPaymentRequestMessageTopic = _configuration.GetValue<string>("OrderPaymentRequestMessageTopic");
             orderPaymentUpdatedMessageTopic = _configuration.GetValue<string>("OrderPaymentUpdatedMessageTopic");
@@ -95,9 +96,8 @@ namespace BoxCar.Ordering.Messaging
 
         private async Task OnOrderPaymentUpdateReceived(Message message, CancellationToken arg2)
         {
-            var body = Encoding.UTF8.GetString(message.Body);//json from service bus
-            OrderPaymentUpdateMessage orderPaymentUpdateMessage =
-                JsonConvert.DeserializeObject<OrderPaymentUpdateMessage>(body);
+            var body = Encoding.UTF8.GetString(message.Body);
+            OrderPaymentUpdateMessage orderPaymentUpdateMessage = System.Text.Json.JsonSerializer.Deserialize<OrderPaymentUpdateMessage>(body);
 
             await _orderRepository.UpdateOrderPaymentStatus(orderPaymentUpdateMessage.OrderId, orderPaymentUpdateMessage.PaymentSuccess);
         }
