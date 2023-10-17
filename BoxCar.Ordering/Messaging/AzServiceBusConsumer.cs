@@ -28,7 +28,7 @@ namespace BoxCar.Ordering.Messaging
         private readonly string orderPaymentRequestMessageTopic;
         private readonly string orderPaymentUpdatedMessageTopic;
 
-        public AzServiceBusConsumer(IConfiguration configuration, IMessageBus messageBus, OrderRepository orderRepository)
+        public AzServiceBusConsumer(IConfiguration configuration, IMessageBus messageBus, OrderRepository orderRepository, ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
             _orderRepository = orderRepository;
