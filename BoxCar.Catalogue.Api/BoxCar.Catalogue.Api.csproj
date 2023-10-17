@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoxCar.Catalogue.Core\BoxCar.Catalogue.Core.csproj" />
+    <ProjectReference Include="..\BoxCar.Catalogue.Persistence\BoxCar.Catalogue.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
