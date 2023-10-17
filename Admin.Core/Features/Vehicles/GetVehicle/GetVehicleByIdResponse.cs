@@ -1,5 +1,4 @@
-﻿using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
-
+﻿
 namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
 {
     public class GetVehicleByIdResponse
@@ -15,7 +14,5 @@ namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
         public OptionPackDto OptionPack { get; set; }
 
         public int Price { get; set; }
-
-
     }
 }
