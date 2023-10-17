@@ -11,6 +11,6 @@ namespace BoxCar.Ordering.Repositories
         Task AddOrder(Order order);
         Task<Order> GetOrderById(Guid orderId);
         Task UpdateOrderPaymentStatus(Guid orderId, bool paid);
-
+        Task CancelOrder(Order order);
     }
 }

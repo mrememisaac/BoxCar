@@ -46,6 +46,17 @@ namespace BoxCar.Ordering.Repositories
             {
                 var order = await _orderDbContext.Orders.Where(o => o.Id == orderId).FirstOrDefaultAsync();
                 order.OrderPaid = paid;
+                order.FulfillmentStatus = FulfillmentStatus.Approved;
+                await _orderDbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task CancelOrder(Order orderToCancel)
+        {
+            using (var _orderDbContext = new OrderDbContext(dbContextOptions))
+            {
+                var order = await _orderDbContext.Orders.FirstOrDefaultAsync(o => o.Id == orderToCancel.Id);
+                order.FulfillmentStatus = FulfillmentStatus.Cancelled;
                 await _orderDbContext.SaveChangesAsync();
             }
         }
