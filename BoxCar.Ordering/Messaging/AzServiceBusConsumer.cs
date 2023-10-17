@@ -118,6 +118,53 @@ namespace BoxCar.Ordering.Messaging
             OrderPaymentUpdateMessage orderPaymentUpdateMessage = System.Text.Json.JsonSerializer.Deserialize<OrderPaymentUpdateMessage>(body);
 
             await _orderRepository.UpdateOrderPaymentStatus(orderPaymentUpdateMessage.OrderId, orderPaymentUpdateMessage.PaymentSuccess);
+            var order = await _orderRepository.GetOrderById(orderPaymentUpdateMessage.OrderId);
+
+            if (orderPaymentUpdateMessage.PaymentSuccess)
+            {
+                var fulfillOrderRequest = new FulfillOrderRequest
+                {
+                    OrderId = orderPaymentUpdateMessage.OrderId,
+                    OrderItems = order.OrderLines.Select(l => new FulfillOrderRequestLine
+                    {
+                        ChassisId = l.ChassisId,
+                        EngineId = l.EngineId,
+                        OptionPackId = l.OptionPackId,
+                        OrderId = order.Id,
+                        Quantity = l.Quantity,
+                        VehicleId = l.VehicleId,
+                    })
+                    .ToList(),
+                };
+
+                try
+                {
+                    await _messageBus.PublishMessage(fulfillOrderRequest, _fulfillOrderRequestMessageTopic);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Error arose while publishing user payment failure notification for User {0} for Order {1}", order.UserId, order.Id);
+                }
+            }
+            else
+            {
+                var orderReceived = new OrderStatusUpdateMessage
+                {
+                    OrderId = orderPaymentUpdateMessage.OrderId,
+                    Message = $"We were unable to process payment for order ({orderPaymentUpdateMessage.OrderId}). Please try again.",
+                    CreationDateTime = DateTime.Now,
+                    UserId = order.UserId
+                };
+
+                try
+                {
+                    await _messageBus.PublishMessage(orderReceived, _orderStatusUpdateMessageTopic);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Error arose while publishing user payment failure notification for User {0} for Order {1}", order.UserId, order.Id);
+                }
+            }
         }
 
         private Task OnServiceBusException(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
