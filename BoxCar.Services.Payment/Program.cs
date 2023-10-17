@@ -1,5 +1,6 @@
 using BoxCar.Integration.MessageBus;
 using BoxCar.Services.Payment.Services;
+using BoxCar.Services.Payment.Worker;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHostedService<ServiceBusListener>();
 builder.Services.AddHttpClient<IExternalGatewayPaymentService, ExternalGatewayPaymentService>(c =>
     c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:ExternalPaymentGateway:Uri"]));
-
+builder.Services.AddHostedService<PaymentRequestServiceBusListener>();
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 
 var app = builder.Build();
