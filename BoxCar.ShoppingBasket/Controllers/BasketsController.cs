@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using BoxCar.Integration.MessageBus;
+using BoxCar.ShoppingBasket.Messages;
 using BoxCar.ShoppingBasket.Models;
 using BoxCar.ShoppingBasket.Repositories;
 using Microsoft.AspNetCore.Mvc;
-
+using Polly.CircuitBreaker;
 
 namespace BoxCar.ShoppingBasket.Controllers
 {
@@ -15,11 +18,16 @@ namespace BoxCar.ShoppingBasket.Controllers
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IMapper _mapper;
-
-        public BasketsController(IBasketRepository basketRepository, IMapper mapper)
+        private readonly IMessageBus _messageBus;
+        private readonly string _checkoutRequestTopic;
+        public BasketsController(IBasketRepository basketRepository, 
+            IConfiguration configuration,
+            IMapper mapper, IMessageBus messageBus)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
+            _messageBus = messageBus;
+            _checkoutRequestTopic = configuration.GetValue<string>("CheckoutRequest") ?? "checkout_request";
         }
 
         [HttpGet("{basketId}", Name = "GetBasket")]
@@ -50,6 +58,63 @@ namespace BoxCar.ShoppingBasket.Controllers
                 "GetBasket",
                 new { basketId = basketEntity.BasketId },
                 basketToReturn);
+        }
+
+        [HttpPost("checkout")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> CheckoutBasketAsync([FromBody] BasketCheckout basketCheckout)
+        {
+            try
+            {
+                //based on basket checkout, fetch the basket lines from repo
+                var basket = await _basketRepository.GetBasketById(basketCheckout.BasketId);
+
+                if (basket == null)
+                {
+                    return BadRequest();
+                }
+
+                BasketCheckoutMessage basketCheckoutMessage = _mapper.Map<BasketCheckoutMessage>(basketCheckout);
+                basketCheckoutMessage.BasketLines = new List<BasketLineMessage>();
+
+                foreach (var b in basket.BasketLines)
+                {
+                    var basketLineMessage = new BasketLineMessage
+                    {
+                        BasketLineId = b.BasketLineId,
+                        ChassisId = b.ChassisId,
+                        EngineId = b.EngineId,
+                        OptionPackId = b.OptionPackId,
+                        Quantity = b.Quantity,
+                        Price = b.UnitPrice,
+                    };
+                    basketCheckoutMessage.BasketLines.Add(basketLineMessage);
+                }
+
+                try
+                {
+                    await _messageBus.PublishMessage(basketCheckoutMessage, _checkoutRequestTopic);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+
+                await _basketRepository.ClearBasket(basketCheckout.BasketId);
+                return Accepted(basketCheckoutMessage);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                string message = ex.Message;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.StackTrace);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.StackTrace);
+            }
         }
     }
 }
