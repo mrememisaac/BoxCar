@@ -13,5 +13,7 @@ namespace BoxCar.ShoppingBasket.Repositories
         void AddBasket(Basket basket);
 
         Task<bool> SaveChanges();
+
+        Task ClearBasket(Guid basketId);
     }
 }

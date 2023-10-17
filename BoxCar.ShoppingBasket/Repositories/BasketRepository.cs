@@ -38,5 +38,13 @@ namespace BoxCar.ShoppingBasket.Repositories
         {
             return (await _shoppingBasketDbContext.SaveChangesAsync() > 0);
         }
+
+        public async Task ClearBasket(Guid basketId)
+        {
+            var basketLinesToClear = _shoppingBasketDbContext.BasketLines.Where(b => b.BasketId == basketId);
+            _shoppingBasketDbContext.BasketLines.RemoveRange(basketLinesToClear);
+
+            await SaveChanges();
+        }
     }
 }
