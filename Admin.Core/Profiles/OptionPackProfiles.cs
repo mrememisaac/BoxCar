@@ -34,6 +34,8 @@ namespace BoxCar.Admin.Core.Profiles
             CreateMap<OptionPack, Features.Vehicles.AddVehicle.OptionPackDto>();
             CreateMap<OptionPack, OptionPackAddedEvent>()
                 .ForMember(d => d.OptionPackId, opt => opt.MapFrom(src => src.Id));
+            CreateMap<OptionPack, Features.OptionPacks.ListOptionPacks.OptionPackQueryItem>();
+            CreateMap<OptionPack, Features.Vehicles.ListVehicles.OptionPackQueryItem>();
         }
     }
 }
