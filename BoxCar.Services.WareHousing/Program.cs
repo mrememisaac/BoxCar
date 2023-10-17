@@ -1,7 +1,10 @@
 using BoxCar.Integration.MessageBus;
+using BoxCar.Services.WareHousing.Contracts.Messaging;
 using BoxCar.Services.WareHousing.DbContexts;
+using BoxCar.Services.WareHousing.Extensions;
 using BoxCar.Services.WareHousing.Messaging;
 using BoxCar.Services.WareHousing.Repositories;
+using BoxCar.Services.WareHousing.Worker;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,11 +29,11 @@ optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCo
 builder.Services.AddSingleton(new ItemsRepository(optionsBuilder.Options));
 
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
-builder.Services.AddSingleton<IAzServiceBusConsumer, ChassisAddedEventConsumer>();
-builder.Services.AddSingleton<IAzServiceBusConsumer, EngineAddedEventConsumer>();
-builder.Services.AddSingleton<IAzServiceBusConsumer, VehicleAddedEventConsumer>();
-builder.Services.AddSingleton<IAzServiceBusConsumer, OptionPackAddedEventConsumer>();
-
+builder.Services.AddSingleton<IChassisAzServiceBusConsumer, ChassisAddedEventConsumer>();
+builder.Services.AddSingleton<IEngineAzServiceBusConsumer, EngineAddedEventConsumer>();
+builder.Services.AddSingleton<IVehicleAzServiceBusConsumer, VehicleAddedEventConsumer>();
+builder.Services.AddSingleton<IOptionPackAzServiceBusConsumer, OptionPackAddedEventConsumer>();
+builder.Services.AddHostedService<OrderFulfillmentService>();
 
 builder.Services.AddSwaggerGen();
 
@@ -48,5 +51,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseAzServiceBusConsumer();
 
 app.Run();
