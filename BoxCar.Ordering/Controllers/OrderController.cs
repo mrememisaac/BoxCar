@@ -17,13 +17,13 @@ namespace BoxCar.Ordering.Controllers
         private readonly string _orderCancellationRequestTopic;
 
         public OrderController(IOrderRepository orderRepository, IMessageBus messageBus, 
-            ILogger<OrderController> logger
+            ILogger<OrderController> logger,
             IConfiguration configuration)
         {
             _orderRepository = orderRepository;
             _messageBus = messageBus;
             _logger = logger;
-            _orderCancellationRequestTopic = configuration.GetValue<string>("OrderCancellationRequest");
+            _orderCancellationRequestTopic = configuration.GetValue<string>("OrderCancellationRequest") ?? "order_cancellation_request";
         }
 
         [HttpGet("user/{userId}")]
@@ -45,7 +45,7 @@ namespace BoxCar.Ordering.Controllers
             await _orderRepository.CancelOrder(order);
             try
             {
-                await _messageBus.PublishMessage(new OrderCancellationRequest { OrderId = orderId }, _orderCancellationRequestTopic)
+                await _messageBus.PublishMessage(new OrderCancellationRequest { OrderId = orderId }, _orderCancellationRequestTopic);
             }
             catch (Exception e)
             {
