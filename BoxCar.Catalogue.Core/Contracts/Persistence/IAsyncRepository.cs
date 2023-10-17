@@ -1,9 +1,4 @@
 ﻿using BoxCar.Catalogue.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BoxCar.Catalogue.Core.Contracts.Persistence
 {
@@ -20,5 +15,7 @@ namespace BoxCar.Catalogue.Core.Contracts.Persistence
         Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken);
 
         Task<IReadOnlyList<T>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken);
+
+        Task<bool> Exists(TId id, CancellationToken cancellationToken);
     }
 }
