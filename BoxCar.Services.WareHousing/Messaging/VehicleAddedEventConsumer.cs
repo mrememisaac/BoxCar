@@ -5,16 +5,17 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.ServiceBus.Core;
 using System.Text;
 using BoxCar.Services.WareHousing.Messages;
+using BoxCar.Services.WareHousing.Contracts.Messaging;
 
 namespace BoxCar.Services.WareHousing.Messaging
 {
-    public class VehicleAddedEventConsumer : AzServiceBusConsumerBase, IAzServiceBusConsumer
+    public class VehicleAddedEventConsumer : AzServiceBusConsumerBase, IVehicleAzServiceBusConsumer
     {
         private readonly string _vehicleAddedEventTopic;
         private readonly IReceiverClient _vehicleAddedMessageReceiverClient;
 
-        public VehicleAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository)
-            : base(configuration, messageBus, itemsRepository)
+        public VehicleAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+            : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
             _vehicleAddedEventTopic = _configuration.GetValue<string>("VehicleAddedEventTopic");
             _vehicleAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _vehicleAddedEventTopic, _subscriptionName);
@@ -31,13 +32,15 @@ namespace BoxCar.Services.WareHousing.Messaging
             var body = Encoding.UTF8.GetString(message.Body);
 
             var vehicle = System.Text.Json.JsonSerializer.Deserialize<VehicleAddedEvent>(body);
-
+            if (vehicle == null) return;
             var item = new Item
             {
                 Id = Guid.NewGuid(),
                 Name = vehicle.Name,
-                ItemType = "Vehicle",
-                ItemTypeId = vehicle.VehicleId
+                ItemType = ItemType.Vehicle,
+                ItemTypeId = vehicle.VehicleId,
+                SpecificationKey =
+                SpecificationKeyGenerator.GenerateSpecificationKey(vehicle.VehicleId, vehicle.Chassis.ChassisId, vehicle.Engine.EngineId, vehicle.OptionPack.OptionPackId)
             };
             await _itemsRepository.Add(item);
         }

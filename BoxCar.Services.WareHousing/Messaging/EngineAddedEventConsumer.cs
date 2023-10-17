@@ -5,17 +5,18 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.ServiceBus.Core;
 using System.Text;
 using BoxCar.Services.WareHousing.Messages;
+using BoxCar.Services.WareHousing.Contracts.Messaging;
 
 namespace BoxCar.Services.WareHousing.Messaging
 {
 
-    public class EngineAddedEventConsumer : AzServiceBusConsumerBase, IAzServiceBusConsumer
+    public class EngineAddedEventConsumer : AzServiceBusConsumerBase, IEngineAzServiceBusConsumer
     {
         private readonly string _engineAddedEventTopic;
         private readonly IReceiverClient _engineAddedMessageReceiverClient;
 
-        public EngineAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository)
-            : base(configuration, messageBus, itemsRepository)
+        public EngineAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+            : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
             _engineAddedEventTopic = _configuration.GetValue<string>("EngineAddedEventTopic");
             _engineAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _engineAddedEventTopic, _subscriptionName);
@@ -32,12 +33,12 @@ namespace BoxCar.Services.WareHousing.Messaging
             var body = Encoding.UTF8.GetString(message.Body);
 
             var engine = System.Text.Json.JsonSerializer.Deserialize<EngineAddedEvent>(body);
-
+            if (engine == null) return;
             var item = new Item
             {
-                Id = Guid.NewGuid(),
+                Id = engine.EngineId,
                 Name = engine.Name,
-                ItemType = "Engine",
+                ItemType = ItemType.Engine,
                 ItemTypeId = engine.EngineId
             };
             await _itemsRepository.Add(item);

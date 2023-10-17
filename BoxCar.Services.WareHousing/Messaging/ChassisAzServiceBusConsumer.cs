@@ -5,16 +5,17 @@ using BoxCar.Services.WareHousing.Messages;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.ServiceBus.Core;
 using System.Text;
+using BoxCar.Services.WareHousing.Contracts.Messaging;
 
 namespace BoxCar.Services.WareHousing.Messaging
 {
-    public class ChassisAddedEventConsumer : AzServiceBusConsumerBase, IAzServiceBusConsumer
+    public class ChassisAddedEventConsumer : AzServiceBusConsumerBase, IChassisAzServiceBusConsumer
     {
         private readonly string _chassisAddedEventTopic;
         private readonly IReceiverClient _chassisAddedMessageReceiverClient;
 
-        public ChassisAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository)
-            : base(configuration, messageBus, itemsRepository)
+        public ChassisAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+            : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
             _chassisAddedEventTopic = _configuration.GetValue<string>("ChassisAddedEventTopic");
             _chassisAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _chassisAddedEventTopic, _subscriptionName);
@@ -31,12 +32,12 @@ namespace BoxCar.Services.WareHousing.Messaging
             var body = Encoding.UTF8.GetString(message.Body);
 
             var chassis = System.Text.Json.JsonSerializer.Deserialize<ChassisAddedEvent>(body);
-
+            if (chassis == null) return;
             var item = new Item
             {
-                Id = Guid.NewGuid(),
+                Id = chassis.ChassisId,
                 Name = chassis.Name,
-                ItemType = "Chassis",
+                ItemType = ItemType.Chassis,
                 ItemTypeId = chassis.ChassisId
             };
             await _itemsRepository.Add(item);
