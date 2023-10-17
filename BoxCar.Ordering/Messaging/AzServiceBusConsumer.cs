@@ -38,11 +38,13 @@ namespace BoxCar.Ordering.Messaging
             var serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionName = _configuration.GetValue<string>("SubscriptionName"); 
             checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
-            orderPaymentRequestMessageTopic = _configuration.GetValue<string>("OrderPaymentRequestMessageTopic");
-            orderPaymentUpdatedMessageTopic = _configuration.GetValue<string>("OrderPaymentUpdatedMessageTopic");
+            _orderStatusUpdateMessageTopic = _configuration.GetValue<string>("OrderStatusUpdateMessageTopic");
+            _orderPaymentRequestMessageTopic = _configuration.GetValue<string>("OrderPaymentRequestMessageTopic");
+            _orderPaymentUpdatedMessageTopic = _configuration.GetValue<string>("OrderPaymentUpdatedMessageTopic");
+            _fulfillOrderRequestMessageTopic = _configuration.GetValue<string>("FulfillOrderRequestMessageTopic");
 
-            checkoutMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, checkoutMessageTopic, subscriptionName);
-            orderPaymentUpdateMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, orderPaymentUpdatedMessageTopic, subscriptionName);
+            _checkoutMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, checkoutMessageTopic, subscriptionName);
+            _orderPaymentUpdateMessageReceiverClient = new SubscriptionClient(serviceBusConnectionString, _orderPaymentUpdatedMessageTopic, subscriptionName);
         }
 
         public void Start()
