@@ -54,5 +54,17 @@ namespace BoxCar.Services.WareHousing.Repositories
                         x.ItemTypeId == line.ChassisId || 
                         x.ItemTypeId == line.OptionPackId).ToListAsync();
         }
+
+        public async Task ReduceVehicleStockCount(string specification, int reduceByQuantity)
+        {
+            if (reduceByQuantity <= 0) return;
+            await using var _dbContext = new ItemsDbContext(dbContextOptions);
+            var vehicleWithMatchingSpecification = await _dbContext.Items.FirstOrDefaultAsync(i => i.SpecificationKey.Equals(specification, StringComparison.OrdinalIgnoreCase));
+            if (vehicleWithMatchingSpecification != null)
+            {
+                vehicleWithMatchingSpecification.Quantity -= reduceByQuantity;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }

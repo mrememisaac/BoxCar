@@ -14,7 +14,9 @@ namespace BoxCar.Services.WareHousing.Repositories
         Task<Item?> GetByItemTypeAndItemTypeId(ItemType type, Guid itemTypeId);
 
         Task<Item?> GetBySpecificationKey(string specification);
+        
         Task<IEnumerable<Item>> GetComponents(FulfillOrderRequestLine line);
-
+        
+        Task ReduceVehicleStockCount(string specification, int reduceByQuantity);
     }
 }
