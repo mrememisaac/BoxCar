@@ -1,6 +1,8 @@
-﻿namespace BoxCar.Ordering.Messages
+﻿using BoxCar.Integration.Messages;
+
+namespace BoxCar.Ordering.Messages
 {
-    public class OrderCancellationRequest
+    public class OrderCancellationRequest : IntegrationBaseMessage
     {
         public Guid UserId { get; set; }
 
