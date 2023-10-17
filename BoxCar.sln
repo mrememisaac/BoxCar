@@ -47,13 +47,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.ShoppingBasket", "Bo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Ordering", "BoxCar.Ordering\BoxCar.Ordering.csproj", "{090DE52C-F7D4-458E-AD34-2FD3D028D2D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.Payment", "BoxCar.Services.Payment\BoxCar.Services.Payment.csproj", "{01A19A10-13F4-4902-B068-23F020120C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Services.Payment", "BoxCar.Services.Payment\BoxCar.Services.Payment.csproj", "{01A19A10-13F4-4902-B068-23F020120C05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.PaymentGateway", "External.PaymentGateway", "{3A81841C-EA04-437D-8085-A24F93880995}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "External.PaymentGateway", "External.PaymentGateway\External.PaymentGateway.csproj", "{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.WareHousing", "BoxCar.Services.WareHousing\BoxCar.Services.WareHousing.csproj", "{C69376EA-C54E-4FF2-8421-B0999BDE4738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Services.WareHousing", "BoxCar.Services.WareHousing\BoxCar.Services.WareHousing.csproj", "{C69376EA-C54E-4FF2-8421-B0999BDE4738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.Notifications", "BoxCar.Services.Notifications\BoxCar.Services.Notifications.csproj", "{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,10 @@ Global
 		{C69376EA-C54E-4FF2-8421-B0999BDE4738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C69376EA-C54E-4FF2-8421-B0999BDE4738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C69376EA-C54E-4FF2-8421-B0999BDE4738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{01A19A10-13F4-4902-B068-23F020120C05} = {071D40A2-2997-4027-8964-CE6C728D0CA3}
 		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89} = {3A81841C-EA04-437D-8085-A24F93880995}
 		{C69376EA-C54E-4FF2-8421-B0999BDE4738} = {75A97EBB-088E-44CD-8AD9-41C8BA2363FD}
+		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6} = {CB11E5D5-EEF1-416E-9DD9-28496820B31C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}
