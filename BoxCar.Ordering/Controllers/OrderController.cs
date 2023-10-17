@@ -1,4 +1,6 @@
-﻿using BoxCar.Ordering.Repositories;
+﻿using BoxCar.Integration.MessageBus;
+using BoxCar.Ordering.Messages;
+using BoxCar.Ordering.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -10,10 +12,18 @@ namespace BoxCar.Ordering.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IMessageBus _messageBus;
+        private readonly ILogger<OrderController> _logger;
+        private readonly string _orderCancellationRequestTopic;
 
-        public OrderController(IOrderRepository orderRepository)
+        public OrderController(IOrderRepository orderRepository, IMessageBus messageBus, 
+            ILogger<OrderController> logger
+            IConfiguration configuration)
         {
             _orderRepository = orderRepository;
+            _messageBus = messageBus;
+            _logger = logger;
+            _orderCancellationRequestTopic = configuration.GetValue<string>("OrderCancellationRequest");
         }
 
         [HttpGet("user/{userId}")]
@@ -33,6 +43,14 @@ namespace BoxCar.Ordering.Controllers
                 return BadRequest(new { Message = "Cannot cancel an order that has already been collected " });
             }
             await _orderRepository.CancelOrder(order);
+            try
+            {
+                await _messageBus.PublishMessage(new OrderCancellationRequest { OrderId = orderId }, _orderCancellationRequestTopic)
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An error occured while publishing an order cancellation message for  order {0}", orderId);
+            }
             return Ok(order);
         }
     }
