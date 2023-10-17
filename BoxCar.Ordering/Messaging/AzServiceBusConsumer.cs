@@ -111,6 +111,11 @@ namespace BoxCar.Ordering.Messaging
             {
                 await _messageBus.PublishMessage(orderReceived, _orderStatusUpdateMessageTopic);
         }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error arose while handling checkout message by User {0} for Order {1}", basketCheckoutMessage.UserId, orderId);
+            }
+        }
 
         private async Task OnOrderPaymentUpdateReceived(Message message, CancellationToken arg2)
         {
