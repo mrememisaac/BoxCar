@@ -11,6 +11,8 @@ namespace BoxCar.Ordering.Entities
         public DateTime OrderPlaced { get; set; }
         public bool OrderPaid { get; set; }
 
-        public Collection<OrderLine> OrderLines { get; set; }
+        public Collection<OrderLine> OrderLines { get; set; } = new();
+
+        public FulfillmentStatus FulfillmentStatus { get; set; }
     }
 }
