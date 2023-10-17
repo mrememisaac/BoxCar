@@ -1,3 +1,5 @@
+using BoxCar.Admin.Core;
+using BoxCar.Admin.Persistence;
 using BoxCar.Integration.MessageBus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddApplicationServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMessageBus, RabbitMQMessageBus>();
 
