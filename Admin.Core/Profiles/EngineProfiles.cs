@@ -48,6 +48,8 @@ namespace BoxCar.Admin.Core.Profiles
                 .ReverseMap();
             CreateMap<Engine, EngineAddedEvent>()
                 .ForMember(d => d.EngineId, opt => opt.MapFrom(src => src.Id));
+            CreateMap<Engine, Features.Engines.ListEngines.EngineQueryItem>();
+            CreateMap<Engine, Features.Vehicles.ListVehicles.EngineQueryItem>();
         }
     }
 }
