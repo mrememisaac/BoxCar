@@ -25,8 +25,11 @@ namespace BoxCar.Ordering.Messaging
         private readonly IMessageBus _messageBus;
 
         private readonly string checkoutMessageTopic;
-        private readonly string orderPaymentRequestMessageTopic;
-        private readonly string orderPaymentUpdatedMessageTopic;
+        private readonly string _orderPaymentRequestMessageTopic;
+        private readonly string _orderPaymentUpdatedMessageTopic;
+        private readonly ILogger _logger;
+        private readonly string _orderStatusUpdateMessageTopic;
+        private readonly string _fulfillOrderRequestMessageTopic;
 
         public AzServiceBusConsumer(IConfiguration configuration, IMessageBus messageBus, OrderRepository orderRepository, ILoggerFactory loggerFactory)
         {
@@ -51,8 +54,8 @@ namespace BoxCar.Ordering.Messaging
         {
             var messageHandlerOptions = new MessageHandlerOptions(OnServiceBusException) { MaxConcurrentCalls = 4 };
 
-            checkoutMessageReceiverClient.RegisterMessageHandler(OnCheckoutMessageReceived, messageHandlerOptions);
-            orderPaymentUpdateMessageReceiverClient.RegisterMessageHandler(OnOrderPaymentUpdateReceived, messageHandlerOptions);
+            _checkoutMessageReceiverClient.RegisterMessageHandler(OnCheckoutMessageReceived, messageHandlerOptions);
+            _orderPaymentUpdateMessageReceiverClient.RegisterMessageHandler(OnOrderPaymentUpdateReceived, messageHandlerOptions);
         }
 
         private async Task OnCheckoutMessageReceived(Message message, CancellationToken arg2)
