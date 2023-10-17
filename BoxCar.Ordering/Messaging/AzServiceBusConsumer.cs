@@ -32,7 +32,7 @@ namespace BoxCar.Ordering.Messaging
         {
             _configuration = configuration;
             _orderRepository = orderRepository;
-            // _logger = logger;
+            _logger = loggerFactory.CreateLogger<AzServiceBusConsumer>();
             _messageBus = messageBus;
 
             var serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
