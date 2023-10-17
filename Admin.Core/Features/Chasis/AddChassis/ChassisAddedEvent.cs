@@ -13,9 +13,9 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
     {
         public Guid ChassisId { get; set; }
 
-        public string Name { get; private set; } = null!;
+        public string Name { get; set; } = null!;
 
-        public string Description { get; private set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public int Price { get; set; }
 
