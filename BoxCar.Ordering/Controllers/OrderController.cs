@@ -22,5 +22,18 @@ namespace BoxCar.Ordering.Controllers
             var orders = await _orderRepository.GetOrdersForUser(userId);
             return Ok(orders);
         }
+
+        [HttpPost("cancel/{orderId}")]
+        public async Task<IActionResult> Cancel(Guid orderId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+            if (order == null) return NotFound();
+            if(order.FulfillmentStatus == Entities.FulfillmentStatus.Collected)
+            {
+                return BadRequest(new { Message = "Cannot cancel an order that has already been collected " });
+            }
+            await _orderRepository.CancelOrder(order);
+            return Ok(order);
+        }
     }
 }
