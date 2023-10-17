@@ -5,7 +5,6 @@ using System.Text;
 using BoxCar.Catalogue.Messages;
 using BoxCar.Catalogue.Core.Contracts.Persistence;
 using Microsoft.Extensions.Configuration;
-using BoxCar.Catalogue.Core.Contracts.Services;
 using BoxCar.Catalogue.Core.Contracts.Messaging;
 using Microsoft.Extensions.Logging;
 
