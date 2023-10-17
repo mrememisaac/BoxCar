@@ -169,8 +169,7 @@ namespace BoxCar.Ordering.Messaging
 
         private Task OnServiceBusException(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
         {
-            Console.WriteLine(exceptionReceivedEventArgs);
-
+            _logger.LogError("A service bus exception occured for subscription {0}. Exception: {1}", subscriptionName, exceptionReceivedEventArgs);
             return Task.CompletedTask;
         }
 
