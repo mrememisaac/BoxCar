@@ -2,11 +2,20 @@
 
 namespace BoxCar.Services.WareHousing.Messages
 {
-    public class VehicleAddedEvent : IntegrationBaseMessage
+    public class VehicleAddedEvent
     {
+        public Guid Id { get; set; }
         public Guid VehicleId { get; set; }
 
         public string Name { get; set; } = null!;
+
+        public ChassisAddedEvent Chassis { get; set; }
+
+        public EngineAddedEvent Engine { get; set; }
+
+        public OptionPackAddedEvent OptionPack { get; set; }
+
+        public int Price { get; set; }
 
     }
 }

@@ -2,13 +2,13 @@
 
 namespace BoxCar.Services.WareHousing.Messages
 {
-    public class OptionPackAddedEvent : IntegrationBaseMessage
+    public class OptionPackAddedEvent
     {
         public Guid OptionPackId { get; set; }
 
         public string Name { get; set; } = null!;
 
-        public List<AddOptionDto> Options = new List<AddOptionDto>();
+        public List<OptionDto> Options = new List<OptionDto>();
 
     }
 }
