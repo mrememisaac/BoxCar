@@ -7,6 +7,8 @@ using BoxCar.Catalogue.Core.Extensions;
 using BoxCar.Catalogue.Domain;
 using BoxCar.Catalogue.Core.Contracts.Persistence;
 using BoxCar.Catalogue.Persistence.Repositories;
+using BoxCar.Catalogue.Core;
+using BoxCar.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 
 
@@ -43,7 +46,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
