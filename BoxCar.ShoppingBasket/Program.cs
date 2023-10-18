@@ -1,3 +1,4 @@
+using BoxCar.Shared.Middlewares;
 using BoxCar.ShoppingBasket;
 using BoxCar.ShoppingBasket.DbContexts;
 using BoxCar.ShoppingBasket.Repositories;
@@ -51,7 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

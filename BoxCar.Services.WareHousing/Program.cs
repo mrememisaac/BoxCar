@@ -5,6 +5,7 @@ using BoxCar.Services.WareHousing.Extensions;
 using BoxCar.Services.WareHousing.Messaging;
 using BoxCar.Services.WareHousing.Repositories;
 using BoxCar.Services.WareHousing.Worker;
+using BoxCar.Shared.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,7 +46,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

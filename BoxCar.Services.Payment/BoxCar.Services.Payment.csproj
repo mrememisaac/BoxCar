@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj" />
     <ProjectReference Include="..\BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj" />
+    <ProjectReference Include="..\BoxCar.Shared\BoxCar.Shared.csproj" />
   </ItemGroup>
 
 </Project>

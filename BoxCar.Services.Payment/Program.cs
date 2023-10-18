@@ -1,6 +1,7 @@
 using BoxCar.Integration.MessageBus;
 using BoxCar.Services.Payment.Services;
 using BoxCar.Services.Payment.Worker;
+using BoxCar.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

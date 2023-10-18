@@ -3,6 +3,7 @@ using BoxCar.Ordering.DbContexts;
 using BoxCar.Ordering.Extensions;
 using BoxCar.Ordering.Messaging;
 using BoxCar.Ordering.Repositories;
+using BoxCar.Shared.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -41,7 +42,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
