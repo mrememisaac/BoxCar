@@ -3,6 +3,8 @@ using BoxCar.Admin.Core.Features.Engines.GetEngine;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BoxCar.Admin.Core.Features.Engines.ListEngines;
+using BoxCar.Admin.Api.Models;
 
 namespace BoxCar.Admin.Api.Controllers
 {
@@ -44,6 +46,16 @@ namespace BoxCar.Admin.Api.Controllers
             {
                 return NotFound();
             }
+            return Ok(response);
+        }
+
+        [HttpGet("ListEngines", Name = nameof(ListEngines))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetEngineByIdResponse>> ListEngines(int pageNumber, int pageSize)
+        {
+            var response = await _mediator.Send(new GetEngineQuery { PageNumber = pageNumber, PageSize = pageSize });
             return Ok(response);
         }
     }
