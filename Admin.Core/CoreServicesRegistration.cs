@@ -1,4 +1,5 @@
-﻿using BoxCar.Admin.Core.Features;
+﻿using BoxCar.Admin.Core.Contracts.Identity;
+using BoxCar.Admin.Core.Features;
 using BoxCar.Admin.Core.Features.Chasis.AddChassis;
 using BoxCar.Admin.Core.Features.Chasis.GetChassis;
 using BoxCar.Admin.Core.Features.Engines.AddEngine;
@@ -15,12 +16,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BoxCar.Admin.Core
 {
@@ -30,25 +26,27 @@ namespace BoxCar.Admin.Core
         {
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration.GetValue<string>("CacheSettings:RedisCache");
+                options.Configuration = configuration.GetValue<string>("RedisConnectionString");
             });
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            services.AddSingleton<AddFactoryCommandValidator>();
-            services.AddSingleton<AddWareHouseCommandValidator>();
-            services.AddSingleton<AddVehicleCommandValidator>();
-            services.AddSingleton<AddEngineCommandValidator>();
-            services.AddSingleton<AddChassisCommandValidator>();
-            services.AddSingleton<AddOptionPackCommandValidator>();
-            services.AddSingleton<AddressDtoValidator>();
-            services.AddSingleton<AddOptionDtoValidator>();
-            services.AddSingleton<GetWareHouseByIdQueryValidator>();
-            services.AddSingleton<GetVehicleByIdQueryValidator>();
-            services.AddSingleton<GetOptionPackByIdQueryValidator>();
-            services.AddSingleton<GetEngineByIdQueryValidator>();
-            services.AddSingleton<GetChassisByIdQueryValidator>();
-            services.AddSingleton<GetFactoryByIdQueryValidator>();
+            services.AddScoped<AddFactoryCommandValidator>();
+            services.AddScoped<AddWareHouseCommandValidator>();
+            services.AddScoped<AddVehicleCommandValidator>();
+            services.AddScoped<AddEngineCommandValidator>();
+            services.AddScoped<AddChassisCommandValidator>();
+            services.AddScoped<AddOptionPackCommandValidator>();
+            services.AddScoped<AddressDtoValidator>();
+            services.AddScoped<AddOptionDtoValidator>();
+            services.AddScoped<GetWareHouseByIdQueryValidator>();
+            services.AddScoped<GetVehicleByIdQueryValidator>();
+            services.AddScoped<GetOptionPackByIdQueryValidator>();
+            services.AddScoped<GetEngineByIdQueryValidator>();
+            services.AddScoped<GetChassisByIdQueryValidator>();
+            services.AddScoped<GetFactoryByIdQueryValidator>();
+            services.AddTransient(typeof(IResult<>), typeof(Result<>));
+
             return services;
         }
     }
