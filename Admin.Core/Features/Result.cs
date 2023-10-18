@@ -1,6 +1,15 @@
 ﻿namespace BoxCar.Admin.Core.Features
 {
-    public class Result<T> where T : class
+    public interface IResult<T>
+    {
+        public T Value { get; }
+
+        public bool Success { get; }
+
+        public string Message { get; }
+    }
+
+    public class Result<T> : IResult<T>
     {
         public T Value { get; set; }
 
