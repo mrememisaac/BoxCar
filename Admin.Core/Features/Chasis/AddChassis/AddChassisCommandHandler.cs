@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using BoxCar.Integration.MessageBus;
 using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
 using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
 {
@@ -17,17 +18,19 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
         private readonly ILogger<AddChassisCommandHandler> _logger;
         private readonly AddChassisCommandValidator _validator;
         private readonly IMessageBus _messageBus;
+        private string _eventTopic;
 
         public AddChassisCommandHandler(IMapper mapper, 
             IAsyncRepository<Chassis,Guid> repository, 
             ILogger<AddChassisCommandHandler> logger,
-            AddChassisCommandValidator validator, IMessageBus messageBus)
+            AddChassisCommandValidator validator, IMessageBus messageBus, IConfiguration configuration)
         {
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
             _validator = validator;
             _messageBus = messageBus;
+            _eventTopic = configuration.GetValue<string>(nameof(ChassisAddedEvent)) ?? throw new ArgumentNullException($"{nameof(ChassisAddedEvent)} configuration value missing");
         }
         public async Task<Result<AddChassisResponse>> Handle(AddChassisCommand request, CancellationToken cancellationToken)
         {
@@ -42,13 +45,13 @@ namespace BoxCar.Admin.Core.Features.Chasis.AddChassis
             var newEvent = _mapper.Map<ChassisAddedEvent>(chassis);
             try
             {
-                await _messageBus.PublishMessage(newEvent, nameof(ChassisAddedEvent).ToLower());
+                await _messageBus.PublishMessage(newEvent, _eventTopic);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Writing {newEvent} to message bus failed. Rolling back", newEvent);
                 await _repository.DeleteAsync(chassis, cancellationToken);
-                return new Result<AddChassisResponse>(false, "An error occured while writing to message bus");
+                throw;
             }
             return new Result<AddChassisResponse>(_mapper.Map<AddChassisResponse>(chassis));
         }

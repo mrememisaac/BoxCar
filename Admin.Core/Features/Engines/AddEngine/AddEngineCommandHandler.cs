@@ -4,6 +4,7 @@ using BoxCar.Admin.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using BoxCar.Integration.MessageBus;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Core.Features.Engines.AddEngine
 {
@@ -14,17 +15,19 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
         private readonly ILogger<AddEngineCommandHandler> _logger;
         private readonly AddEngineCommandValidator _validator;
         private readonly IMessageBus _messageBus;
+        private string _eventTopic;
 
         public AddEngineCommandHandler(IMapper mapper,
             IAsyncRepository<Engine, Guid> repository,
             ILogger<AddEngineCommandHandler> logger,
-            AddEngineCommandValidator validator, IMessageBus messageBus)
+            AddEngineCommandValidator validator, IMessageBus messageBus, IConfiguration configuration)
         {
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
             _validator = validator;
             _messageBus = messageBus;
+            _eventTopic = configuration.GetValue<string>(nameof(EngineAddedEvent)) ?? throw new ArgumentNullException($"{nameof(EngineAddedEvent)} configuration value missing");
         }
         public async Task<Result<AddEngineResponse>> Handle(AddEngineCommand request, CancellationToken cancellationToken)
         {
@@ -39,13 +42,13 @@ namespace BoxCar.Admin.Core.Features.Engines.AddEngine
             var newEvent = _mapper.Map<EngineAddedEvent>(engine);
             try
             {
-                await _messageBus.PublishMessage(newEvent, nameof(EngineAddedEvent).ToLower());
+                await _messageBus.PublishMessage(newEvent, _eventTopic);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Writing {newEvent} to message bus failed", newEvent);
                 await _repository.DeleteAsync(engine, cancellationToken);
-                return new Result<AddEngineResponse>(false, "An error occured while writing to message bus");
+                throw;
             }
             return new Result<AddEngineResponse>(_mapper.Map<AddEngineResponse>(engine));
         }

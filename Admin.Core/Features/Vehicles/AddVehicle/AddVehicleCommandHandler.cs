@@ -6,10 +6,11 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using BoxCar.Integration.MessageBus;
 using BoxCar.Admin.Core.Features.Engines.AddEngine;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
-    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, Result<AddVehicleResponse>>
+    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, IResult<AddVehicleResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Vehicle, Guid> _repository;
@@ -19,6 +20,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
         private readonly ILogger<AddVehicleCommandHandler> _logger;
         private readonly AddVehicleCommandValidator _validator;
         private readonly IMessageBus _messageBus;
+        private string _eventTopic;
 
         public AddVehicleCommandHandler(IMapper mapper,
             IAsyncRepository<Vehicle, Guid> repository,
@@ -26,7 +28,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             IAsyncRepository<Engine, Guid> enginesRepository,
             IAsyncRepository<OptionPack, Guid> optionPacksRepository,
             ILogger<AddVehicleCommandHandler> logger,
-            AddVehicleCommandValidator validator, IMessageBus messageBus)
+            AddVehicleCommandValidator validator, IMessageBus messageBus, IConfiguration configuration)
         {
             _mapper = mapper;
             _repository = repository;
@@ -36,8 +38,9 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             _logger = logger;
             _validator = validator;
             _messageBus = messageBus;
+            _eventTopic = configuration.GetValue<string>(nameof(VehicleAddedEvent)) ?? throw new ArgumentNullException($"{nameof(VehicleAddedEvent)} configuration value missing");
         }
-        public async Task<Result<AddVehicleResponse>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<AddVehicleResponse>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Adding a vehicle {request}", request); 
             var validationResult = await _validator.ValidateAsync(request, cancellationToken);
@@ -53,13 +56,13 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             var newEvent = _mapper.Map<VehicleAddedEvent>(engine);
             try
             {
-                await _messageBus.PublishMessage(newEvent, nameof(VehicleAddedEvent).ToLower());
+                await _messageBus.PublishMessage(newEvent, _eventTopic);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Writing {newEvent} to message bus failed. Rolling back", newEvent);
                 await _repository.DeleteAsync(vehicle, cancellationToken);
-                return new Result<AddVehicleResponse>(false, "An error occured while writing to message bus");
+                throw;
             }
             return new Result<AddVehicleResponse>(_mapper.Map<AddVehicleResponse>(vehicle));
         }
