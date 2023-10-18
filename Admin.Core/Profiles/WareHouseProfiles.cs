@@ -30,6 +30,7 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<WareHouse, WareHouseAddedEvent>()
+                .ForMember(d => d.CreationDateTime, opt => opt.MapFrom(src => src.CreatedDate))
                 .ForMember(d => d.WareHouseId, opt => opt.MapFrom(src => src.Id));
         }
     }

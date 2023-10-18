@@ -17,22 +17,26 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AddOptionPackResponse, OptionPack>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<GetOptionPackByIdResponse, OptionPack>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<OptionPack, OptionPackDto>();
             CreateMap<OptionPack, Features.Vehicles.AddVehicle.OptionPackDto>();
             CreateMap<OptionPack, OptionPackAddedEvent>()
+                .ForMember(d => d.CreationDateTime, opt => opt.MapFrom(src => src.CreatedDate))
                 .ForMember(d => d.OptionPackId, opt => opt.MapFrom(src => src.Id));
             CreateMap<OptionPack, Features.OptionPacks.ListOptionPacks.OptionPackQueryItem>();
             CreateMap<OptionPack, Features.Vehicles.ListVehicles.OptionPackQueryItem>();

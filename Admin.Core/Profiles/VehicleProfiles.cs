@@ -14,6 +14,7 @@ namespace BoxCar.Admin.Core.Profiles
             CreateMap<Vehicle, GetVehicleByIdResponse>();
             CreateMap<Vehicle, AddVehicleResponse>();
             CreateMap<Vehicle, VehicleAddedEvent>()
+                .ForMember(d => d.CreationDateTime, opt => opt.MapFrom(src => src.CreatedDate))
                 .ForMember(d => d.VehicleId, opt => opt.MapFrom(src => src.Id));
             CreateMap<Vehicle, Features.Vehicles.ListVehicles.VehicleQueryItem>();
         }

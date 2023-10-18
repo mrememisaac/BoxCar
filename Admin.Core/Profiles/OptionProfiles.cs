@@ -14,18 +14,21 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.OptionPacks, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<Features.Vehicles.AddVehicle.OptionDto, Option>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.OptionPacks, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AddOptionDto, Option>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.OptionPacks, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<Option, Features.Vehicles.ListVehicles.OptionQueryItem>();
             CreateMap<Option, Features.OptionPacks.ListOptionPacks.OptionQueryItem>();

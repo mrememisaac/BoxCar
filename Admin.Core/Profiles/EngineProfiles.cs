@@ -21,32 +21,38 @@ namespace BoxCar.Admin.Core.Profiles
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AddEngineResponse, Engine>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<GetEngineByIdResponse, Engine>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<EngineDto, Engine>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<Features.Vehicles.AddVehicle.EngineDto, Engine>()
                 .ForMember(d => d.CreatedBy, opt => opt.Ignore())
                 .ForMember(d => d.CreatedDate, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedBy, opt => opt.Ignore())
                 .ForMember(d => d.UpdatedDate, opt => opt.Ignore())
+                .ForMember(d => d.Vehicles, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<Engine, EngineAddedEvent>()
+                .ForMember(d => d.CreationDateTime, opt => opt.MapFrom(src => src.CreatedDate))
                 .ForMember(d => d.EngineId, opt => opt.MapFrom(src => src.Id));
             CreateMap<Engine, Features.Engines.ListEngines.EngineQueryItem>();
             CreateMap<Engine, Features.Vehicles.ListVehicles.EngineQueryItem>();
