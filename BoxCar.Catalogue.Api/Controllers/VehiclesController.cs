@@ -17,7 +17,7 @@ namespace BoxCar.Catalogue.Api.Controllers
         {
             _logger = logger;
             _mediator = mediator;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         [HttpGet("GetVehicleById", Name = nameof(GetVehicleById))]
