@@ -8,6 +8,9 @@ using BoxCar.Admin.Tests.Fakes.Repositories;
 using BoxCar.Integration.MessageBus;
 using Moq;
 using BoxCar.Integration.Messages;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Distributed;
+using BoxCar.Shared.Caching;
 
 namespace BoxCar.Admin.Tests
 {
@@ -17,6 +20,7 @@ namespace BoxCar.Admin.Tests
         protected readonly CancellationToken cancellationToken;
         protected readonly IMapper mapper;
         protected readonly Mock<IMessageBus> messageBus;
+        protected readonly Mock<IDistributedCache> cache;
 
         public EntityTestsBase()
         {
@@ -24,6 +28,7 @@ namespace BoxCar.Admin.Tests
             messageBus.Setup(b => b.PublishMessage(It.IsAny<IntegrationBaseMessage>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
+           
             cancellationToken = new CancellationToken();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -38,7 +43,7 @@ namespace BoxCar.Admin.Tests
             });
             mapper = configurationProvider.CreateMapper();
             var services = new ServiceCollection();
-            services.AddApplicationServices();
+            //services.AddApplicationServices();
             services.AddScoped<IAsyncRepository<Vehicle, Guid>, ListBasedVehicleRepository>();
             services.AddScoped<IAsyncRepository<Chassis, Guid>, ListBasedChassisRepository>();
             services.AddScoped<IAsyncRepository<Engine, Guid>, ListBasedEngineRepository>();

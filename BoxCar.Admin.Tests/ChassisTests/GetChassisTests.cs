@@ -18,7 +18,7 @@ namespace BoxCar.Admin.Tests.ChassisTests
             var query = new GetChassisByIdQuery { Id = factoryId };
             var logger = new Mock<ILogger<GetChassisByIdQueryHandler>>();
             var validator = new GetChassisByIdQueryValidator();
-            var handler = new GetChassisByIdQueryHandler(repository, logger.Object, validator, mapper);
+            var handler = new GetChassisByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
 
 
             var factory = await handler.Handle(query, cancellationToken);

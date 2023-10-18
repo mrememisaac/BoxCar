@@ -18,7 +18,7 @@ namespace BoxCar.Admin.Tests.OptionPackTests
             var query = new GetOptionPackByIdQuery { Id = factoryId };
             var logger = new Mock<ILogger<GetOptionPackByIdQueryHandler>>();
             var validator = new GetOptionPackByIdQueryValidator();
-            var handler = new GetOptionPackByIdQueryHandler(repository, logger.Object, validator, mapper);
+            var handler = new GetOptionPackByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
 
 
             var factory = await handler.Handle(query, cancellationToken);

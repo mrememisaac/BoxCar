@@ -18,7 +18,7 @@ namespace BoxCar.Admin.Tests.EngineTests
             var query = new GetEngineByIdQuery { Id = factoryId };
             var logger = new Mock<ILogger<GetEngineByIdQueryHandler>>();
             var validator = new GetEngineByIdQueryValidator();
-            var handler = new GetEngineByIdQueryHandler(repository, logger.Object, validator, mapper);
+            var handler = new GetEngineByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
 
 
             var factory = await handler.Handle(query, cancellationToken);

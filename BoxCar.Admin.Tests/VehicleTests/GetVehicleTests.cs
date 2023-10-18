@@ -18,7 +18,7 @@ namespace BoxCar.Admin.Tests.VehicleTests
             var query = new GetVehicleByIdQuery { Id = factoryId };
             var logger = new Mock<ILogger<GetVehicleByIdQueryHandler>>();
             var validator = new GetVehicleByIdQueryValidator();
-            var handler = new GetVehicleByIdQueryHandler(repository, logger.Object, validator, mapper);
+            var handler = new GetVehicleByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
 
 
             var factory = await handler.Handle(query, cancellationToken);
