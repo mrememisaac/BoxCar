@@ -14,5 +14,7 @@ namespace BoxCar.Admin.Core.Features.Engines.GetEngine
 
         public int Strokes { get; set; }
 
+        public int Price { get; set; }
+
     }
 }
