@@ -57,6 +57,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Services.WareHousing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.Notifications", "BoxCar.Services.Notifications\BoxCar.Services.Notifications.csproj", "{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoxCar.Shared", "BoxCar.Shared", "{4ACC2587-5A26-4F3B-AF6F-29382570AA49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Shared", "BoxCar.Shared\BoxCar.Shared.csproj", "{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +135,10 @@ Global
 		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +161,7 @@ Global
 		{7E1CF3AD-ADDA-443E-8AA7-30C824B0BF89} = {3A81841C-EA04-437D-8085-A24F93880995}
 		{C69376EA-C54E-4FF2-8421-B0999BDE4738} = {75A97EBB-088E-44CD-8AD9-41C8BA2363FD}
 		{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6} = {CB11E5D5-EEF1-416E-9DD9-28496820B31C}
+		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6} = {4ACC2587-5A26-4F3B-AF6F-29382570AA49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F507060-461D-470B-AB79-BC8CD04E08CB}

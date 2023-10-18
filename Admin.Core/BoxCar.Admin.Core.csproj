@@ -11,13 +11,17 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BoxCar.Admin.Domain\BoxCar.Admin.Domain.csproj" />
     <ProjectReference Include="..\BoxCar.Integration.MessageBus\BoxCar.Integration.MessageBus.csproj" />
     <ProjectReference Include="..\BoxCar.Integration.Messages\BoxCar.Integration.Messages.csproj" />
+    <ProjectReference Include="..\BoxCar.Shared\BoxCar.Shared.csproj" />
   </ItemGroup>
 
 </Project>

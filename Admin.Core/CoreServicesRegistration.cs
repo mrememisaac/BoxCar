@@ -11,6 +11,9 @@ using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
 using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 using BoxCar.Admin.Core.Features.Warehouses.AddWareHouse;
 using BoxCar.Admin.Core.Features.Warehouses.GetWareHouse;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -23,8 +26,13 @@ namespace BoxCar.Admin.Core
 {
     public static class CoreServicesRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetValue<string>("CacheSettings:RedisCache");
+            });
+            services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddSingleton<AddFactoryCommandValidator>();

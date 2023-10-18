@@ -9,6 +9,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
+using BoxCar.Shared.Caching;
 
 namespace BoxCar.Catalogue.Core.Features.OptionPacks.GetOptionPack
 {
@@ -18,16 +20,19 @@ namespace BoxCar.Catalogue.Core.Features.OptionPacks.GetOptionPack
         private readonly IAsyncRepository<OptionPack, Guid> _repository;
         private readonly ILogger<GetOptionPackByIdQueryHandler> _logger;
         private readonly GetOptionPackByIdQueryValidator _validator;
+        private readonly IDistributedCache _cache;
         private readonly IMapper _mapper;
 
         public GetOptionPackByIdQueryHandler(IAsyncRepository<OptionPack, Guid> repository, 
             ILogger<GetOptionPackByIdQueryHandler> logger, 
             GetOptionPackByIdQueryValidator validator,
+            IDistributedCache cache,
             IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
             _validator = validator;
+            _cache = cache;
             _mapper = mapper;
         }
 
@@ -39,7 +44,8 @@ namespace BoxCar.Catalogue.Core.Features.OptionPacks.GetOptionPack
             {
                 throw new Exceptions.ValidationException(validationResult);
             }
-            var response = await _repository.GetByIdAsync(request.Id, cancellationToken);
+            var key = $"{nameof(GetOptionPackByIdQuery)}-{request.Id}";
+            var response = await _cache.GetFromCache<OptionPack>(key) ?? await _cache.SaveToCache<OptionPack>(key, await _repository.GetByIdAsync(request.Id, cancellationToken));
             return _mapper.Map<GetOptionPackByIdResponse>(response);
         }
     }
