@@ -2,6 +2,8 @@ using BoxCar.Catalogue.Core.Features.Chasis.GetChassis;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BoxCar.Catalogue.Api.Models;
+using BoxCar.Catalogue.Core.Features.Chasis.ListChassis;
 
 namespace BoxCar.Catalogue.Api.Controllers
 {
@@ -32,6 +34,16 @@ namespace BoxCar.Catalogue.Api.Controllers
             {
                 return NotFound();
             }
+            return Ok(response);
+        }
+
+        [HttpGet("ListChassis", Name = nameof(ListChassis))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetChassisByIdResponse>> ListChassis(int pageNumber, int pageSize)
+        {
+            var response = await _mediator.Send(new GetChassisQuery {PageNumber = pageNumber, PageSize = pageSize });
             return Ok(response);
         }
     }

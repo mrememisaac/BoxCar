@@ -2,6 +2,8 @@ using BoxCar.Catalogue.Core.Features.Vehicles.GetVehicle;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BoxCar.Catalogue.Api.Models;
+using BoxCar.Catalogue.Core.Features.Vehicles.ListVehicles;
 
 namespace BoxCar.Catalogue.Api.Controllers
 {
@@ -31,6 +33,16 @@ namespace BoxCar.Catalogue.Api.Controllers
             {
                 return NotFound();
             }
+            return Ok(response);
+        }
+
+        [HttpGet("ListVehicles", Name = nameof(ListVehicles))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetVehicleByIdResponse>> ListVehicles(int pageNumber, int pageSize)
+        {
+            var response = await _mediator.Send(new GetVehicleQuery {PageNumber = pageNumber, PageSize = pageSize });
             return Ok(response);
         }
     }
