@@ -3,12 +3,14 @@ using BoxCar.Ordering.DbContexts;
 using BoxCar.Ordering.Extensions;
 using BoxCar.Ordering.Messaging;
 using BoxCar.Ordering.Repositories;
+using BoxCar.Shared.Logging;
 using BoxCar.Shared.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add builder.Services to the container.
 
 builder.Services.AddControllers();

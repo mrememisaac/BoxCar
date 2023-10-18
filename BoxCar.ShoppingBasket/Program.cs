@@ -1,3 +1,4 @@
+using BoxCar.Shared.Logging;
 using BoxCar.Shared.Middlewares;
 using BoxCar.ShoppingBasket;
 using BoxCar.ShoppingBasket.DbContexts;
@@ -5,9 +6,10 @@ using BoxCar.ShoppingBasket.Repositories;
 using BoxCar.ShoppingBasket.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add services to the container.
 
 builder.Services.AddControllers();

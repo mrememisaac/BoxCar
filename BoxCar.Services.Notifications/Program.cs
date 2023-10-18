@@ -1,9 +1,11 @@
 using BoxCar.Integration.MessageBus;
 using BoxCar.Services.Payment.Worker;
+using BoxCar.Shared.Logging;
 using BoxCar.Shared.Middlewares;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add services to the container.
 
 builder.Services.AddControllers();

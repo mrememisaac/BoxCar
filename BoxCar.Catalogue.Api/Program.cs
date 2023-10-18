@@ -9,9 +9,11 @@ using BoxCar.Catalogue.Core.Contracts.Persistence;
 using BoxCar.Catalogue.Persistence.Repositories;
 using BoxCar.Catalogue.Core;
 using BoxCar.Shared.Middlewares;
+using BoxCar.Shared.Logging;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add services to the container.
 
 builder.Services.AddControllers();

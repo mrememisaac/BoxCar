@@ -5,11 +5,13 @@ using BoxCar.Services.WareHousing.Extensions;
 using BoxCar.Services.WareHousing.Messaging;
 using BoxCar.Services.WareHousing.Repositories;
 using BoxCar.Services.WareHousing.Worker;
+using BoxCar.Shared.Logging;
 using BoxCar.Shared.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add services to the container.
 
 builder.Services.AddControllers();
