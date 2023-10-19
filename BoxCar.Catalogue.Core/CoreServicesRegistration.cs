@@ -16,7 +16,7 @@ namespace BoxCar.Catalogue.Core
         {
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration.GetValue<string>("CacheSettings:RedisCache");
+                options.Configuration = configuration.GetValue<string>("RedisConnectionString");
             });
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
