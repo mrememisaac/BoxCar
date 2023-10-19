@@ -22,7 +22,7 @@ namespace BoxCar.Admin.Tests.EngineTests
             };
             var logger = new Mock<ILogger<AddEngineCommandHandler>>();
             var validator = new AddEngineCommandValidator();
-            var handler = new AddEngineCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object);
+            var handler = new AddEngineCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object, configuration);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

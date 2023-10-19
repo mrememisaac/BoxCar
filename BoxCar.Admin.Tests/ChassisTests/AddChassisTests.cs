@@ -20,7 +20,7 @@ namespace BoxCar.Admin.Tests.ChassisTests
             };
             var logger = new Mock<ILogger<AddChassisCommandHandler>>();
             var validator = new AddChassisCommandValidator();
-            var handler = new AddChassisCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object);
+            var handler = new AddChassisCommandHandler(mapper, repository, logger.Object, validator, messageBus.Object, configuration);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

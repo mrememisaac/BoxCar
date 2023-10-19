@@ -24,7 +24,7 @@ namespace BoxCar.Admin.Tests.VehicleTests
             };
             var logger = new Mock<ILogger<AddVehicleCommandHandler>>();
             var validator = new AddVehicleCommandValidator(chassisRepository, enginesRepository, optionPacksRepository);
-            var handler = new AddVehicleCommandHandler(mapper, repository, chassisRepository, enginesRepository, optionPacksRepository, logger.Object, validator, messageBus.Object);
+            var handler = new AddVehicleCommandHandler(mapper, repository, chassisRepository, enginesRepository, optionPacksRepository, logger.Object, validator, messageBus.Object, configuration);
 
             var collection = await repository.GetAllAsync(cancellationToken);
             var count = collection.Count();

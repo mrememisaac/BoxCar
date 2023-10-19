@@ -11,6 +11,7 @@ using BoxCar.Integration.Messages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using BoxCar.Shared.Caching;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Tests
 {
@@ -21,14 +22,14 @@ namespace BoxCar.Admin.Tests
         protected readonly IMapper mapper;
         protected readonly Mock<IMessageBus> messageBus;
         protected readonly Mock<IDistributedCache> cache;
-
+        protected readonly IConfiguration configuration;
         public EntityTestsBase()
         {
             messageBus = new Mock<IMessageBus>();
             messageBus.Setup(b => b.PublishMessage(It.IsAny<IntegrationBaseMessage>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
-           
+
             cancellationToken = new CancellationToken();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -51,6 +52,20 @@ namespace BoxCar.Admin.Tests
             services.AddScoped<IAsyncRepository<WareHouse, Guid>, ListBasedWareHouseRepository>();
             services.AddScoped<IAsyncRepository<OptionPack, Guid>, ListBasedOptionPackRepository>();
             _serviceProvider = services.BuildServiceProvider();
+
+            var configValues = new Dictionary<string, string>
+            {
+                {"AppSettings:SmsApi", "http://example.com"},
+                { "SubscriptionName", "boxcaradministration"},
+                {"VehicleAddedEvent", "vehicle_added_event"},
+                {"OptionPackAddedEvent", "option_pack_added_event"},
+                { "ChassisAddedEvent", "chassis_added_event"},
+                { "EngineAddedEvent", "engine_added_event" }
+            };
+
+            configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(configValues)
+            .Build();
 
         }
     }
