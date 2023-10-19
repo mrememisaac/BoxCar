@@ -7,9 +7,9 @@ namespace BoxCar.Admin.Persistence
 {
     public class BaseRepository<T, TId> : IAsyncRepository<T, TId> where T : BaseEntity<TId>
     {
-        protected readonly BoxCarDbContext _dbContext;
+        protected readonly BoxCarAdminDbContext _dbContext;
 
-        public BaseRepository(BoxCarDbContext dbContext)
+        public BaseRepository(BoxCarAdminDbContext dbContext)
         {
             _dbContext = dbContext;
         }

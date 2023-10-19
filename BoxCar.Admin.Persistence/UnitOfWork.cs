@@ -5,7 +5,7 @@ namespace BoxCar.Admin.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly BoxCarDbContext _dbContext;
+        private readonly BoxCarAdminDbContext _dbContext;
         private IAsyncRepository<Vehicle, Guid> _vehicleRepository;
         private IAsyncRepository<Chassis, Guid> _chassisRepository;
         private IAsyncRepository<Engine, Guid> _engineRepository;
@@ -14,7 +14,7 @@ namespace BoxCar.Admin.Persistence
         private IAsyncRepository<WareHouse, Guid> _warehouseRepository;
         private IAsyncRepository<IntegrationEvent, Guid> _integrationEventRepository;
 
-        public UnitOfWork(BoxCarDbContext databaseContext)
+        public UnitOfWork(BoxCarAdminDbContext databaseContext)
         {
             _dbContext = databaseContext;
         }
