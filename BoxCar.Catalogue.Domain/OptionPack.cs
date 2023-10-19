@@ -30,5 +30,10 @@
         {
             Name = newName ?? throw new ArgumentNullException(nameof(newName));
         }
+
+        private OptionPack()
+        {
+            
+        }
     }
 }

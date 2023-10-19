@@ -37,5 +37,10 @@
         {
             return $"{Name}{Value}".ToLower().GetHashCode();
         }
+
+        private Option()
+        {
+            
+        }
     }
 }

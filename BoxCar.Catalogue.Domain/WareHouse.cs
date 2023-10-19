@@ -14,5 +14,10 @@ namespace BoxCar.Catalogue.Domain
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Address = address ?? throw new ArgumentNullException(nameof(address));
         }
+
+        private WareHouse()
+        {
+            
+        }
     }
 }

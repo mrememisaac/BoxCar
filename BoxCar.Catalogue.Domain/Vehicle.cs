@@ -18,5 +18,10 @@
             OptionPack = optionPack ?? throw new ArgumentNullException(nameof(optionPack));
             Price = price;
         }
+
+        private Vehicle()
+        {
+            
+        }
     }
 }

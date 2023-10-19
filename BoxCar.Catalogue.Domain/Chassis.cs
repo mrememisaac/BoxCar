@@ -26,5 +26,10 @@
         public void ChangeDescription(string description) { 
             Description = description ?? throw new ArgumentNullException(nameof(description));
         }
+
+        private Chassis()
+        {
+            
+        }
     }
 }
