@@ -14,10 +14,10 @@ namespace BoxCar.Services.WareHousing.Messaging
         private readonly string _vehicleAddedEventTopic;
         private readonly IReceiverClient _vehicleAddedMessageReceiverClient;
 
-        public VehicleAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+        public VehicleAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, ILoggerFactory loggerFactory)
             : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
-            _vehicleAddedEventTopic = _configuration.GetValue<string>("VehicleAddedEventTopic");
+            _vehicleAddedEventTopic = configuration.GetValue<string>("VehicleAddedEvent");
             _vehicleAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _vehicleAddedEventTopic, _subscriptionName);
         }
 
@@ -33,6 +33,8 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var vehicle = System.Text.Json.JsonSerializer.Deserialize<VehicleAddedEvent>(body);
             if (vehicle == null) return;
+            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Vehicle, vehicle.VehicleId);
+            if (localCopy != null) return;
             var item = new Item
             {
                 Id = Guid.NewGuid(),

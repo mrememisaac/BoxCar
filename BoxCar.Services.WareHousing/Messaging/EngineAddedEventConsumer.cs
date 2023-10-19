@@ -15,10 +15,10 @@ namespace BoxCar.Services.WareHousing.Messaging
         private readonly string _engineAddedEventTopic;
         private readonly IReceiverClient _engineAddedMessageReceiverClient;
 
-        public EngineAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+        public EngineAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, ILoggerFactory loggerFactory)
             : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
-            _engineAddedEventTopic = _configuration.GetValue<string>("EngineAddedEventTopic");
+            _engineAddedEventTopic = configuration.GetValue<string>("EngineAddedEvent");
             _engineAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _engineAddedEventTopic, _subscriptionName);
         }
 
@@ -34,6 +34,8 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var engine = System.Text.Json.JsonSerializer.Deserialize<EngineAddedEvent>(body);
             if (engine == null) return;
+            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Engine, engine.EngineId);
+            if (localCopy != null) return;
             var item = new Item
             {
                 Id = engine.EngineId,

@@ -17,7 +17,7 @@ namespace BoxCar.Services.WareHousing.Messaging
         public OptionPackAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, ILoggerFactory loggerFactory)
             : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
-            _optionPackAddedEventTopic = _configuration.GetValue<string>("OptionPackAddedEventTopic");
+            _optionPackAddedEventTopic = configuration.GetValue<string>("OptionPackAddedEvent");
             _optionPackAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _optionPackAddedEventTopic, _subscriptionName);
         }
 
@@ -33,6 +33,8 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var optionPack = System.Text.Json.JsonSerializer.Deserialize<OptionPackAddedEvent>(body);
             if (optionPack == null) return;
+            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.OptionPack, optionPack.OptionPackId);
+            if (localCopy != null) return;
             var item = new Item
             {
                 Id = optionPack.OptionPackId,

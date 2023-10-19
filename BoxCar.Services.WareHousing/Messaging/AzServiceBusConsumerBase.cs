@@ -18,7 +18,8 @@ namespace BoxCar.Services.WareHousing.Messaging
             _logger = loggerFactory.CreateLogger<AzServiceBusConsumerBase>();
             _itemsRepository = itemsRepository;
             _messageBus = messageBus;
-            _subscriptionName = _configuration.GetValue<string>("SubscriptionName");
+            _configuration = configuration;
+            _subscriptionName = configuration.GetValue<string>("SubscriptionName");
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
         }
 

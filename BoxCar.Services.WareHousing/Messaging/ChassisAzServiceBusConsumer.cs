@@ -14,10 +14,10 @@ namespace BoxCar.Services.WareHousing.Messaging
         private readonly string _chassisAddedEventTopic;
         private readonly IReceiverClient _chassisAddedMessageReceiverClient;
 
-        public ChassisAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, LoggerFactory loggerFactory)
+        public ChassisAddedEventConsumer(IConfiguration configuration, IMessageBus messageBus, ItemsRepository itemsRepository, ILoggerFactory loggerFactory)
             : base(configuration, messageBus, itemsRepository, loggerFactory)
         {
-            _chassisAddedEventTopic = _configuration.GetValue<string>("ChassisAddedEventTopic");
+            _chassisAddedEventTopic = configuration.GetValue<string>("ChassisAddedEvent");
             _chassisAddedMessageReceiverClient = new SubscriptionClient(_connectionString, _chassisAddedEventTopic, _subscriptionName);
         }
 
@@ -33,6 +33,8 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var chassis = System.Text.Json.JsonSerializer.Deserialize<ChassisAddedEvent>(body);
             if (chassis == null) return;
+            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Chassis, chassis.ChassisId);
+            if (localCopy != null) return;
             var item = new Item
             {
                 Id = chassis.ChassisId,
