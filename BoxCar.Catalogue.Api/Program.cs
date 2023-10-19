@@ -11,11 +11,14 @@ using BoxCar.Catalogue.Core;
 using BoxCar.Shared.Middlewares;
 using BoxCar.Shared.Logging;
 using Serilog;
+using BoxCar.Catalogue.Api.Identity;
+using BoxCar.Catalogue.Core.Contracts.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Logging.ConfigureLogger);
 // Add services to the container.
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,13 +27,13 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 
 
 //Specific DbContext for use from singleton AzServiceBusConsumer
-var optionsBuilder = new DbContextOptionsBuilder<BoxCarDbContext>();
+var optionsBuilder = new DbContextOptionsBuilder<BoxCarCatalogueDbContext>();
 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-builder.Services.AddSingleton(new VehicleRepository(optionsBuilder.Options));
-builder.Services.AddSingleton(new EngineRepository(optionsBuilder.Options));
-builder.Services.AddSingleton(new OptionPackRepository(optionsBuilder.Options));
-builder.Services.AddSingleton(new ChassisRepository(optionsBuilder.Options));
+builder.Services.AddSingleton(sp => new VehicleRepository(optionsBuilder.Options));
+builder.Services.AddSingleton(sp => new EngineRepository(optionsBuilder.Options));
+builder.Services.AddSingleton(sp => new OptionPackRepository(optionsBuilder.Options));
+builder.Services.AddSingleton(sp => new ChassisRepository(optionsBuilder.Options));
 
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 builder.Services.AddSingleton<IChassisAzServiceBusConsumer, ChassisAddedEventConsumer>();
@@ -38,7 +41,10 @@ builder.Services.AddSingleton<IEngineAzServiceBusConsumer, EngineAddedEventConsu
 builder.Services.AddSingleton<IOptionPackAzServiceBusConsumer, OptionPackAddedEventConsumer>();
 builder.Services.AddSingleton<IVehicleAzServiceBusConsumer, VehicleAddedEventConsumer>();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.ToString());
+});
 
 var app = builder.Build();
 
@@ -52,7 +58,7 @@ else
 {
     app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
