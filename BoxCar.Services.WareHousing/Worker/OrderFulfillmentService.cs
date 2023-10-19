@@ -13,14 +13,14 @@ namespace BoxCar.Services.WareHousing.Worker
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
-        private readonly IItemsRepository _itemsRepository;
+        private readonly ItemsRepository _itemsRepository;
         private ISubscriptionClient _subscriptionClient;
         private readonly IMessageBus _messageBus;
         private readonly string _orderStatusUpdateTopic;
         private readonly string _productionRequestTopic;
 
         public OrderFulfillmentService(IConfiguration configuration, ILoggerFactory loggerFactory,
-            IItemsRepository itemsRepository,
+            ItemsRepository itemsRepository,
             IMessageBus messageBus)
         {
             _messageBus = messageBus;
