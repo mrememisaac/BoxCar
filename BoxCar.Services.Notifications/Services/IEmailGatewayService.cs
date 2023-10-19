@@ -1,6 +1,6 @@
 ﻿using BoxCar.Services.Payment.Models;
 
-namespace BoxCar.Services.Payment.Services
+namespace BoxCar.Services.Notifications.Services
 {
     public interface IEmailGatewayService
     {

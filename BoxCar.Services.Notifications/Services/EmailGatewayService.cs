@@ -2,7 +2,7 @@
 using System.Text.Json;
 using BoxCar.Services.Payment.Models;
 
-namespace BoxCar.Services.Payment.Services
+namespace BoxCar.Services.Notifications.Services
 {
     public class EmailGatewayService : IEmailGatewayService
     {
