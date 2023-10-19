@@ -6,7 +6,7 @@ namespace BoxCar.Catalogue.Persistence.Repositories
 {
     public class EngineRepository : BaseRepository<Engine, Guid>, IEngineRepository
     {
-        public EngineRepository(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public EngineRepository(DbContextOptions<BoxCarCatalogueDbContext> dbContextOptions) : base(dbContextOptions)
         {
 
         }

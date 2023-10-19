@@ -6,7 +6,7 @@ namespace BoxCar.Catalogue.Persistence.Repositories
 {
     public class OptionPackRepository : BaseRepository<OptionPack, Guid>, IOptionPackRepository
     {
-        public OptionPackRepository(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public OptionPackRepository(DbContextOptions<BoxCarCatalogueDbContext> dbContextOptions) : base(dbContextOptions)
         {
 
         }

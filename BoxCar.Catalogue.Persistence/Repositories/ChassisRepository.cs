@@ -6,7 +6,7 @@ namespace BoxCar.Catalogue.Persistence.Repositories
 {
     public class ChassisRepository : BaseRepository<Chassis, Guid>, IChassisRepository
     {
-        public ChassisRepository(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public ChassisRepository(DbContextOptions<BoxCarCatalogueDbContext> dbContextOptions) : base(dbContextOptions)
         {
 
         }

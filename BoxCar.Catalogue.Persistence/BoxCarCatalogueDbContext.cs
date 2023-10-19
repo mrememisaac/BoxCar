@@ -10,18 +10,11 @@ using BoxCar.Catalogue.Domain;
 
 namespace BoxCar.Catalogue.Persistence
 {
-    public class BoxCarDbContext : DbContext
+    public class BoxCarCatalogueDbContext : DbContext
     {
-        private readonly ILoggedInUserService _loggedInUserService;
-
-        public BoxCarDbContext(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public BoxCarCatalogueDbContext(DbContextOptions<BoxCarCatalogueDbContext> dbContextOptions) : base(dbContextOptions)
         { }
-
-        public BoxCarDbContext(DbContextOptions<BoxCarDbContext> dbContextOptions, ILoggedInUserService loggedInUserService) : base(dbContextOptions)
-        {
-            this._loggedInUserService = loggedInUserService;
-        }
-
+        
         public DbSet<Factory> Factories { get; set; }
 
         public DbSet<WareHouse> WareHouses { get; set; }
@@ -36,7 +29,7 @@ namespace BoxCar.Catalogue.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BoxCarDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BoxCarCatalogueDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -48,11 +41,11 @@ namespace BoxCar.Catalogue.Persistence
                 {
                     case EntityState.Modified:
                         entry.Entity.UpdatedDate = DateTime.UtcNow;
-                        entry.Entity.UpdatedBy = _loggedInUserService.UserId;
+                        entry.Entity.UpdatedBy = entry.Entity.UpdatedBy ?? "service";
                         break;
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.UtcNow;
-                        entry.Entity.CreatedBy = _loggedInUserService.UserId;
+                        entry.Entity.CreatedBy = entry.Entity.CreatedBy ?? "service";
                         break;
                     default:
                         break;

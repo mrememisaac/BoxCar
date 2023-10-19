@@ -6,14 +6,14 @@ namespace BoxCar.Catalogue.Persistence.Repositories
 {
     public class VehicleRepository : BaseRepository<Vehicle, Guid>, IVehicleRepository
     {
-        public VehicleRepository(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public VehicleRepository(DbContextOptions<BoxCarCatalogueDbContext> dbContextOptions) : base(dbContextOptions)
         {
 
         }
 
         public async new Task<Vehicle?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var _dbContext = new BoxCarDbContext(_dbContextOptions);
+            var _dbContext = new BoxCarCatalogueDbContext(_dbContextOptions);
             return await _dbContext.Vehicles
                 .Include(v => v.Chassis)
                 .Include(v => v.Engine)
