@@ -7,19 +7,32 @@ using System.Text;
 using System.Threading.Tasks;
 using BoxCar.Admin.Core.Contracts.Identity;
 using BoxCar.Admin.Domain;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Persistence
 {
-    public class BoxCarDbContext : DbContext
+    public class BoxCarAdminDbContext : DbContext
     {
-        private readonly ILoggedInUserService _loggedInUserService;
-
-        public BoxCarDbContext(DbContextOptions<BoxCarDbContext> dbContextOptions) : base(dbContextOptions)
+        public BoxCarAdminDbContext() : base()
+        {
+        }
+                
+        public BoxCarAdminDbContext(DbContextOptions<BoxCarAdminDbContext> dbContextOptions) : base(dbContextOptions)
         { }
 
-        public BoxCarDbContext(DbContextOptions<BoxCarDbContext> dbContextOptions, ILoggedInUserService loggedInUserService) : base(dbContextOptions)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            this._loggedInUserService = loggedInUserService;
+            {
+                if (!optionsBuilder.IsConfigured)
+                {
+                    IConfigurationRoot configuration = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())
+                       .AddJsonFile("appsettings.json")
+                       .Build();
+                    var connectionString = configuration.GetConnectionString("DefaultConnection");
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+            }
         }
 
         public DbSet<Factory> Factories { get; set; }
@@ -36,7 +49,7 @@ namespace BoxCar.Admin.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BoxCarDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BoxCarAdminDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -48,11 +61,11 @@ namespace BoxCar.Admin.Persistence
                 {
                     case EntityState.Modified:
                         entry.Entity.UpdatedDate = DateTime.UtcNow;
-                        entry.Entity.UpdatedBy = _loggedInUserService.UserId;
+                        entry.Entity.UpdatedBy = entry.Entity.UpdatedBy ?? "service";
                         break;
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.UtcNow;
-                        entry.Entity.CreatedBy = _loggedInUserService.UserId;
+                        entry.Entity.CreatedBy = entry.Entity.CreatedBy ?? "service";
                         break;
                     default:
                         break;
