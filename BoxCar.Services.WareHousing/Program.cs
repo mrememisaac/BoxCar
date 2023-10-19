@@ -29,7 +29,7 @@ builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 var optionsBuilder = new DbContextOptionsBuilder<ItemsDbContext>();
 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-builder.Services.AddSingleton(new ItemsRepository(optionsBuilder.Options));
+builder.Services.AddSingleton(sp => new ItemsRepository(optionsBuilder.Options));
 
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 builder.Services.AddSingleton<IChassisAzServiceBusConsumer, ChassisAddedEventConsumer>();
@@ -52,7 +52,7 @@ else
 {
     app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
