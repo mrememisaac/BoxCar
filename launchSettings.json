@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "boxcar.admin.api": "StartDebugging",
+        "external.paymentgateway": "StartDebugging",
+        "boxcar.services.warehousing": "StartDebugging",
+        "boxcar.shoppingbasket": "StartDebugging",
+        "boxcar.services.payment": "StartDebugging",
+        "boxcar.ordering": "StartDebugging",
+        "boxcar.catalogue.api": "StartDebugging",
+        "boxcar.services.notifications": "StartDebugging"
+      }
+    }
+  }
+}

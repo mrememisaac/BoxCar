@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  external.paymentgateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  boxcar.services.warehousing:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.shoppingbasket:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.services.payment:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.ordering:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.catalogue.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.admin.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  boxcar.services.notifications:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

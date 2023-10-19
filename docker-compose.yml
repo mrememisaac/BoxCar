@@ -1,0 +1,305 @@
+version: '3.4'
+
+networks:
+  lan-network:
+    driver: bridge
+
+services:
+  external.paymentgateway:
+    image: ${DOCKER_REGISTRY-}externalpaymentgateway
+    build:
+      context: .
+      dockerfile: External.PaymentGateway/Dockerfile
+    ports:
+     - "5003:80"
+     - "5300:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5003
+      - ASPNETCORE_HTTPS_PORT=5300
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionStrings=cache
+    networks:
+      - lan-network
+    depends_on: 
+      - sqlserver
+      - rabbit
+      - cache
+     
+  boxcar.services.notifications:
+    image: ${DOCKER_REGISTRY-}boxcarservicesnotifications
+    build:
+      context: .
+      dockerfile: BoxCar.Services.Notifications/Dockerfile
+    ports:
+     - "5004:80"
+     - "5400:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5004
+      - ASPNETCORE_HTTPS_PORT=5400
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+    networks:
+      - lan-network
+    depends_on: 
+      - sqlserver
+      - rabbit
+      - cache
+
+  boxcar.services.warehousing:
+    image: ${DOCKER_REGISTRY-}boxcarserviceswarehousing
+    build:
+      context: .
+      dockerfile: BoxCar.Services.WareHousing/Dockerfile
+    ports:
+     - "5005:80"
+     - "5500:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5005
+      - ASPNETCORE_HTTPS_PORT=5500
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarWareHouseDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+    networks:
+      - lan-network
+    depends_on: 
+      - sqlserver
+      - rabbit
+      - cache
+  
+  boxcar.services.payment:
+    image: ${DOCKER_REGISTRY-}boxcarservicespayment
+    build:
+      context: .
+      dockerfile: BoxCar.Services.Payment/Dockerfile
+    ports:
+     - "5007:80"
+     - "5700:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5007
+      - ASPNETCORE_HTTPS_PORT=5700
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+    networks:
+      - lan-network
+    depends_on: 
+      - boxcar.ordering
+
+  boxcar.ordering:
+    image: ${DOCKER_REGISTRY-}boxcarordering
+    build:
+      context: .
+      dockerfile: BoxCar.Ordering/Dockerfile
+    ports:
+     - "5008:80"
+     - "5800:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5008
+      - ASPNETCORE_HTTPS_PORT=5800
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarOrderDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+    networks:
+      - lan-network
+    depends_on: 
+      - boxcar.shoppingbasket
+      - sqlserver
+      - rabbit
+      - cache
+
+  boxcar.shoppingbasket:
+    image: ${DOCKER_REGISTRY-}boxcarshoppingbasket
+    build:
+      context: .
+      dockerfile: BoxCar.ShoppingBasket/Dockerfile
+    ports:
+     - "5006:80"
+     - "5600:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5006
+      - ASPNETCORE_HTTPS_PORT=5600
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarShoppingBasketDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+    networks:
+      - lan-network
+    depends_on: 
+      - sqlserver
+      - rabbit
+      - cache
+
+
+  boxcar.catalogue.api:
+    image: ${DOCKER_REGISTRY-}boxcarcatalogueapi
+    build:
+      context: .
+      dockerfile: BoxCar.Catalogue.Api/Dockerfile
+    ports:
+     - "5009:80"
+     - "5900:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5009
+      - ASPNETCORE_HTTPS_PORT=5900
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarCatalogueDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+    networks:
+      - lan-network
+    depends_on: 
+      - boxcar.admin.api
+      - sqlserver
+      - rabbit
+      - cache
+
+  boxcar.admin.api:
+    image: ${DOCKER_REGISTRY-}boxcaradminapi    
+    build:
+      context: .
+      dockerfile: BoxCar.Admin.Api/Dockerfile
+    ports:
+     - "5010:80"
+     - "5100:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORT=5010
+      - ASPNETCORE_HTTPS_PORT=5100
+      - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
+      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
+      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
+      - RabbitMQ__Host=rabbit
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RedisConnectionString=cache
+      # - ConnectionStrings__DefaultConnection=Server=host.docker.internal,5434;Database=BoxCarAdminDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarAdminDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+    networks:
+      - lan-network
+    depends_on: 
+      - sqlserver
+      - rabbit
+      - cache
+
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 8088:15672
+    networks:
+      - lan-network
+  
+  cache:
+    image: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+  
+  sqlserver:
+    build:
+      context: .
+      dockerfile: sql/sql.Dockerfile
+    restart: always
+    ports:
+      - "1440:1433"   
+    environment:      
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass@word  
+    networks:
+      - lan-network
+
+  # Commented in favour of the above which creates databases and their tables
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2017-latest
+  #   container_name: sqlserver
+  #   environment:
+  #     - SA_PASSWORD=Pass@word
+  #     - ACCEPT_EULA=Y
+  #   ports:
+  #     - "1434:1433"
+  #   networks:
+  #     - lan-network
+

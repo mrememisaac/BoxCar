@@ -55,11 +55,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "External.PaymentGateway", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Services.WareHousing", "BoxCar.Services.WareHousing\BoxCar.Services.WareHousing.csproj", "{C69376EA-C54E-4FF2-8421-B0999BDE4738}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Services.Notifications", "BoxCar.Services.Notifications\BoxCar.Services.Notifications.csproj", "{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Services.Notifications", "BoxCar.Services.Notifications\BoxCar.Services.Notifications.csproj", "{DF2515A0-D850-40B4-AD9B-93ADCB29DCB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoxCar.Shared", "BoxCar.Shared", "{4ACC2587-5A26-4F3B-AF6F-29382570AA49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCar.Shared", "BoxCar.Shared\BoxCar.Shared.csproj", "{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCar.Shared", "BoxCar.Shared\BoxCar.Shared.csproj", "{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5BA03E1E-F682-4A0A-A5D1-39BB2FC247F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{761214CA-38B9-4CFA-86A3-7A2F69BE9197}"
+	ProjectSection(SolutionItems) = preProject
+		sql\entrypoint.sh = sql\entrypoint.sh
+		sql\InitializeDatabaseAdmin.sql = sql\InitializeDatabaseAdmin.sql
+		sql\InitializeDatabaseCatalogue.sql = sql\InitializeDatabaseCatalogue.sql
+		sql\InitializeDatabaseOrders.sql = sql\InitializeDatabaseOrders.sql
+		sql\InitializeDatabaseShopping.sql = sql\InitializeDatabaseShopping.sql
+		sql\InitializeDatabaseWarehouse.sql = sql\InitializeDatabaseWarehouse.sql
+		sql\setup.sh = sql\setup.sh
+		sql\sql.Dockerfile = sql\sql.Dockerfile
+		sql\wait-for-it.sh = sql\wait-for-it.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +154,10 @@ Global
 		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D0C499B-8DAA-4203-A74A-AB70AD2C3DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA03E1E-F682-4A0A-A5D1-39BB2FC247F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA03E1E-F682-4A0A-A5D1-39BB2FC247F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA03E1E-F682-4A0A-A5D1-39BB2FC247F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA03E1E-F682-4A0A-A5D1-39BB2FC247F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
