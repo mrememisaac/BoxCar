@@ -4,6 +4,7 @@ namespace BoxCar.Ordering.Entities
 {
     public class OrderLine
     {
+        public Guid Id {  get; set; }
         public Guid VehicleId { get; set; }
 
         public Guid EngineId { get; set; }
