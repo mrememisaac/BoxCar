@@ -1,5 +1,6 @@
 using BoxCar.Integration.MessageBus;
-using BoxCar.Services.Payment.Worker;
+using BoxCar.Services.Notifications.Services;
+using BoxCar.Services.Notifications.Worker;
 using BoxCar.Shared.Logging;
 using BoxCar.Shared.Middlewares;
 using Serilog;
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddHttpClient<IEmailGatewayService, EmailGatewayService>(c =>
+    c.BaseAddress = new Uri(builder.Configuration["ApiConfigs:EmailGatewayService:Uri"]));
 builder.Services.AddHostedService<OrderStatusUpdateMessageServiceBusListener>();
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 
@@ -29,7 +32,7 @@ else
 {
     app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
