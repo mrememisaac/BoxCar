@@ -1,11 +1,11 @@
 ﻿using BoxCar.Integration.MessageBus;
 using BoxCar.Services.Notifications.Messages;
+using BoxCar.Services.Notifications.Services;
 using BoxCar.Services.Payment.Models;
-using BoxCar.Services.Payment.Services;
 using Microsoft.Azure.ServiceBus;
 using System.Text;
 
-namespace BoxCar.Services.Payment.Worker
+namespace BoxCar.Services.Notifications.Worker
 {
     public class OrderStatusUpdateMessageServiceBusListener : IHostedService
     {
@@ -27,7 +27,7 @@ namespace BoxCar.Services.Payment.Worker
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _subscriptionClient = new SubscriptionClient(_configuration.GetValue<string>("ServiceBusConnectionString"),
-                _configuration.GetValue<string>("OrderStatusUpdateMessageTopic"), _configuration.GetValue<string>("subscriptionName"));
+                _configuration.GetValue<string>("OrderStatusUpdate"), _configuration.GetValue<string>("subscriptionName"));
 
             var messageHandlerOptions = new MessageHandlerOptions(e =>
             {
