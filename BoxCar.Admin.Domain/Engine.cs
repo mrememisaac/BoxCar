@@ -24,5 +24,9 @@
 
         public List<Vehicle> Vehicles { get; } = new();
 
+        private Engine()
+        {
+            
+        }
     }
 }
