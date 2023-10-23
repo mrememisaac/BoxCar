@@ -40,6 +40,9 @@ builder.Services.AddHostedService<OrderFulfillmentService>();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddHealthChecks().AddDbContextCheck<ItemsDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,5 +62,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseAzServiceBusConsumer();
-
+app.UseSerilogRequestLogging();
 app.Run();
