@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BoxCar.Admin.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class FactoriesController : ControllerBase
     {
         private readonly ILogger<FactoriesController> _logger;

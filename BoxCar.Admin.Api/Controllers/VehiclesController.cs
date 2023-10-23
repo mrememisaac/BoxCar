@@ -9,7 +9,7 @@ using BoxCar.Admin.Api.Models;
 namespace BoxCar.Admin.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class VehiclesController : ControllerBase
     {
         private readonly ILogger<VehiclesController> _logger;
