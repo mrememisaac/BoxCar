@@ -2,6 +2,7 @@
 using BoxCar.Services.WareHousing.Entities;
 using BoxCar.Services.WareHousing.Messages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace BoxCar.Services.WareHousing.Repositories
 {
@@ -14,11 +15,12 @@ namespace BoxCar.Services.WareHousing.Repositories
             this.dbContextOptions = dbContextOptions;
         }
 
-        public async Task Add(Item item)
+        public async Task<Item> Add(Item item)
         {
             await using var _dbContext = new ItemsDbContext(dbContextOptions);
-            _dbContext.Items.Add(item);
-            _dbContext.SaveChangesAsync();
+            await _dbContext.Items.AddAsync(item);
+            await _dbContext.SaveChangesAsync();
+            return item;
         }
 
         public async Task Add(IEnumerable<Item> items)
@@ -37,13 +39,21 @@ namespace BoxCar.Services.WareHousing.Repositories
         public async Task<Item?> GetByItemTypeAndItemTypeId(ItemType type, Guid itemTypeId)
         {
             await using var _dbContext = new ItemsDbContext(dbContextOptions);
-            return await _dbContext.Items.FirstOrDefaultAsync(i => i.ItemTypeId == itemTypeId && i.ItemType == type);
+            var item = await _dbContext.Items.FirstOrDefaultAsync(i => i.ItemTypeId == itemTypeId && i.ItemType == type);
+            return item;
+        }
+
+        public async Task<Item?> GetByItemTypeId(Guid id)
+        {
+            await using var _dbContext = new ItemsDbContext(dbContextOptions);
+            return await _dbContext.Items.FirstOrDefaultAsync(i => i.ItemTypeId == id);
         }
 
         public async Task<Item?> GetBySpecificationKey(string specification)
         {
             await using var _dbContext = new ItemsDbContext(dbContextOptions);
-            return await _dbContext.Items.FirstOrDefaultAsync(i => i.SpecificationKey.Equals(specification, StringComparison.OrdinalIgnoreCase));
+            var it = await _dbContext.Items.FirstOrDefaultAsync(i => i.SpecificationKey.Equals(specification));
+            return it;
         }
 
         public async Task<IEnumerable<Item>> GetComponents(FulfillOrderRequestLine line)
@@ -55,16 +65,21 @@ namespace BoxCar.Services.WareHousing.Repositories
                         x.ItemTypeId == line.OptionPackId).ToListAsync();
         }
 
-        public async Task ReduceVehicleStockCount(string specification, int reduceByQuantity)
+        public async Task<int> ReduceStockCount(string specification, int quantity) => await ChangeStockCount(specification, -1 * quantity);
+
+        public async Task<int> IncreaseStockCount(string specification, int quantity) => await ChangeStockCount(specification, quantity);
+
+        public async Task<int> ChangeStockCount(string specification, int quantity)
         {
-            if (reduceByQuantity <= 0) return;
             await using var _dbContext = new ItemsDbContext(dbContextOptions);
             var vehicleWithMatchingSpecification = await _dbContext.Items.FirstOrDefaultAsync(i => i.SpecificationKey.Equals(specification, StringComparison.OrdinalIgnoreCase));
             if (vehicleWithMatchingSpecification != null)
             {
-                vehicleWithMatchingSpecification.Quantity -= reduceByQuantity;
+                vehicleWithMatchingSpecification.Quantity += quantity;
                 _dbContext.SaveChanges();
+                return vehicleWithMatchingSpecification.Quantity;
             }
+            return 0;
         }
     }
 }

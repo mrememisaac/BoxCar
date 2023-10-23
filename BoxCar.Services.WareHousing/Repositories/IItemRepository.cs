@@ -5,11 +5,13 @@ namespace BoxCar.Services.WareHousing.Repositories
 {
     public interface IItemsRepository
     {
-        Task Add(Item item);
+        Task<Item> Add(Item item);
 
         Task Add(IEnumerable<Item> items);
 
         Task<Item?> GetById(Guid id);
+
+        Task<Item?> GetByItemTypeId(Guid id);
 
         Task<Item?> GetByItemTypeAndItemTypeId(ItemType type, Guid itemTypeId);
 
@@ -17,6 +19,9 @@ namespace BoxCar.Services.WareHousing.Repositories
         
         Task<IEnumerable<Item>> GetComponents(FulfillOrderRequestLine line);
         
-        Task ReduceVehicleStockCount(string specification, int reduceByQuantity);
+        Task<int> ChangeStockCount(string specification, int quantity);
+        Task<int> IncreaseStockCount(string specification, int quantity);
+        Task<int> ReduceStockCount(string specification, int quantity);
+        
     }
 }
