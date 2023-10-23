@@ -55,13 +55,13 @@ namespace BoxCar.Services.Payment.Worker
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"ServiceBusListener stopping.");
+            _logger.LogDebug($"{nameof(PaymentRequestService)} ServiceBusListener stopping.");
             await _subscriptionClient.CloseAsync();
         }
 
         protected void ProcessError(Exception e)
         {
-            _logger.LogError(e, "Error while processing queue item in ServiceBusListener.");
+            _logger.LogError(e, "Error while processing payment request.");
         }
 
         protected async Task ProcessMessageAsync(Message message, CancellationToken token)
@@ -77,7 +77,7 @@ namespace BoxCar.Services.Payment.Worker
                 Total = orderPaymentRequestMessage.Total
             };
 
-            var result = await _externalGatewayPaymentService.PerformPayment(paymentInfo);
+            var result = DateTime.Now.Second % 2 == 0 ? true : false;//await _externalGatewayPaymentService.PerformPayment(paymentInfo);
 
             await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
 
@@ -98,9 +98,9 @@ namespace BoxCar.Services.Payment.Worker
                 throw;
             }
 
-            _logger.LogDebug($"{orderPaymentRequestMessage.OrderId}: ServiceBusListener received item.");
+            _logger.LogDebug($"{orderPaymentRequestMessage.OrderId}: {nameof(PaymentRequestService)} received item.");
             await Task.Delay(20000);
-            _logger.LogDebug($"{orderPaymentRequestMessage.OrderId}:  ServiceBusListener processed item.");
+            _logger.LogDebug($"{orderPaymentRequestMessage.OrderId}:  {nameof(PaymentRequestService)} processed item.");
         }
     }
 }
