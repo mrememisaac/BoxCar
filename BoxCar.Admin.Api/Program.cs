@@ -7,6 +7,7 @@ using Serilog;
 using BoxCar.Admin.Core.Contracts.Identity;
 using Microsoft.EntityFrameworkCore;
 using BoxCar.Admin.Api.Identity;
+using BoxCar.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Logging.ConfigureLogger);
@@ -27,10 +28,16 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(type => type.ToString());
 });
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
-builder.Services.AddDistributedRedisCache(option =>
+
+
+builder.Services.AddStackExchangeRedisCache(option =>
 {
     option.Configuration = builder.Configuration["RedisConnectionString"];
+    //option.ConfigurationOptions.AbortOnConnectFail = false;
 });
+
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddHealthChecks().AddDbContextCheck<BoxCarAdminDbContext>();
 
 var app = builder.Build();
 
@@ -50,4 +57,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseSerilogRequestLogging();
 app.Run();
