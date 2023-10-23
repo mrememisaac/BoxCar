@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 namespace BoxCar.Ordering.Controllers
 {
     [ApiController]
-    [Route("api/order")]
-    public class OrderController : Controller
+    [Route("api/[controller]")]
+    public class OrdersController : Controller
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMessageBus _messageBus;
-        private readonly ILogger<OrderController> _logger;
+        private readonly ILogger<OrdersController> _logger;
         private readonly string _orderCancellationRequestTopic;
 
-        public OrderController(IOrderRepository orderRepository, IMessageBus messageBus, 
-            ILogger<OrderController> logger,
+        public OrdersController(IOrderRepository orderRepository, IMessageBus messageBus, 
+            ILogger<OrdersController> logger,
             IConfiguration configuration)
         {
             _orderRepository = orderRepository;
@@ -33,11 +33,12 @@ namespace BoxCar.Ordering.Controllers
             return Ok(orders);
         }
 
-        [HttpPost("cancel/{orderId}")]
-        public async Task<IActionResult> Cancel(Guid orderId)
+        [HttpPost("user/{userId}/cancel/{orderId}")]
+        public async Task<IActionResult> Cancel(Guid userId, Guid orderId)
         {
             var order = await _orderRepository.GetOrderById(orderId);
             if (order == null) return NotFound();
+            if (order.UserId != userId) return NotFound();
             if(order.FulfillmentStatus == Entities.FulfillmentStatus.Collected)
             {
                 return BadRequest(new { Message = "Cannot cancel an order that has already been collected " });
