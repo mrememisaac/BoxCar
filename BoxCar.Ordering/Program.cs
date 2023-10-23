@@ -32,9 +32,12 @@ optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCo
 builder.Services.AddSingleton(new OrderRepository(optionsBuilder.Options));
 
 builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
-builder.Services.AddSingleton<IAzServiceBusConsumer, AzServiceBusConsumer>();
+builder.Services.AddSingleton<IAzServiceBusConsumer, CheckoutMessageServiceBusConsumer>();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddHealthChecks().AddDbContextCheck<OrderDbContext>();
 
 var app = builder.Build();
 
@@ -55,5 +58,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseAzServiceBusConsumer();
+app.UseSerilogRequestLogging();
 
 app.Run();
