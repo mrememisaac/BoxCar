@@ -23,7 +23,7 @@ namespace BoxCar.Admin.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("AddEngine", Name = nameof(AddEngine))]
+        [HttpPost(Name = nameof(AddEngine))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,10 +32,14 @@ namespace BoxCar.Admin.Api.Controllers
         public async Task<ActionResult<AddEngineResponse>> AddEngine(AddEngineDto request)
         {
             var response = await _mediator.Send(_mapper.Map<AddEngineCommand>(request));
-            return CreatedAtAction(nameof(GetEngineById), response.Value);
+            var routeValues = new
+            {
+                id = response.Value.Id
+            };
+            return CreatedAtRoute(nameof(GetEngineById), routeValues, response.Value);            
         }
 
-        [HttpGet("GetEngineById", Name = nameof(GetEngineById))]
+        [HttpGet("{id:guid}", Name = nameof(GetEngineById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -49,7 +53,7 @@ namespace BoxCar.Admin.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("ListEngines", Name = nameof(ListEngines))]
+        [HttpGet(Name = nameof(ListEngines))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

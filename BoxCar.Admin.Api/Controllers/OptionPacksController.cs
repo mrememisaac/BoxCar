@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BoxCar.Admin.Core.Features.OptionPacks.ListOptionPacks;
 using BoxCar.Admin.Api.Models;
+using BoxCar.Admin.Domain;
 
 namespace BoxCar.Admin.Api.Controllers
 {
@@ -23,7 +24,7 @@ namespace BoxCar.Admin.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("AddOptionPack", Name = nameof(AddOptionPack))]
+        [HttpPost(Name = nameof(AddOptionPack))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,10 +33,14 @@ namespace BoxCar.Admin.Api.Controllers
         public async Task<ActionResult<AddOptionPackResponse>> AddOptionPack(AddOptionPackDto request)
         {
             var response = await _mediator.Send(_mapper.Map<AddOptionPackCommand>(request));
-            return CreatedAtAction(nameof(GetOptionPackById), response.Value);
+            var routeValues = new
+            {
+                id = response.Value.Id
+            };
+            return CreatedAtRoute(nameof(GetOptionPackById), routeValues, response.Value); 
         }
 
-        [HttpGet("GetOptionPackById", Name = nameof(GetOptionPackById))]
+        [HttpGet("{id:guid}", Name = nameof(GetOptionPackById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -49,7 +54,7 @@ namespace BoxCar.Admin.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("ListOptionPackQuery", Name = nameof(ListOptionPacks))]
+        [HttpGet(Name = nameof(ListOptionPacks))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

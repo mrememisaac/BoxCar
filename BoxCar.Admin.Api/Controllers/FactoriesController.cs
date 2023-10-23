@@ -21,7 +21,7 @@ namespace BoxCar.Admin.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("AddFactory", Name = nameof(AddFactory))]
+        [HttpPost(Name = nameof(AddFactory))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -30,10 +30,14 @@ namespace BoxCar.Admin.Api.Controllers
         public async Task<ActionResult<AddFactoryResponse>> AddFactory(AddFactoryDto request)
         {
             var response = await _mediator.Send(_mapper.Map<AddFactoryCommand>(request));
-            return CreatedAtAction(nameof(GetFactoryById), response.Value);
+            var routeValues = new
+            {
+                id = response.Value.Id
+            };
+            return CreatedAtRoute(nameof(GetFactoryById), routeValues, response.Value);
         }
 
-        [HttpGet("GetFactoryById", Name = nameof(GetFactoryById))]
+        [HttpGet("{id:guid}", Name = nameof(GetFactoryById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

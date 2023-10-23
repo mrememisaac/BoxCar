@@ -23,7 +23,7 @@ namespace BoxCar.Admin.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("AddVehicle", Name = nameof(AddVehicle))]
+        [HttpPost(Name = nameof(AddVehicle))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,10 +32,14 @@ namespace BoxCar.Admin.Api.Controllers
         public async Task<ActionResult<AddVehicleResponse>> AddVehicle(AddVehicleDto request)
         {
             var response = await _mediator.Send(_mapper.Map<AddVehicleCommand>(request));
-            return CreatedAtAction(nameof(GetVehicleById), response.Value);
+            var routeValues = new
+            {
+                id = response.Value.Id
+            };
+            return CreatedAtRoute(nameof(GetVehicleById), routeValues, response.Value);
         }
 
-        [HttpGet("GetVehicleById", Name = nameof(GetVehicleById))]
+        [HttpGet("{id:guid}", Name = nameof(GetVehicleById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -49,7 +53,7 @@ namespace BoxCar.Admin.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("ListVehicles", Name = nameof(ListVehicles))]
+        [HttpGet(Name = nameof(ListVehicles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

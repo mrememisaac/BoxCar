@@ -23,7 +23,7 @@ namespace BoxCar.Admin.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("AddChassis", Name = nameof(AddChassis))]
+        [HttpPost(Name = nameof(AddChassis))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,10 +32,14 @@ namespace BoxCar.Admin.Api.Controllers
         public async Task<ActionResult<AddChassisResponse>> AddChassis(AddChassisDto request)
         {
             var response = await _mediator.Send(_mapper.Map<AddChassisCommand>(request));
-            return CreatedAtAction(nameof(GetChassisById), response.Value);
+            var routeValues = new
+            {
+                id = response.Value.Id
+            };
+            return CreatedAtRoute(nameof(GetChassisById), routeValues,  response.Value);
         }
 
-        [HttpGet("GetChassisById", Name = nameof(GetChassisById))]
+        [HttpGet("{id:guid}", Name = nameof(GetChassisById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -49,14 +53,14 @@ namespace BoxCar.Admin.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetChassis", Name = nameof(GetChassis))]
+        [HttpGet(Name = nameof(GetChassis))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<GetChassisQueryResponse>> GetChassis(int pageNumber, int pageSize)
         {
-            var response = await _mediator.Send(new GetChassisQuery { PageNumber = pageNumber, PageSize = pageSize  });
+            var response = await _mediator.Send(new GetChassisQuery { PageNumber = pageNumber, PageSize = pageSize });
             return Ok(response);
         }
     }
