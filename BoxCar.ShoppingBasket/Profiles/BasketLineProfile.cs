@@ -10,7 +10,9 @@ namespace BoxCar.ShoppingBasket.Profiles
     {
         public BasketLineProfile()
         {
-            CreateMap<Models.BasketLineForCreation, Entities.BasketLine>();
+            CreateMap<Models.BasketLineForCreation, Entities.BasketLine>()
+                .ForMember(d => d.UnitPrice, opts => opts.MapFrom(src => src.Price))
+                .ReverseMap();
             CreateMap<Models.BasketLineForUpdate, Entities.BasketLine>();
             CreateMap<Entities.BasketLine, Models.BasketLine>().ReverseMap();
 
