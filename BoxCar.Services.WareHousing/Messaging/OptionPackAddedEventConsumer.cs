@@ -33,14 +33,15 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var optionPack = System.Text.Json.JsonSerializer.Deserialize<OptionPackAddedEvent>(body);
             if (optionPack == null) return;
-            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.OptionPack, optionPack.OptionPackId);
+            var localCopy = await _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.OptionPack, optionPack.OptionPackId);
             if (localCopy != null) return;
             var item = new Item
             {
                 Id = optionPack.OptionPackId,
                 Name = optionPack.Name,
                 ItemType = ItemType.OptionPack,
-                ItemTypeId = optionPack.OptionPackId
+                ItemTypeId = optionPack.OptionPackId,
+                SpecificationKey = optionPack.OptionPackId.ToString()
             };
             await _itemsRepository.Add(item);
             var items = optionPack.Options.Select(o => new Item
@@ -48,7 +49,8 @@ namespace BoxCar.Services.WareHousing.Messaging
                 Id = o.OptionId,
                 Name = o.Name,
                 ItemType = ItemType.Option,
-                ItemTypeId = o.OptionId
+                ItemTypeId = o.OptionId,
+                SpecificationKey = o.OptionId.ToString()
             });
             await _itemsRepository.Add(items.AsEnumerable());
         }

@@ -34,14 +34,15 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var engine = System.Text.Json.JsonSerializer.Deserialize<EngineAddedEvent>(body);
             if (engine == null) return;
-            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Engine, engine.EngineId);
+            var localCopy = await _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Engine, engine.EngineId);
             if (localCopy != null) return;
             var item = new Item
             {
                 Id = engine.EngineId,
                 Name = engine.Name,
                 ItemType = ItemType.Engine,
-                ItemTypeId = engine.EngineId
+                ItemTypeId = engine.EngineId,
+                SpecificationKey = engine.EngineId.ToString()
             };
             await _itemsRepository.Add(item);
         }

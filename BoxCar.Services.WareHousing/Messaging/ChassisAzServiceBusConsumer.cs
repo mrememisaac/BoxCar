@@ -33,14 +33,15 @@ namespace BoxCar.Services.WareHousing.Messaging
 
             var chassis = System.Text.Json.JsonSerializer.Deserialize<ChassisAddedEvent>(body);
             if (chassis == null) return;
-            var localCopy = _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Chassis, chassis.ChassisId);
+            var localCopy = await _itemsRepository.GetByItemTypeAndItemTypeId(ItemType.Chassis, chassis.ChassisId);
             if (localCopy != null) return;
             var item = new Item
             {
-                Id = chassis.ChassisId,
+                Id = chassis.Id,
                 Name = chassis.Name,
                 ItemType = ItemType.Chassis,
-                ItemTypeId = chassis.ChassisId
+                ItemTypeId = chassis.ChassisId, 
+                SpecificationKey = chassis.ChassisId.ToString() 
             };
             await _itemsRepository.Add(item);
         }
