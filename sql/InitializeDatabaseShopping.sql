@@ -85,10 +85,10 @@ GO
 CREATE TABLE [Vehicles] (
     [Id] uniqueidentifier NOT NULL,
     [Name] nvarchar(max) NOT NULL,
+    [Price] int NOT NULL,
     [ChassisId] uniqueidentifier NOT NULL,
     [EngineId] uniqueidentifier NOT NULL,
     [OptionPackId] uniqueidentifier NOT NULL,
-    [Price] int NOT NULL,
     CONSTRAINT [PK_Vehicles] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Vehicles_Chassis_ChassisId] FOREIGN KEY ([ChassisId]) REFERENCES [Chassis] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Vehicles_Engines_EngineId] FOREIGN KEY ([EngineId]) REFERENCES [Engines] ([Id]) ON DELETE CASCADE,
@@ -106,8 +106,7 @@ CREATE TABLE [BasketLines] (
     [Quantity] int NOT NULL,
     [UnitPrice] int NOT NULL,
     CONSTRAINT [PK_BasketLines] PRIMARY KEY ([BasketLineId]),
-    CONSTRAINT [FK_BasketLines_Baskets_BasketId] FOREIGN KEY ([BasketId]) REFERENCES [Baskets] ([BasketId]) ON DELETE CASCADE,
-    CONSTRAINT [FK_BasketLines_Vehicles_VehicleId] FOREIGN KEY ([VehicleId]) REFERENCES [Vehicles] ([Id]) ON DELETE CASCADE
+    CONSTRAINT [FK_BasketLines_Baskets_BasketId] FOREIGN KEY ([BasketId]) REFERENCES [Baskets] ([BasketId]) ON DELETE CASCADE
 );
 GO
 
@@ -127,9 +126,10 @@ CREATE INDEX [IX_Vehicles_OptionPackId] ON [Vehicles] ([OptionPackId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20231018150944_Initial', N'7.0.12');
+VALUES (N'20231019234358_v1', N'7.0.12');
 GO
 
 COMMIT;
 GO
+
 
