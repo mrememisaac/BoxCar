@@ -20,21 +20,9 @@ services:
       - ASPNETCORE_HTTP_PORT=5003
       - ASPNETCORE_HTTPS_PORT=5300
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
-      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
-      - RabbitMQ__Host=rabbit
-      - RabbitMQ__Port=5672
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
-      - RedisConnectionStrings=cache
+      - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx     
     networks:
       - lan-network
-    depends_on: 
-      - sqlserver
-      - rabbit
-      - cache
      
   boxcar.services.notifications:
     image: ${DOCKER_REGISTRY-}boxcarservicesnotifications
@@ -52,10 +40,6 @@ services:
       - ASPNETCORE_HTTPS_PORT=5400
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
@@ -64,7 +48,6 @@ services:
     networks:
       - lan-network
     depends_on: 
-      - sqlserver
       - rabbit
       - cache
 
@@ -84,9 +67,6 @@ services:
       - ASPNETCORE_HTTPS_PORT=5500
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
@@ -116,10 +96,8 @@ services:
       - ASPNETCORE_HTTPS_PORT=5700
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
+      - ApiConfigs__ExternalPaymentGateway__Uri=http://external.paymentgateway
+      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
@@ -129,6 +107,7 @@ services:
       - lan-network
     depends_on: 
       - boxcar.ordering
+      - rabbit
 
   boxcar.ordering:
     image: ${DOCKER_REGISTRY-}boxcarordering
@@ -146,16 +125,12 @@ services:
       - ASPNETCORE_HTTPS_PORT=5800
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest
       - RedisConnectionString=cache
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarOrderDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BoxCarOrdersDb;User Id=sa; Password=Pass@word; MultipleActiveResultSets=true; TrustServerCertificate=True
     networks:
       - lan-network
     depends_on: 
@@ -180,8 +155,8 @@ services:
       - ASPNETCORE_HTTPS_PORT=5600
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
+      - ApiConfigs__AdministrationService__Uri=http://boxcar.admin.api
+      - ApiConfigs__CatalogueService__Uri=http://boxcar.admin.api
       - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
@@ -213,10 +188,7 @@ services:
       - ASPNETCORE_HTTPS_PORT=5900
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
       - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
-      - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
-      - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket      
       - RabbitMQ__Host=rabbit
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
@@ -247,7 +219,6 @@ services:
       - ASPNETCORE_HTTPS_PORT=5100
       - ASPNETCORE_Kestrel_Certificates_Default_Password=SECRETPASSWORD
       - ASPNETCORE_Kestrel_Certificates_Default_Path=/https/aspnetapp.pfx
-      - ApiConfigs__MoviesService__ApiKey=68e5fbda-9ec9-4858-97b2-4a8349764c63
       - ApiConfigs__AdministrationService__Uri=https://boxcar.admin.api
       - ApiConfigs__CatalogueService__Uri=http://boxcar.catalogue.api
       - ApiConfigs__ShoppingBasketService__Uri=http://boxcar.shoppingbasket
@@ -264,6 +235,8 @@ services:
       - sqlserver
       - rabbit
       - cache
+    links:
+      - cache
 
   rabbit:
     image: rabbitmq:3-management
@@ -277,7 +250,9 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
-  
+    networks:
+      - lan-network
+ 
   sqlserver:
     build:
       context: .
