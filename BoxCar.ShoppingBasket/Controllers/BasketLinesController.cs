@@ -25,16 +25,26 @@ namespace BoxCar.ShoppingBasket.Controllers
         private readonly IOptionPackRepository _optionPackRepository;
         private readonly IOptionPackCatalogService _optionPackCatalogService;
         private readonly IMapper _mapper;
-
-        public BasketLinesController(IBasketRepository basketRepository, 
-            IBasketLinesRepository basketLinesRepository, IVehicleRepository eventRepository, 
-            IVehicleCatalogService eventCatalogService, IMapper mapper)
+        private readonly ILogger<BasketLinesController> _logger;
+        public BasketLinesController(IBasketRepository basketRepository,
+            IBasketLinesRepository basketLinesRepository, IVehicleRepository eventRepository,
+            IEngineRepository engineRepository,
+            IOptionPackRepository optionPackRepository,
+            IChassisRepository chassisRepository,
+            IVehicleCatalogService eventCatalogService, IMapper mapper, IChassisCatalogService chassisCatalogService, IOptionPackCatalogService optionPackCatalogService, IEngineCatalogService engineCatalogService, ILogger<BasketLinesController> logger)
         {
             _basketRepository = basketRepository;
             _basketLinesRepository = basketLinesRepository;
             _vehicleRepository = eventRepository;
+            _engineRepository = engineRepository;
+            _optionPackRepository = optionPackRepository;
+            _chassisRepository = chassisRepository;
             _vehicleCatalogService = eventCatalogService;
             _mapper = mapper;
+            _chassisCatalogService = chassisCatalogService;
+            _optionPackCatalogService = optionPackCatalogService;
+            _engineCatalogService = engineCatalogService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -46,11 +56,11 @@ namespace BoxCar.ShoppingBasket.Controllers
             }
 
             var basketLines = await _basketLinesRepository.GetBasketLines(basketId);
-            return Ok(_mapper.Map<IEnumerable<BasketLine>>(basketLines));             
+            return Ok(_mapper.Map<IEnumerable<BasketLine>>(basketLines));
         }
 
         [HttpGet("{basketLineId}", Name = "GetBasketLine")]
-        public async Task<ActionResult<BasketLine>> Get(Guid basketId, 
+        public async Task<ActionResult<BasketLine>> Get(Guid basketId,
             Guid basketLineId)
         {
             if (!await _basketRepository.BasketExists(basketId))
@@ -68,58 +78,64 @@ namespace BoxCar.ShoppingBasket.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BasketLine>> Post(Guid basketId, 
+        public async Task<ActionResult<BasketLine>> Post(Guid basketId,
             [FromBody] BasketLineForCreation basketLineForCreation)
         {
             if (!await _basketRepository.BasketExists(basketId))
             {
                 return NotFound();
             }
-
-            if (!await _vehicleRepository.VehicleExists(basketLineForCreation.VehicleId))
+            try
             {
-                var vehicleFromCatalog = await _vehicleCatalogService.GetVehicle(basketLineForCreation.VehicleId);
-                _vehicleRepository.AddVehicle(vehicleFromCatalog);
-                await _vehicleRepository.SaveChanges();
-            }
+                if (!await _vehicleRepository.VehicleExists(basketLineForCreation.VehicleId))
+                {
+                    var vehicleFromCatalog = await _vehicleCatalogService.GetVehicle(basketLineForCreation.VehicleId);
+                    _vehicleRepository.AddVehicle(vehicleFromCatalog);
+                    await _vehicleRepository.SaveChanges();
+                }
 
-            if (!await _engineRepository.EngineExists(basketLineForCreation.EngineId))
+                if (!await _engineRepository.EngineExists(basketLineForCreation.EngineId))
+                {
+                    var engineFromCatalog = await _engineCatalogService.GetEngine(basketLineForCreation.EngineId);
+                    _engineRepository.AddEngine(engineFromCatalog);
+                    await _engineRepository.SaveChanges();
+                }
+
+                if (!await _chassisRepository.ChassisExists(basketLineForCreation.ChassisId))
+                {
+                    var chassisFromCatalog = await _chassisCatalogService.GetChassis(basketLineForCreation.ChassisId);
+                    _chassisRepository.AddChassis(chassisFromCatalog);
+                    await _chassisRepository.SaveChanges();
+                }
+
+                if (!await _optionPackRepository.OptionPackExists(basketLineForCreation.OptionPackId))
+                {
+                    var optionPackFromCatalog = await _optionPackCatalogService.GetOptionPack(basketLineForCreation.OptionPackId);
+                    _optionPackRepository.AddOptionPack(optionPackFromCatalog);
+                    await _optionPackRepository.SaveChanges();
+                }
+            }
+            catch(Exception e)
             {
-                var engineFromCatalog = await _engineCatalogService.GetEngine(basketLineForCreation.EngineId);
-                _engineRepository.AddEngine(engineFromCatalog);
-                await _engineRepository.SaveChanges();
+                _logger.LogError(e, "Unable to reach catalogue service to validate data {0}", basketLineForCreation);
             }
-
-            if (!await _chassisRepository.ChassisExists(basketLineForCreation.ChassisId))
-            {
-                var chassisFromCatalog = await _chassisCatalogService.GetChassis(basketLineForCreation.ChassisId);
-                _chassisRepository.AddChassis(chassisFromCatalog);
-                await _chassisRepository.SaveChanges();
-            }
-
-            if (!await _optionPackRepository.OptionPackExists(basketLineForCreation.OptionPackId))
-            {
-                var optionPackFromCatalog = await _optionPackCatalogService.GetOptionPack(basketLineForCreation.OptionPackId);
-                _optionPackRepository.AddOptionPack(optionPackFromCatalog);
-                await _optionPackRepository.SaveChanges();
-            }
-
             var basketLineEntity = _mapper.Map<Entities.BasketLine>(basketLineForCreation);
 
             var processedBasketLine = await _basketLinesRepository.AddOrUpdateBasketLine(basketId, basketLineEntity);
             await _basketLinesRepository.SaveChanges();
 
             var basketLineToReturn = _mapper.Map<BasketLine>(processedBasketLine);
+            basketLineToReturn.Price = basketLineEntity.UnitPrice;
 
             return CreatedAtRoute(
                 "GetBasketLine",
                 new { basketId = basketLineEntity.BasketId, basketLineId = basketLineEntity.BasketLineId },
                 basketLineToReturn);
-        } 
+        }
 
         [HttpPut("{basketLineId}")]
-        public async Task<ActionResult<BasketLine>> Put(Guid basketId, 
-            Guid basketLineId, 
+        public async Task<ActionResult<BasketLine>> Put(Guid basketId,
+            Guid basketLineId,
             [FromBody] BasketLineForUpdate basketLineForUpdate)
         {
             if (!await _basketRepository.BasketExists(basketId))
@@ -140,10 +156,10 @@ namespace BoxCar.ShoppingBasket.Controllers
             await _basketLinesRepository.SaveChanges();
 
             return Ok(_mapper.Map<BasketLine>(basketLineEntity));
-        } 
+        }
 
         [HttpDelete("{basketLineId}")]
-        public async Task<IActionResult> Delete(Guid basketId, 
+        public async Task<IActionResult> Delete(Guid basketId,
             Guid basketLineId)
         {
             if (!await _basketRepository.BasketExists(basketId))
