@@ -30,11 +30,10 @@ namespace BoxCar.Admin.Core.Features.Chasis.ListChassis
 
         public async Task<GetChassisQueryResponse> Handle(GetChassisQuery request, CancellationToken cancellationToken)
         {
-            var key = $"{nameof(GetEngineQuery)}-{request.PageNumber}-{request.PageSize}";
-            var response = await _cache.GetFromCache<IEnumerable<Chassis>>(key) ?? await _cache.SaveToCache<IEnumerable<Chassis>>(key,
-               await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken)
-               );
-            return _mapper.Map<GetChassisQueryResponse>(response);
+            var key = $"{nameof(GetChassisQuery)}-{request.PageNumber}-{request.PageSize}";
+            var data = await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken);
+            var response = _mapper.Map<GetChassisQueryResponse>(data);
+            return await _cache.GetFromCache<GetChassisQueryResponse>(key) ?? await _cache.SaveToCache<GetChassisQueryResponse>(key, response);
         }
     }
 }
