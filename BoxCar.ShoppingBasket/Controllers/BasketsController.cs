@@ -20,14 +20,17 @@ namespace BoxCar.ShoppingBasket.Controllers
         private readonly IMapper _mapper;
         private readonly IMessageBus _messageBus;
         private readonly string _checkoutRequestTopic;
+        private readonly ILogger _logger;
         public BasketsController(IBasketRepository basketRepository, 
             IConfiguration configuration,
+            ILogger<BasketsController> logger,
             IMapper mapper, IMessageBus messageBus)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
             _messageBus = messageBus;
             _checkoutRequestTopic = configuration.GetValue<string>("CheckoutRequest") ?? "checkout_request";
+            _logger = logger;
         }
 
         [HttpGet("{basketId}", Name = "GetBasket")]
@@ -66,54 +69,58 @@ namespace BoxCar.ShoppingBasket.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> CheckoutBasketAsync([FromBody] BasketCheckout basketCheckout)
         {
-            try
+            using (_logger.BeginScope("Basket Checkout initiated by user for baket #{}", basketCheckout.BasketId))
             {
-                //based on basket checkout, fetch the basket lines from repo
-                var basket = await _basketRepository.GetBasketById(basketCheckout.BasketId);
-
-                if (basket == null)
-                {
-                    return BadRequest();
-                }
-
-                BasketCheckoutMessage basketCheckoutMessage = _mapper.Map<BasketCheckoutMessage>(basketCheckout);
-                basketCheckoutMessage.BasketLines = new List<BasketLineMessage>();
-
-                foreach (var b in basket.BasketLines)
-                {
-                    var basketLineMessage = new BasketLineMessage
-                    {
-                        BasketLineId = b.BasketLineId,
-                        ChassisId = b.ChassisId,
-                        EngineId = b.EngineId,
-                        OptionPackId = b.OptionPackId,
-                        Quantity = b.Quantity,
-                        Price = b.UnitPrice,
-                    };
-                    basketCheckoutMessage.BasketLines.Add(basketLineMessage);
-                }
-
                 try
                 {
-                    await _messageBus.PublishMessage(basketCheckoutMessage, _checkoutRequestTopic);
+                    //based on basket checkout, fetch the basket lines from repo
+                    var basket = await _basketRepository.GetBasketById(basketCheckout.BasketId);
+
+                    if (basket == null)
+                    {
+                        return BadRequest();
+                    }
+
+                    BasketCheckoutMessage basketCheckoutMessage = _mapper.Map<BasketCheckoutMessage>(basketCheckout);
+                    basketCheckoutMessage.BasketLines = new List<BasketLineMessage>();
+
+                    foreach (var b in basket.BasketLines)
+                    {
+                        var basketLineMessage = new BasketLineMessage
+                        {
+                            BasketLineId = b.BasketLineId,
+                            ChassisId = b.ChassisId,
+                            EngineId = b.EngineId,
+                            OptionPackId = b.OptionPackId,
+                            VehicleId = b.VehicleId,
+                            Quantity = b.Quantity,
+                            Price = b.UnitPrice,
+                        };
+                        basketCheckoutMessage.BasketLines.Add(basketLineMessage);
+                    }
+
+                    try
+                    {
+                        await _messageBus.PublishMessage(basketCheckoutMessage, _checkoutRequestTopic);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+
+                    await _basketRepository.ClearBasket(basketCheckout.BasketId);
+                    return Accepted(basketCheckoutMessage);
+                }
+                catch (BrokenCircuitException ex)
+                {
+                    string message = ex.Message;
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.StackTrace);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.StackTrace);
                 }
-
-                await _basketRepository.ClearBasket(basketCheckout.BasketId);
-                return Accepted(basketCheckoutMessage);
-            }
-            catch (BrokenCircuitException ex)
-            {
-                string message = ex.Message;
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.StackTrace);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.StackTrace);
             }
         }
     }
