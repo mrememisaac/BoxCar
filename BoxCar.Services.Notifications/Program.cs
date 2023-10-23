@@ -20,6 +20,9 @@ builder.Services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,4 +41,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseSerilogRequestLogging();
 app.Run();
