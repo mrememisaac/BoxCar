@@ -6,6 +6,6 @@
 
         public string Name { get; set; } = null!;
 
-        public List<AddOptionDto> Options = new List<AddOptionDto>();
+        public IEnumerable<AddOptionDto> Options = new List<AddOptionDto>();
     }
 }
