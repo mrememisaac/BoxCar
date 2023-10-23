@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
 {
-    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, IResult<AddVehicleResponse>>
+    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, Result<AddVehicleResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Vehicle, Guid> _repository;
@@ -40,7 +40,7 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             _messageBus = messageBus;
             _eventTopic = configuration.GetValue<string>(nameof(VehicleAddedEvent)) ?? throw new ArgumentNullException($"{nameof(VehicleAddedEvent)} configuration value missing");
         }
-        public async Task<IResult<AddVehicleResponse>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AddVehicleResponse>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Adding a vehicle {request}", request); 
             var validationResult = await _validator.ValidateAsync(request, cancellationToken);
@@ -51,9 +51,9 @@ namespace BoxCar.Admin.Core.Features.Vehicles.AddVehicle
             var engine = await _enginesRepository.GetByIdAsync(request.EngineId, cancellationToken);
             var chassis = await _chassisRepository.GetByIdAsync(request.ChassisId, cancellationToken);
             var optionPack = await _optionPacksRepository.GetByIdAsync(request.OptionPackId, cancellationToken);
-            var vehicle = new Vehicle(request.Id, engine!, chassis!, optionPack!, request.Price);
+            var vehicle = new Vehicle(request.Id, request.Name, engine!, chassis!, optionPack!, request.Price);
             vehicle = await _repository.CreateAsync(vehicle, cancellationToken);
-            var newEvent = _mapper.Map<VehicleAddedEvent>(engine);
+            var newEvent = _mapper.Map<VehicleAddedEvent>(vehicle);
             try
             {
                 await _messageBus.PublishMessage(newEvent, _eventTopic);
