@@ -8,6 +8,8 @@ using BoxCar.Admin.Core.Features.Factories.AddFactory;
 using BoxCar.Admin.Core.Features.Factories.GetFactory;
 using BoxCar.Admin.Core.Features.OptionPacks.AddOptionPack;
 using BoxCar.Admin.Core.Features.OptionPacks.GetOptionPack;
+using BoxCar.Admin.Core.Features.Options.AddOption;
+using BoxCar.Admin.Core.Features.Options.GetOption;
 using BoxCar.Admin.Core.Features.Vehicles.AddVehicle;
 using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 using BoxCar.Admin.Core.Features.Warehouses.AddWareHouse;
@@ -38,13 +40,15 @@ namespace BoxCar.Admin.Core
             services.AddScoped<AddChassisCommandValidator>();
             services.AddScoped<AddOptionPackCommandValidator>();
             services.AddScoped<AddressDtoValidator>();
-            services.AddScoped<AddOptionDtoValidator>();
+            services.AddScoped<AddOptionDtoValidator>(); 
+            services.AddScoped<AddOptionCommandValidator>();
             services.AddScoped<GetWareHouseByIdQueryValidator>();
             services.AddScoped<GetVehicleByIdQueryValidator>();
             services.AddScoped<GetOptionPackByIdQueryValidator>();
             services.AddScoped<GetEngineByIdQueryValidator>();
             services.AddScoped<GetChassisByIdQueryValidator>();
             services.AddScoped<GetFactoryByIdQueryValidator>();
+            services.AddScoped<GetOptionByIdQueryValidator>();
             services.AddTransient(typeof(IResult<>), typeof(Result<>));
 
             return services;
