@@ -45,8 +45,9 @@ namespace BoxCar.Admin.Core.Features.Chasis.GetChassis
                 throw new Exceptions.ValidationException(validationResult);
             }
             var key = $"{nameof(GetChassisByIdQuery)}-{request.Id}";
-            var response = await _cache.GetFromCache<Chassis>(key) ?? await _cache.SaveToCache<Chassis>(key, await _repository.GetByIdAsync(request.Id, cancellationToken));
-            return _mapper.Map<GetChassisByIdResponse>(response);
+            var data = await _repository.GetByIdAsync(request.Id, cancellationToken);
+            var response = _mapper.Map<GetChassisByIdResponse>(data);
+            return await _cache.GetFromCache<GetChassisByIdResponse>(key) ?? await _cache.SaveToCache<GetChassisByIdResponse>(key, response);
         }
     }
 }

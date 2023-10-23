@@ -12,12 +12,12 @@ namespace BoxCar.Admin.Core.Features.Vehicles.ListVehicles
 
     public class GetVehicleQueryHandler : IRequestHandler<GetVehicleQuery, GetVehicleQueryResponse>
     {
-        private readonly IAsyncRepository<Vehicle, Guid> _repository;
+        private readonly IVehicleRepository _repository;
         private readonly ILogger<GetVehicleQueryHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IDistributedCache _cache;
 
-        public GetVehicleQueryHandler(IAsyncRepository<Vehicle, Guid> repository,
+        public GetVehicleQueryHandler(IVehicleRepository repository,
             ILogger<GetVehicleQueryHandler> logger,
             IMapper mapper,
             IDistributedCache cache)
@@ -31,10 +31,9 @@ namespace BoxCar.Admin.Core.Features.Vehicles.ListVehicles
         public async Task<GetVehicleQueryResponse> Handle(GetVehicleQuery request, CancellationToken cancellationToken)
         {
             var key = $"{nameof(GetVehicleQuery)}-{request.PageNumber}-{request.PageSize}";
-            var response = await _cache.GetFromCache<IEnumerable<Vehicle>>(key) ?? await _cache.SaveToCache<IEnumerable<Vehicle>>(key,
-                await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken)
-                );
-            return _mapper.Map<GetVehicleQueryResponse>(response);
+            var data = await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken);
+            var response = _mapper.Map<GetVehicleQueryResponse>(data);
+            return await _cache.GetFromCache<GetVehicleQueryResponse>(key) ?? await _cache.SaveToCache(key, response);
         }
     }
 }

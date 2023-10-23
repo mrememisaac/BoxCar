@@ -30,10 +30,9 @@ namespace BoxCar.Admin.Core.Features.Engines.ListEngines
         public async Task<GetEngineQueryResponse> Handle(GetEngineQuery request, CancellationToken cancellationToken)
         {
             var key = $"{nameof(GetEngineQuery)}-{request.PageNumber}-{request.PageSize}";
-            var response = await _cache.GetFromCache<IEnumerable<Engine>>(key) ?? await _cache.SaveToCache<IEnumerable<Engine>>(key,
-                await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken)
-                );
-            return _mapper.Map<GetEngineQueryResponse>(response);
+            var data = await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken);
+            var response = _mapper.Map<GetEngineQueryResponse>(data);
+            return await _cache.GetFromCache<GetEngineQueryResponse>(key) ?? await _cache.SaveToCache(key, response);
         }
     }
 }

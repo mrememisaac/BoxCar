@@ -29,10 +29,9 @@ namespace BoxCar.Admin.Core.Features.OptionPacks.ListOptionPacks
         public async Task<GetOptionPackQueryResponse> Handle(GetOptionPackQuery request, CancellationToken cancellationToken)
         {
             var key = $"{nameof(GetOptionPackQuery)}-{request.PageNumber}-{request.PageSize}";
-            var response = await _cache.GetFromCache<IEnumerable<OptionPack>>(key) ?? await _cache.SaveToCache<IEnumerable<OptionPack>>(key,
-                await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken)
-                );
-            return _mapper.Map<GetOptionPackQueryResponse>(response);
+            var data = await _repository.GetPagedAsync(request.PageNumber, request.PageSize, cancellationToken);
+            var response = _mapper.Map<GetOptionPackQueryResponse>(data);
+            return await _cache.GetFromCache<GetOptionPackQueryResponse>(key) ?? await _cache.SaveToCache(key, response);
         }
     }
 }

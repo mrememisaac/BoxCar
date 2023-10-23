@@ -17,13 +17,13 @@ namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
 
     public class GetVehicleByIdQueryHandler : IRequestHandler<GetVehicleByIdQuery, GetVehicleByIdResponse>
     {
-        private readonly IAsyncRepository<Vehicle, Guid> _repository;
+        private readonly IVehicleRepository _repository;
         private readonly ILogger<GetVehicleByIdQueryHandler> _logger;
         private readonly GetVehicleByIdQueryValidator _validator;
         private readonly IMapper _mapper;
         private readonly IDistributedCache _cache;
 
-        public GetVehicleByIdQueryHandler(IAsyncRepository<Vehicle, Guid> repository,
+        public GetVehicleByIdQueryHandler(IVehicleRepository repository,
             ILogger<GetVehicleByIdQueryHandler> logger,
             GetVehicleByIdQueryValidator validator,
             IMapper mapper,
@@ -45,8 +45,9 @@ namespace BoxCar.Admin.Core.Features.Vehicles.GetVehicle
                 throw new Exceptions.ValidationException(validationResult);
             }
             var key = $"{nameof(GetVehicleByIdQuery)}-{request.Id}";
-            var response = await _cache.GetFromCache<Vehicle>(key) ?? await _cache.SaveToCache<Vehicle>(key, await _repository.GetByIdAsync(request.Id, cancellationToken));
-            return _mapper.Map<GetVehicleByIdResponse>(response);
+            var data = await _repository.GetByIdAsync(request.Id, cancellationToken);
+            var response = _mapper.Map<GetVehicleByIdResponse>(data);
+            return await _cache.GetFromCache<GetVehicleByIdResponse>(key) ?? await _cache.SaveToCache(key, response);
         }
     }
 }
