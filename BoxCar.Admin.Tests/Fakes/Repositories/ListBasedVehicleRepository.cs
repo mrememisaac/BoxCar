@@ -30,8 +30,8 @@ namespace BoxCar.Admin.Tests.Fakes.Repositories
             var chassis1 = new Chassis(Guid.NewGuid(), "Simple Chassis", "This is the standard chassis ", 1000);
             var chassis2 = new Chassis(Guid.NewGuid(), "Enhanced Chassis", "This chassis has extra protection", 2000);
 
-            var one = new Vehicle(Guid.NewGuid(), engine1, chassis1, optionPack1, 5000);
-            var two = new Vehicle(Guid.NewGuid(), engine2, chassis2, optionPack2, 6000);
+            var one = new Vehicle(Guid.NewGuid(), "Vehicle 1", engine1, chassis1, optionPack1, 5000);
+            var two = new Vehicle(Guid.NewGuid(), "Vehicle 2", engine2, chassis2, optionPack2, 6000);
             context.Add(one);
             context.Add(two);
         }
