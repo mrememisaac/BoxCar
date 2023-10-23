@@ -6,10 +6,12 @@
         
         public string Value { get; private set; } = null!;
 
-        public Option(Guid id, string name, string value, int price)
+        public Option(Guid id, string name, string? value, int price)
         {
             Id = id == Guid.Empty ? throw new ArgumentNullException(nameof(id)) : id;
+            Value = value ?? name;
             ChangeName(name);
+            ChangeValue(value);
             Price = price;
         }
 
