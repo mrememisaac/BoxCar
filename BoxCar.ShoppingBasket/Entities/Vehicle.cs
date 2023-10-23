@@ -15,5 +15,9 @@ namespace BoxCar.ShoppingBasket.Entities
         public OptionPack OptionPack { get; set; }
 
         public int Price { get; set; }
+
+        public Guid ChassisId { get; set; }
+        public Guid EngineId { get; set; }
+        public Guid OptionPackId { get; set; }
     }
 }
