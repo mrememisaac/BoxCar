@@ -1,6 +1,7 @@
 ﻿using BoxCar.Admin.Core.Contracts.Persistence;
 using BoxCar.Admin.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Threading;
 
 namespace BoxCar.Admin.Persistence
