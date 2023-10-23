@@ -16,7 +16,7 @@ namespace BoxCar.ShoppingBasket.Entities
         [Required]
         public Guid VehicleId { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public virtual Vehicle? Vehicle { get; set; }
         
         [Required]
         public Guid EngineId { get; set; }
