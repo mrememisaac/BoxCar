@@ -8,7 +8,7 @@ using BoxCar.Catalogue.Core.Features.Engines.ListEngines;
 namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class EnginesController : ControllerBase
     {
         private readonly ILogger<EnginesController> _logger;

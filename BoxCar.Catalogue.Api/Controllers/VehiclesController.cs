@@ -8,7 +8,7 @@ using BoxCar.Catalogue.Core.Features.Vehicles.ListVehicles;
 namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class VehiclesController : ControllerBase
     {
         private readonly ILogger<VehiclesController> _logger;
@@ -22,7 +22,7 @@ namespace BoxCar.Catalogue.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetVehicleById", Name = nameof(GetVehicleById))]
+        [HttpGet(Name = nameof(GetVehicleById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

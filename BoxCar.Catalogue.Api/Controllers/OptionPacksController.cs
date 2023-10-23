@@ -8,7 +8,7 @@ using BoxCar.Catalogue.Core.Features.OptionPacks.ListOptionPacks;
 namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OptionPacksController : ControllerBase
     {
         private readonly ILogger<OptionPacksController> _logger;

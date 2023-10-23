@@ -8,7 +8,7 @@ using BoxCar.Catalogue.Core.Features.Chasis.ListChassis;
 namespace BoxCar.Catalogue.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ChassisController : ControllerBase
     {
         private readonly ILogger<ChassisController> _logger;
