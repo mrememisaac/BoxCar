@@ -2,6 +2,7 @@
 using BoxCar.Services.WareHousing.Entities;
 using BoxCar.Services.WareHousing.Messages;
 using BoxCar.Services.WareHousing.Repositories;
+using BoxCar.Services.WareHousing.Services;
 using Microsoft.Azure.ServiceBus;
 using System.ComponentModel;
 using System.Text;
@@ -18,6 +19,13 @@ namespace BoxCar.Services.WareHousing.Worker
         private readonly IMessageBus _messageBus;
         private readonly string _orderStatusUpdateTopic;
         private readonly string _productionRequestTopic;
+        private readonly string _orderItemsAvailabilityUpdateMessageTopic;
+
+
+        private readonly IVehicleCatalogService _vehicleCatalogService;
+        private readonly IEngineCatalogService _engineCatalogService;
+        private readonly IChassisCatalogService _chassisCatalogService;
+        private readonly IOptionPackCatalogService _optionPackCatalogService;
 
         public OrderFulfillmentService(IConfiguration configuration, ILoggerFactory loggerFactory,
             ItemsRepository itemsRepository,
@@ -27,8 +35,9 @@ namespace BoxCar.Services.WareHousing.Worker
             _configuration = configuration;
             _itemsRepository = itemsRepository;
             _logger = loggerFactory.CreateLogger<OrderFulfillmentService>();
-            _orderStatusUpdateTopic = configuration.GetValue<string>("OrderStatusUpdate") ?? "order_status_update";
-            _productionRequestTopic = configuration.GetValue<string>("ProductionRequest") ?? "production_request";
+            _orderStatusUpdateTopic = configuration.GetValue<string>("OrderStatusUpdate");
+            _productionRequestTopic = configuration.GetValue<string>("ProductionRequest");
+            _orderItemsAvailabilityUpdateMessageTopic = _configuration.GetValue<string>("OrderItemsAvailabilityUpdate");
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -70,78 +79,91 @@ namespace BoxCar.Services.WareHousing.Worker
 
             var productionRequest = new ProductionRequest { OrderId = fulfillRequest.OrderId, CreationDateTime = DateTime.UtcNow };
             var orderItemsAvailabilityUpdate = new OrderItemsAvailabilityUpdate { OrderId = fulfillRequest.OrderId, CreationDateTime = DateTime.UtcNow };
+            try
+            {
+                await ProcessOrder(fulfillRequest, productionRequest, orderItemsAvailabilityUpdate);
 
-            foreach (var line in fulfillRequest.OrderItems)
+                await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
+                await SendProductionRequest(productionRequest);
+                await SendOrderUpdate(orderItemsAvailabilityUpdate);
+
+                _logger.LogDebug($"{fulfillRequest.OrderId}: {nameof(OrderFulfillmentService)} received item.");
+                await Task.Delay(20000);
+                _logger.LogDebug($"{fulfillRequest.OrderId}: {nameof(OrderFulfillmentService)} processed item.");
+            }
+            catch (Exception e)
             {
                 _logger.LogError(e, "unable to process order fulfillment request for order:{0}", fulfillRequest.OrderId);
                 throw;
             }
-            }
+        }
 
-            await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
-            try
-            {
-                await _messageBus.PublishMessage(productionRequest, _productionRequestTopic);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "An error occured while posting a fulfillment update message {1}", orderItemsAvailabilityUpdate);
-            }
-            }
+        private async Task SendOrderUpdate(OrderItemsAvailabilityUpdate orderItemsAvailabilityUpdate)
+        {
             try
             {
                 await _messageBus.PublishMessage(orderItemsAvailabilityUpdate, _orderStatusUpdateTopic);
             }
             catch (Exception e)
             {
+                _logger.LogError(e, "An error occured while posting a fulfillment update message {1}", orderItemsAvailabilityUpdate);
+            }
+        }
+
+        private async Task SendProductionRequest(ProductionRequest productionRequest)
+        {
+            if (productionRequest.Items.Count == 0) return;
+            try
+            {
+                await _messageBus.PublishMessage(productionRequest, _productionRequestTopic);
+            }
+            catch (Exception e)
+            {
                 _logger.LogError(e, "An error occured while posting a production request to the production service queue. Request Details {1}", productionRequest);
             }
-
-            _logger.LogDebug($"{fulfillRequest.OrderId}: FulfillOrder ServiceBusListener received item.");
-            await Task.Delay(20000);
-            _logger.LogDebug($"{fulfillRequest.OrderId}: FulfillOrder ServiceBusListener processed item.");
         }
 
         private async Task ProcessOrder(FulfillOrderRequest fulfillRequest, ProductionRequest productionRequest, OrderItemsAvailabilityUpdate orderItemsAvailabilityUpdate)
         {
             _logger.LogInformation("Checking if items in fulfill order request {0} are avaialble",fulfillRequest);
             foreach (var line in fulfillRequest.OrderItems)
-        {
-
-            var specificationKey = SpecificationKeyGenerator.GenerateSpecificationKey(line.VehicleId, line.ChassisId, line.EngineId, line.OptionPackId);
-            var vehicleMatchingSpecification = await _itemsRepository.GetBySpecificationKey(specificationKey);
-            if (vehicleMatchingSpecification == null || vehicleMatchingSpecification.Quantity == 0)
             {
-                var getMatchingComponents = await _itemsRepository.GetComponents(line);
-                foreach (var component in getMatchingComponents)
+
+                var specificationKey = SpecificationKeyGenerator.GenerateSpecificationKey(line.VehicleId, line.ChassisId, line.EngineId, line.OptionPackId);
+                var vehicleMatchingSpecification = await _itemsRepository.GetBySpecificationKey(specificationKey);
+                if (vehicleMatchingSpecification == null || vehicleMatchingSpecification.Quantity == 0)
                 {
-                    if (component.Quantity == 0)
+                    var getMatchingComponents = await _itemsRepository.GetComponents(line);
+                    foreach (var component in getMatchingComponents)
                     {
-                        produceRequest.Items.Add(new ProductionRequestLineItem
+                        if (component.Quantity == 0)
                         {
-                            ItemType = component.ItemType,
-                            ItemTypeId = component.ItemTypeId,
-                            OrderId = line.OrderId,
-                            OrderItemId = line.OrderItemId
-                        });
+                            productionRequest.Items.Add(new ProductionRequestLineItem
+                            {
+                                ItemType = component.ItemType,
+                                ItemTypeId = component.ItemTypeId,
+                                OrderId = line.OrderId,
+                                OrderItemId = line.OrderItemId
+                            });
+                        }
                     }
+                    orderItemsAvailabilityUpdate.Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.InProduction });
+                    return;
                 }
-                orderItemsAvailabilityUpdate.Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.InProduction });
-                return;
-            }
-            var quantityToOrder = line.Quantity > vehicleMatchingSpecification.Quantity ? line.Quantity - vehicleMatchingSpecification.Quantity : 0;
-            produceRequest.Items.Add(new ProductionRequestLineItem
-            {
-                ItemType = ItemType.Vehicle,
-                ItemTypeId = line.VehicleId,
-                OrderId = line.OrderId,
-                OrderItemId = line.OrderItemId,
-                Quantity = quantityToOrder,
-                SpecificationKey = specificationKey,
-            });
+                var quantityToOrder = line.Quantity > vehicleMatchingSpecification.Quantity ? line.Quantity - vehicleMatchingSpecification.Quantity : 0;
+                productionRequest.Items.Add(new ProductionRequestLineItem
+                {
+                    ItemType = ItemType.Vehicle,
+                    ItemTypeId = line.VehicleId,
+                    OrderId = line.OrderId,
+                    OrderItemId = line.OrderItemId,
+                    Quantity = quantityToOrder,
+                    SpecificationKey = specificationKey,
+                });
 
-            await _itemsRepository.ReduceVehicleStockCount(specificationKey, line.Quantity - quantityToOrder);
-            orderItemsAvailabilityUpdate.Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.Available });
+                await _itemsRepository.ReduceStockCount(specificationKey, line.Quantity - quantityToOrder);
+                orderItemsAvailabilityUpdate.Lines.Add(new OrderItemAvailabilityLine { OrderItemId = line.OrderItemId, Status = OrderItemAvailabilityStatus.Available });
+            }
         }
     }
 }
