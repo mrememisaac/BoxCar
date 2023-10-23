@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BoxCar.ShoppingBasket.Repositories
+namespace BoxCar.ShoppingBasket.Repositories.Contracts
 {
     public interface IBasketLinesRepository
     {

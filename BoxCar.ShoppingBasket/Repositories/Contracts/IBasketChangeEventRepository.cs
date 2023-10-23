@@ -1,6 +1,6 @@
 ﻿using BoxCar.ShoppingBasket.Entities;
 
-namespace BoxCar.ShoppingBasket.Repositories
+namespace BoxCar.ShoppingBasket.Repositories.Contracts
 {
     public interface IBasketChangeEventRepository
     {

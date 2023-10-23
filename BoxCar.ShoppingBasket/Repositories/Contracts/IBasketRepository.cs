@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BoxCar.ShoppingBasket.Repositories
+namespace BoxCar.ShoppingBasket.Repositories.Contracts
 {
     public interface IBasketRepository
     {
