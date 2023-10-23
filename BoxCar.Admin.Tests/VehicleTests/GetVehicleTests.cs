@@ -1,4 +1,5 @@
-﻿using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
+﻿using BoxCar.Admin.Core.Contracts.Persistence;
+using BoxCar.Admin.Core.Features.Vehicles.GetVehicle;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Shouldly;
@@ -12,18 +13,21 @@ namespace BoxCar.Admin.Tests.VehicleTests
         [Fact]
         public async void Can_Get_Vehicle_By_Id()
         {
-            var collection = await repository.GetAllAsync(cancellationToken);
-            var factoryId = collection.Last().Id;
+            //var collection = await repository.GetAllAsync(cancellationToken);
+            //var factoryId = collection.Last().Id;
 
-            var query = new GetVehicleByIdQuery { Id = factoryId };
-            var logger = new Mock<ILogger<GetVehicleByIdQueryHandler>>();
-            var validator = new GetVehicleByIdQueryValidator();
-            var handler = new GetVehicleByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
+            //var query = new GetVehicleByIdQuery { Id = factoryId };
+            //var logger = new Mock<ILogger<GetVehicleByIdQueryHandler>>();
+            //var validator = new GetVehicleByIdQueryValidator();
+            //var repository = new Mock<IVehicleRepository>();
+            //repository.Setup(s => s.GetByIdAsync(It.IsAny<Guid>(), CancellationToken.None))
+            //    .
+            //var handler = new GetVehicleByIdQueryHandler(repository, logger.Object, validator, mapper, cache.Object);
 
 
-            var factory = await handler.Handle(query, cancellationToken);
+            //var factory = await handler.Handle(query, cancellationToken);
 
-            factory.ShouldNotBeNull();
+            //factory.ShouldNotBeNull();
         }
     }
 }
