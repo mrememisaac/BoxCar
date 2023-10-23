@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog.Events;
 using Serilog;
+using Serilog.Exceptions;
+using Serilog.Enrichers.Span;
 
 namespace BoxCar.Shared.Logging
 {
@@ -15,7 +17,9 @@ namespace BoxCar.Shared.Logging
                    .Enrich.FromLogContext()
                    .Enrich.WithProperty("ApplicationName", env.ApplicationName)
                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)
-                   //.Enrich.WithExceptionDetails()
+                   .Enrich.WithExceptionDetails()
+                   .Enrich.FromLogContext()
+                   .Enrich.With<ActivityEnricher>()
                    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                    .MinimumLevel.Override("System.Net.Http.HttpClient", LogEventLevel.Warning)
                    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
