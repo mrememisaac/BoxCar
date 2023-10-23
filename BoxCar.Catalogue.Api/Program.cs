@@ -46,6 +46,10 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(type => type.ToString());
 });
 
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddHealthChecks().AddDbContextCheck<BoxCarCatalogueDbContext>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,5 +69,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseAzServiceBusConsumer();
+app.UseSerilogRequestLogging();
 
 app.Run();
