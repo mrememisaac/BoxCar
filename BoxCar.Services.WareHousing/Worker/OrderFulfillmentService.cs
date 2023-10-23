@@ -53,13 +53,13 @@ namespace BoxCar.Services.WareHousing.Worker
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"ServiceBusListener stopping.");
+            _logger.LogDebug($"{nameof(OrderFulfillmentService)} stopping.");
             await _subscriptionClient.CloseAsync();
         }
 
         protected void ProcessError(Exception e)
         {
-            _logger.LogError(e, "Error while processing queue item in ServiceBusListener.");
+            _logger.LogError(e, "Error while processing queue item in {0} ServiceBusListener.", nameof(OrderFulfillmentService));
         }
 
         protected async Task ProcessMessageAsync(Message message, CancellationToken token)
@@ -73,7 +73,9 @@ namespace BoxCar.Services.WareHousing.Worker
 
             foreach (var line in fulfillRequest.OrderItems)
             {
-                await ProcessOrderItem(line, productionRequest, orderItemsAvailabilityUpdate);
+                _logger.LogError(e, "unable to process order fulfillment request for order:{0}", fulfillRequest.OrderId);
+                throw;
+            }
             }
 
             await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
@@ -83,7 +85,8 @@ namespace BoxCar.Services.WareHousing.Worker
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "An error occured while posting a production request to the production service {1}", productionRequest);
+                _logger.LogError(e, "An error occured while posting a fulfillment update message {1}", orderItemsAvailabilityUpdate);
+            }
             }
             try
             {
@@ -91,7 +94,7 @@ namespace BoxCar.Services.WareHousing.Worker
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "An error occured while posting a fulfillment update message {1}", orderItemsAvailabilityUpdate);
+                _logger.LogError(e, "An error occured while posting a production request to the production service queue. Request Details {1}", productionRequest);
             }
 
             _logger.LogDebug($"{fulfillRequest.OrderId}: FulfillOrder ServiceBusListener received item.");
@@ -99,9 +102,10 @@ namespace BoxCar.Services.WareHousing.Worker
             _logger.LogDebug($"{fulfillRequest.OrderId}: FulfillOrder ServiceBusListener processed item.");
         }
 
-        private async Task ProcessOrderItem(FulfillOrderRequestLine line,
-            ProductionRequest produceRequest,
-            OrderItemsAvailabilityUpdate orderItemsAvailabilityUpdate)
+        private async Task ProcessOrder(FulfillOrderRequest fulfillRequest, ProductionRequest productionRequest, OrderItemsAvailabilityUpdate orderItemsAvailabilityUpdate)
+        {
+            _logger.LogInformation("Checking if items in fulfill order request {0} are avaialble",fulfillRequest);
+            foreach (var line in fulfillRequest.OrderItems)
         {
 
             var specificationKey = SpecificationKeyGenerator.GenerateSpecificationKey(line.VehicleId, line.ChassisId, line.EngineId, line.OptionPackId);
