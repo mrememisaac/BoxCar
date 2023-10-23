@@ -1,0 +1,1052 @@
+{
+	"info": {
+		"_postman_id": "1816724a-7b39-4038-a6d5-d3e01dca7ef8",
+		"name": "BoxCar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17862833"
+	},
+	"item": [
+		{
+			"name": "Administration",
+			"item": [
+				{
+					"name": "Chassis Feature",
+					"item": [
+						{
+							"name": "Create Chassis",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\r\n  \"name\": \"Chassis b74\",\r\n  \"description\": \"Chassis b74 despcription\",\r\n  \"price\": 2345\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/chassis",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"chassis"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Happy Path",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\r\n  \"name\": \"Chassis b74\",\r\n  \"description\": \"Chassis b74 despcription\",\r\n  \"price\": 2345\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5010/api/chassis",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5010",
+											"path": [
+												"api",
+												"chassis"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 20 Oct 2023 07:57:58 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Location",
+											"value": "http://localhost:5010/api/Chassis/b74e2eda-60a5-45c2-b43a-a92b614359fa"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Request-Context",
+											"value": "appId=cid-v1:c38ce927-f0aa-40b0-8778-e89131fb0d70"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\n    \"name\": \"Chassis b74\",\n    \"description\": \"Chassis b74 despcription\",\n    \"price\": 2345\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Chassis #2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"67a85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"name\": \"Chassis 67a\",\r\n  \"description\": \"Chassis 67a despcription\",\r\n  \"price\": 2200\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/chassis",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"chassis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Chassis By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5010/api/chassis/5fa85f64-5717-4562-b3fc-2c963f66afa6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"chassis",
+										"5fa85f64-5717-4562-b3fc-2c963f66afa6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List of Chassis",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5010/api/chassis?pageNumber=0&pageSize=4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"chassis"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Engines Feature",
+					"item": [
+						{
+							"name": "Create Engine",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"name\": \"Engine 87f\",\r\n  \"fuelType\": 1,\r\n  \"ignitionMethod\": 1,\r\n  \"strokes\": 2,\r\n  \"price\": 1350\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/engines",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"engines"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Happy Path",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"name\": \"Engine 87f\",\r\n  \"fuelType\": 1,\r\n  \"ignitionMethod\": 1,\r\n  \"strokes\": 2,\r\n  \"price\": 1350\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5010/api/engines",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5010",
+											"path": [
+												"api",
+												"engines"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 20 Oct 2023 07:58:17 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Location",
+											"value": "http://localhost:5010/api/Engines/87f19e92-fa5b-4755-ace7-71575d6aa242"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Request-Context",
+											"value": "appId=cid-v1:c38ce927-f0aa-40b0-8778-e89131fb0d70"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\n    \"name\": \"Engine 87f\",\n    \"fuelType\": 1,\n    \"ignitionMethod\": 1,\n    \"strokes\": 2,\n    \"price\": 1350\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Engine By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"name\": \"Chassis 1\",\r\n  \"description\": \"Chassis 1 despcription\",\r\n  \"price\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/engines/e2a85f64-5717-4562-b3fc-2c963f66afa6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"engines",
+										"e2a85f64-5717-4562-b3fc-2c963f66afa6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List of Engines",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"name\": \"Chassis 1\",\r\n  \"description\": \"Chassis 1 despcription\",\r\n  \"price\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/engines?pageNumber=0&pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"engines"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "OptionPacks Feature",
+					"item": [
+						{
+							"name": "Create OptionPack",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"name\": \"Option Pack 8ec\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/optionpacks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"optionpacks"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Happy Path",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"name\": \"Option Pack 8ec\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5010/api/optionpacks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5010",
+											"path": [
+												"api",
+												"optionpacks"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 20 Oct 2023 07:58:36 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Location",
+											"value": "http://localhost:5010/api/OptionPacks/8ece8ec2-b8d2-4e74-991d-21263b3a9df0"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Request-Context",
+											"value": "appId=cid-v1:c38ce927-f0aa-40b0-8778-e89131fb0d70"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\n    \"name\": \"Option Pack 8ec\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get OptionPack By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"name\": \"Chassis 1\",\r\n  \"description\": \"Chassis 1 despcription\",\r\n  \"price\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/optionpacks/3fa85f64-5717-4562-b3fc-2c963f66af98",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"optionpacks",
+										"3fa85f64-5717-4562-b3fc-2c963f66af98"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List of OptionPacks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"name\": \"Chassis 1\",\r\n  \"description\": \"Chassis 1 despcription\",\r\n  \"price\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/optionpacks?pageNumber=0&pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"optionpacks"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Vehicles Feature",
+					"item": [
+						{
+							"name": "Create Vehicle",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\r\n  \"name\": \"Vehicle 13d\",\r\n  \"chassisId\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\r\n  \"engineId\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"optionPackId\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"price\": 4950\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/vehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"vehicles"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Happy Path",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\r\n  \"name\": \"Vehicle 13d\",\r\n  \"chassisId\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\r\n  \"engineId\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"optionPackId\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"price\": 4950\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5010/api/vehicles",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5010",
+											"path": [
+												"api",
+												"vehicles"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 20 Oct 2023 07:59:19 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Location",
+											"value": "http://localhost:5010/api/Vehicles/13da2043-2071-46ad-82d4-23dc4fdf9efc"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Request-Context",
+											"value": "appId=cid-v1:c38ce927-f0aa-40b0-8778-e89131fb0d70"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\n    \"name\": \"Vehicle 13d\",\n    \"chassis\": {\n        \"id\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\n        \"name\": \"Chassis b74\",\n        \"description\": \"Chassis b74 despcription\",\n        \"price\": 2345\n    },\n    \"engine\": {\n        \"id\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\n        \"name\": \"Engine 87f\",\n        \"fuelType\": 1,\n        \"ignitionMethod\": 1,\n        \"strokes\": 2,\n        \"price\": 1350\n    },\n    \"optionPack\": {\n        \"id\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\n        \"name\": \"Option Pack 8ec\"\n    },\n    \"price\": 4950\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Vehicle #2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"a7c7f609-93ec-4bb3-85e1-64242c62dba1\",\r\n  \"name\": \"Vehicle 2\",\r\n  \"chassisId\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"engineId\": \"e1a85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"optionPackId\": \"3fa85f64-5717-4562-b3fc-2c963f66af98\",\r\n  \"price\": 5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5010/api/vehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"api",
+										"vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Vehicle By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5010/vehicles/a7c7f609-93ec-4bb3-85e1-64242c62dba1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"vehicles",
+										"a7c7f609-93ec-4bb3-85e1-64242c62dba1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List of Vehicles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5010/vehicles?pageNumber=0&pageSize=4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5010",
+									"path": [
+										"vehicles"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Basket",
+			"item": [
+				{
+					"name": "Create Basket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"4be8dfdc-7ae2-4cf4-9e0f-c19ea4c32b32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5006/api/baskets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5006",
+							"path": [
+								"api",
+								"baskets"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Happy Path",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userId\": \"4be8dfdc-7ae2-4cf4-9e0f-c19ea4c32b32\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5006/api/baskets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5006",
+									"path": [
+										"api",
+										"baskets"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 20 Oct 2023 08:16:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Location",
+									"value": "http://localhost:5006/api/baskets/77458c58-5157-446e-1b63-08dbd144e0bc"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Request-Context",
+									"value": "appId="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"basketId\": \"77458c58-5157-446e-1b63-08dbd144e0bc\",\n    \"userId\": \"4be8dfdc-7ae2-4cf4-9e0f-c19ea4c32b32\",\n    \"numberOfItems\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Basket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"9d50d8d1-7f89-44d9-7a75-08dbd0a349ba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5006/api/baskets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5006",
+							"path": [
+								"api",
+								"baskets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Basket Line",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"vehicleId\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\r\n  \"chassisId\": \"ac1e1642-2149-47c9-9888-acc0d6058292\",\r\n  \"engineId\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"optionPackId\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"quantity\":4,\r\n  \"price\":2450\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5006/api/baskets/79219113-f0e1-455d-393c-08dbd1115583/basketlines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5006",
+							"path": [
+								"api",
+								"baskets",
+								"79219113-f0e1-455d-393c-08dbd1115583",
+								"basketlines"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Happy Path",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"vehicleId\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\r\n  \"chassisId\": \"b74e2eda-60a5-45c2-b43a-a92b614359fa\",\r\n  \"engineId\": \"87f19e92-fa5b-4755-ace7-71575d6aa242\",\r\n  \"optionPackId\": \"8ece8ec2-b8d2-4e74-991d-21263b3a9df0\",\r\n  \"quantity\":3,\r\n  \"price\":2450\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5006/api/baskets/77458c58-5157-446e-1b63-08dbd144e0bc/basketlines",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5006",
+									"path": [
+										"api",
+										"baskets",
+										"77458c58-5157-446e-1b63-08dbd144e0bc",
+										"basketlines"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 20 Oct 2023 08:17:36 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Location",
+									"value": "http://localhost:5006/api/baskets/77458c58-5157-446e-1b63-08dbd144e0bc/basketlines/0faf8917-b572-416a-f43c-08dbd14504bf"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Request-Context",
+									"value": "appId=cid-v1:c38ce927-f0aa-40b0-8778-e89131fb0d70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"basketLineId\": \"0faf8917-b572-416a-f43c-08dbd14504bf\",\n    \"basketId\": \"77458c58-5157-446e-1b63-08dbd144e0bc\",\n    \"vehicleId\": \"13da2043-2071-46ad-82d4-23dc4fdf9efc\",\n    \"price\": 2450,\n    \"quantity\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "Checkout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"basketId\": \"79219113-f0e1-455d-393c-08dbd1115583\",\r\n  \"firstName\": \"Emem\",\r\n  \"lastName\": \"Isaac\",\r\n  \"email\": \"emem@isaac.com\",\r\n  \"address\": \"1 Fun Avenue\",\r\n  \"zipCode\": \"89345\",\r\n  \"city\": \"Fairview\",\r\n  \"country\": \"Nigeria\",\r\n  \"userId\": \"62369021-0811-4f17-bbce-22fcd05d1b63\",\r\n  \"cardNumber\": \"1111-2222-3333-4444\",\r\n  \"cardName\": \"Emem Isaac\",\r\n  \"cardExpiration\": \"0126\",\r\n  \"cvvCode\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5006/api/baskets/checkout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5006",
+							"path": [
+								"api",
+								"baskets",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "List Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5008/api/orders/user/62369021-0811-4f17-bbce-22fcd05d1b63",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5008",
+							"path": [
+								"api",
+								"orders",
+								"user",
+								"62369021-0811-4f17-bbce-22fcd05d1b63"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5008/api/orders/user/62369021-0811-4f17-bbce-22fcd05d1b63/cancel/e39586dd-bf4a-4342-8e9e-e8f84a494157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5008",
+							"path": [
+								"api",
+								"orders",
+								"user",
+								"62369021-0811-4f17-bbce-22fcd05d1b63",
+								"cancel",
+								"e39586dd-bf4a-4342-8e9e-e8f84a494157"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warehouse",
+			"item": [
+				{
+					"name": "Restock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5005/api/items/5b7affbf-66e7-448f-8880-745749618d5c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"api",
+								"items",
+								"5b7affbf-66e7-448f-8880-745749618d5c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item Quantity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5005/api/Items/7e93f070-eb75-444e-9ca7-1e498e6f9dfe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"api",
+								"Items",
+								"7e93f070-eb75-444e-9ca7-1e498e6f9dfe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
