@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BoxCar.ShoppingBasket.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,10 +89,10 @@ namespace BoxCar.ShoppingBasket.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     ChassisId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EngineId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OptionPackId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    OptionPackId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,13 +138,7 @@ namespace BoxCar.ShoppingBasket.Migrations
                         column: x => x.BasketId,
                         principalTable: "Baskets",
                         principalColumn: "BasketId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BasketLines_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade);                   
                 });
 
             migrationBuilder.CreateIndex(
