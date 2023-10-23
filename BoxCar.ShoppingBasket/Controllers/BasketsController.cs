@@ -6,7 +6,7 @@ using AutoMapper;
 using BoxCar.Integration.MessageBus;
 using BoxCar.ShoppingBasket.Messages;
 using BoxCar.ShoppingBasket.Models;
-using BoxCar.ShoppingBasket.Repositories;
+using BoxCar.ShoppingBasket.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Polly.CircuitBreaker;
 

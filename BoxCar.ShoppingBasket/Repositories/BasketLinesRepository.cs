@@ -1,5 +1,6 @@
 ﻿using BoxCar.ShoppingBasket.DbContexts;
 using BoxCar.ShoppingBasket.Entities;
+using BoxCar.ShoppingBasket.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace BoxCar.ShoppingBasket.Repositories
                 return basketLine;
             }
             existingLine.Quantity = basketLine.Quantity;
+            existingLine.UnitPrice = basketLine.UnitPrice;
             return existingLine;
         }
 

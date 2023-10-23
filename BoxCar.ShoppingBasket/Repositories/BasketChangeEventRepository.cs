@@ -5,6 +5,7 @@ using BoxCar.ShoppingBasket.DbContexts;
 using BoxCar.ShoppingBasket.Entities;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using BoxCar.ShoppingBasket.Repositories.Contracts;
 
 namespace BoxCar.ShoppingBasket.Repositories
 {

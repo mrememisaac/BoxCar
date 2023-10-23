@@ -1,5 +1,6 @@
 ﻿using BoxCar.ShoppingBasket.DbContexts;
 using BoxCar.ShoppingBasket.Entities;
+using BoxCar.ShoppingBasket.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,9 @@ namespace BoxCar.ShoppingBasket.Repositories
 
         public async Task<bool> BasketExists(Guid basketId)
         {
-            return await _shoppingBasketDbContext.Baskets
+            var exists = await _shoppingBasketDbContext.Baskets
                 .AnyAsync(b => b.BasketId == basketId);
+            return exists;
         }
 
         public void AddBasket(Basket basket)

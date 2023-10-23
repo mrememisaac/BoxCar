@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BoxCar.ShoppingBasket.Models;
-using BoxCar.ShoppingBasket.Repositories;
+using BoxCar.ShoppingBasket.Repositories.Contracts;
 using BoxCar.ShoppingBasket.Services;
 using Microsoft.AspNetCore.Mvc;
 
