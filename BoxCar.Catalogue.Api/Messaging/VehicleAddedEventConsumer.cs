@@ -57,7 +57,7 @@ namespace BoxCar.Catalogue.Messaging
             Domain.Chassis chassis = await GetChassis(vehicleAddedEvent, token);
             Domain.Engine engine = await GetEngine(vehicleAddedEvent, token);
             Domain.OptionPack optionPack = await GetOptionPack(vehicleAddedEvent, token);
-            var vehicle = new Domain.Vehicle(vehicleAddedEvent.VehicleId, engine, chassis, optionPack, vehicleAddedEvent.Price);
+            var vehicle = new Domain.Vehicle(vehicleAddedEvent.VehicleId, vehicleAddedEvent.Name, engine, chassis, optionPack, vehicleAddedEvent.Price);
             await _vehicleRepository.CreateAsync(vehicle, token);
         }
 
